@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asal-m"
+version = "0.1.0"
+description = "Held-out certification and stress testing for discovered simulation regimes"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [
+  { name = "Leonid Majbits", email = "77941374+LeonidMajbits@users.noreply.github.com" },
+]
+keywords = ["artificial-life", "validation", "robustness", "held-out-evaluation", "open-ended-search"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "numpy>=1.26",
+  "PyYAML>=6.0",
+  "Pillow>=10.0",
+]
+
+[project.urls]
+Repository = "https://github.com/LeonidMajbits/asal-m"
+Documentation = "https://github.com/LeonidMajbits/asal-m/blob/main/docs/USER_GUIDE.md"
+Issues = "https://github.com/LeonidMajbits/asal-m/issues"
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2",
+  "coverage>=7.6",
+  "pytest>=8.0",
+  "ruff>=0.8",
+]
+analysis = ["matplotlib>=3.8"]
+
+[project.scripts]
+asal-m = "asal_m.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["asal_m*"]
+
+[tool.setuptools.package-data]
+"asal_m.experiments" = ["*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

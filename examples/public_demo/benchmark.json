@@ -1,0 +1,230 @@
+{
+  "alpha_search_smoke": {
+    "budget": 6,
+    "counts": {
+      "bootstrap_evaluated": 0,
+      "certified": 1,
+      "elite_archive": 2,
+      "evaluated": 5,
+      "novelty_archive": 2,
+      "rejected": 0,
+      "robustness_archive": 1
+    },
+    "name": "alpha_mainline_public_postcard",
+    "seed": 7,
+    "steps": 32,
+    "winners": {
+      "mainline": {
+        "candidate_seed": 1083509134,
+        "summary_metrics": {
+          "activity": 0.000732421875,
+          "birth_rate": 0.000244140625,
+          "cluster_coherence": 1.0,
+          "death_rate": 0.00048828125,
+          "diversity": 0.259649122807,
+          "executed_steps": 32.0,
+          "lineage_entropy": 0.889813455785,
+          "lineages": 814.0,
+          "mean_age": 20.828389154705,
+          "mean_energy": 0.622604370117,
+          "occupancy": 0.765380859375,
+          "resource_balance": 0.117164686322,
+          "step": 32.0,
+          "survival_fraction": 1.0
+        },
+        "total_score": 0.656587020106
+      },
+      "novelty": {
+        "candidate_seed": 1083509134,
+        "summary_metrics": {
+          "activity": 0.000732421875,
+          "birth_rate": 0.000244140625,
+          "cluster_coherence": 1.0,
+          "death_rate": 0.00048828125,
+          "diversity": 0.259649122807,
+          "executed_steps": 32.0,
+          "lineage_entropy": 0.889813455785,
+          "lineages": 814.0,
+          "mean_age": 20.828389154705,
+          "mean_energy": 0.622604370117,
+          "occupancy": 0.765380859375,
+          "resource_balance": 0.117164686322,
+          "step": 32.0,
+          "survival_fraction": 1.0
+        },
+        "total_score": 0.656587020106
+      },
+      "promotion": {
+        "candidate_seed": 1083509134,
+        "summary_metrics": {
+          "activity": 0.000732421875,
+          "birth_rate": 0.000244140625,
+          "cluster_coherence": 1.0,
+          "death_rate": 0.00048828125,
+          "diversity": 0.259649122807,
+          "executed_steps": 32.0,
+          "lineage_entropy": 0.889813455785,
+          "lineages": 814.0,
+          "mean_age": 20.828389154705,
+          "mean_energy": 0.622604370117,
+          "occupancy": 0.765380859375,
+          "resource_balance": 0.117164686322,
+          "step": 32.0,
+          "survival_fraction": 1.0
+        },
+        "total_score": 0.656587020106
+      },
+      "robustness": {
+        "candidate_seed": 1083509134,
+        "summary_metrics": {
+          "activity": 0.000732421875,
+          "birth_rate": 0.000244140625,
+          "cluster_coherence": 1.0,
+          "death_rate": 0.00048828125,
+          "diversity": 0.259649122807,
+          "executed_steps": 32.0,
+          "lineage_entropy": 0.889813455785,
+          "lineages": 814.0,
+          "mean_age": 20.828389154705,
+          "mean_energy": 0.622604370117,
+          "occupancy": 0.765380859375,
+          "resource_balance": 0.117164686322,
+          "step": 32.0,
+          "survival_fraction": 1.0
+        },
+        "total_score": 0.656587020106
+      }
+    }
+  },
+  "hero": {
+    "display_resolution": [
+      384,
+      384
+    ],
+    "display_scale": 4,
+    "gif": "examples/public_demo/mutation_cells_seed42.gif",
+    "grid_size": 96,
+    "native_resolution": [
+      96,
+      96
+    ],
+    "seed": 42,
+    "steps": 96,
+    "substrate": "mutation_cells",
+    "summary_metrics": {
+      "activity": 0.562608506944,
+      "birth_rate": 0.365776909722,
+      "budget_entropy": 0.997391357657,
+      "budget_utilization": 0.82039425651,
+      "cluster_coherence": 0.997299014935,
+      "death_rate": 0.383246527778,
+      "diversity": 1.0,
+      "executed_steps": 96.0,
+      "gene_variance": 0.129479214549,
+      "lineage_concentration": 0.002224340642,
+      "lineage_entropy": 0.966082289804,
+      "lineages": 2431.0,
+      "mean_age": 0.789640927868,
+      "mean_charge": 0.179642483592,
+      "mutability_mean": 0.199821650982,
+      "occupancy": 0.682942708333,
+      "step": 96.0,
+      "survival_fraction": 1.0
+    },
+    "validation": {
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.902039930556
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.878738064236
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": false,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.30370473251
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.887453884549
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.79438732237
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [
+          "neighborhood_below_policy"
+        ],
+        "passed": false,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.79438732237,
+        "status": "rejected"
+      },
+      "deterministic_replay": true,
+      "holdout_score": 0.902039930556,
+      "long_horizon_score": 0.878738064236,
+      "neighborhood_score": 0.30370473251,
+      "notes": [],
+      "perturbation_score": 0.887453884549,
+      "promotion_score": 0.79438732237,
+      "replay_difference": 0.0
+    }
+  },
+  "reproduction": {
+    "command": "python examples/public_demo/regenerate.py",
+    "constraints": "requirements-repro.txt",
+    "float_decimal_places": 12,
+    "from_repo_root": true,
+    "notes": "Regenerates only mutation_cells_seed42.gif and benchmark.json. Scientific calculations use full precision; published JSON floats are normalized only at serialization."
+  },
+  "schema_version": 2,
+  "title": "ASAL-M public simulation postcard (fixed seeds)"
+}

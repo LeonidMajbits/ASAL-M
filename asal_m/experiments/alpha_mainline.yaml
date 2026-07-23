@@ -1,0 +1,29 @@
+name: alpha_mainline
+seed: 7
+substrate: alpha_alife
+search_mode: frontier
+budget: 18
+steps: 72
+frame_stride: 4
+capture_state_every: 12
+artifact_root: runs
+# metadata.operator_note is ignored by the runner; left for readers of YAML.
+metadata:
+  operator_note: "promotion > spectacle"
+target_metrics:
+  occupancy: 0.18
+  diversity: 0.2
+  cluster_coherence: 0.45
+prefilter:
+  min_steps: 16
+  min_activity: 0.01
+  min_occupancy: 0.02
+validation:
+  interval: 4
+  long_steps_multiplier: 2
+  neighbor_samples: 4
+  perturbations:
+    - kind: wipe_patch
+      size: 0.18
+    - kind: nutrient_shock
+      delta: 0.15

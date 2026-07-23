@@ -1,0 +1,7 @@
+# Local development and CI tooling.
+-r requirements.txt
+
+build>=1.2
+coverage>=7.6
+pytest>=8.0
+ruff>=0.8

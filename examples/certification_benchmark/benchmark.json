@@ -1,0 +1,4143 @@
+{
+  "claim": "On this fixed candidate pool, hard-gated certification selected a regime that transferred better than the highest single-rollout discovery score.",
+  "comparison": {
+    "absolute_audit_gain": 0.149655164931,
+    "certification_audit_pass_rate": 1.0,
+    "relative_audit_gain": 0.203069761566,
+    "single_rollout_audit_pass_rate": 0.0
+  },
+  "discovery_pool": [
+    {
+      "candidate_index": 0,
+      "candidate_seed": 861412341,
+      "discovery_components": {
+        "activity": 0.001736111111,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000434027778,
+      "summary_metrics": {
+        "activity": 0.000434027778,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000434027778,
+        "diversity": 0.0,
+        "executed_steps": 8.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 8.0,
+        "survival_fraction": 0.2
+      }
+    },
+    {
+      "candidate_index": 1,
+      "candidate_seed": 1927470762,
+      "discovery_components": {
+        "activity": 0.607638888889,
+        "cluster_coherence": 0.378640776699,
+        "diversity": 1.0,
+        "lineage_entropy": 0.899742005253,
+        "occupancy": 0.447048611111
+      },
+      "discovery_score": 0.678063962,
+      "summary_metrics": {
+        "activity": 0.151909722222,
+        "birth_rate": 0.107638888889,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.378640776699,
+        "death_rate": 0.076822916667,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.086954407394,
+        "lineage_concentration": 0.073786407767,
+        "lineage_entropy": 0.899742005253,
+        "lineages": 193.0,
+        "mean_age": 1.180582524272,
+        "mean_charge": 0.10732062161,
+        "mutability_mean": 0.17887878418,
+        "occupancy": 0.223524305556,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 2,
+      "candidate_seed": 198383188,
+      "discovery_components": {
+        "activity": 0.0,
+        "cluster_coherence": 1.0,
+        "diversity": 0.2,
+        "lineage_entropy": 0.999999999997,
+        "occupancy": 0.001736111111
+      },
+      "discovery_score": 0.390347222222,
+      "summary_metrics": {
+        "activity": 0.0,
+        "birth_rate": 0.0,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 1.0,
+        "death_rate": 0.0,
+        "diversity": 0.2,
+        "executed_steps": 40.0,
+        "gene_variance": 0.019731758162,
+        "lineage_concentration": 0.5,
+        "lineage_entropy": 0.999999999997,
+        "lineages": 2.0,
+        "mean_age": 5.0,
+        "mean_charge": 0.189148455858,
+        "mutability_mean": 0.339133292437,
+        "occupancy": 0.000868055556,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 3,
+      "candidate_seed": 1555558539,
+      "discovery_components": {
+        "activity": 0.758680555556,
+        "cluster_coherence": 0.891449814126,
+        "diversity": 1.0,
+        "lineage_entropy": 0.88575662912,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.900538936832,
+      "summary_metrics": {
+        "activity": 0.189670138889,
+        "birth_rate": 0.095920138889,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.891449814126,
+        "death_rate": 0.105034722222,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.099469065666,
+        "lineage_concentration": 0.043866171004,
+        "lineage_entropy": 0.88575662912,
+        "lineages": 398.0,
+        "mean_age": 2.747211895911,
+        "mean_charge": 0.264024794102,
+        "mutability_mean": 0.171171009541,
+        "occupancy": 0.583767361111,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 4,
+      "candidate_seed": 1165371092,
+      "discovery_components": {
+        "activity": 0.003472222222,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000868055556,
+      "summary_metrics": {
+        "activity": 0.000868055556,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000868055556,
+        "diversity": 0.0,
+        "executed_steps": 6.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 6.0,
+        "survival_fraction": 0.15
+      }
+    },
+    {
+      "candidate_index": 5,
+      "candidate_seed": 103257132,
+      "discovery_components": {
+        "activity": 0.072916666667,
+        "cluster_coherence": 0.934131736527,
+        "diversity": 1.0,
+        "lineage_entropy": 0.85251589056,
+        "occupancy": 0.144965277778
+      },
+      "discovery_score": 0.557845160813,
+      "summary_metrics": {
+        "activity": 0.018229166667,
+        "birth_rate": 0.010416666667,
+        "budget_entropy": 0.999801434207,
+        "budget_utilization": 0.436363636364,
+        "cluster_coherence": 0.934131736527,
+        "death_rate": 0.009548611111,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.090675152838,
+        "lineage_concentration": 0.209580838323,
+        "lineage_entropy": 0.85251589056,
+        "lineages": 71.0,
+        "mean_age": 9.0,
+        "mean_charge": 0.356712579727,
+        "mutability_mean": 0.189015924931,
+        "occupancy": 0.072482638889,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 6,
+      "candidate_seed": 397842884,
+      "discovery_components": {
+        "activity": 0.326388888889,
+        "cluster_coherence": 0.149892933619,
+        "diversity": 1.0,
+        "lineage_entropy": 0.972484844631,
+        "occupancy": 0.405381944444
+      },
+      "discovery_score": 0.57965452008,
+      "summary_metrics": {
+        "activity": 0.081597222222,
+        "birth_rate": 0.042534722222,
+        "budget_entropy": 0.995165089295,
+        "budget_utilization": 0.497461928934,
+        "cluster_coherence": 0.149892933619,
+        "death_rate": 0.044270833333,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.126072064042,
+        "lineage_concentration": 0.017130620985,
+        "lineage_entropy": 0.972484844631,
+        "lineages": 318.0,
+        "mean_age": 4.344753747323,
+        "mean_charge": 0.149804159999,
+        "mutability_mean": 0.207651570439,
+        "occupancy": 0.202690972222,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 7,
+      "candidate_seed": 433747832,
+      "discovery_components": {
+        "activity": 0.043402777778,
+        "cluster_coherence": 1.0,
+        "diversity": 1.0,
+        "lineage_entropy": 0.808841725412,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.722619039527,
+      "summary_metrics": {
+        "activity": 0.010850694444,
+        "birth_rate": 0.003038194444,
+        "budget_entropy": 0.999965050551,
+        "budget_utilization": 0.112903225806,
+        "cluster_coherence": 1.0,
+        "death_rate": 0.004340277778,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.088709518313,
+        "lineage_concentration": 0.049321824908,
+        "lineage_entropy": 0.808841725412,
+        "lineages": 165.0,
+        "mean_age": 26.846485819975,
+        "mean_charge": 1.95646739006,
+        "mutability_mean": 0.083982549608,
+        "occupancy": 0.703993055556,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 8,
+      "candidate_seed": 850019066,
+      "discovery_components": {
+        "activity": 0.088541666667,
+        "cluster_coherence": 0.991513437058,
+        "diversity": 1.0,
+        "lineage_entropy": 0.669159886688,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.704694409563,
+      "summary_metrics": {
+        "activity": 0.022135416667,
+        "birth_rate": 0.000868055556,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.991513437058,
+        "death_rate": 0.001302083333,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.076514720917,
+        "lineage_concentration": 0.107496463932,
+        "lineage_entropy": 0.669159886688,
+        "lineages": 113.0,
+        "mean_age": 34.397454031117,
+        "mean_charge": 1.254197239876,
+        "mutability_mean": 0.077940888703,
+        "occupancy": 0.613715277778,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 9,
+      "candidate_seed": 1332342644,
+      "discovery_components": {
+        "activity": 0.005208333333,
+        "cluster_coherence": 0.583333333333,
+        "diversity": 0.4,
+        "lineage_entropy": 0.917209722459,
+        "occupancy": 0.010416666667
+      },
+      "discovery_score": 0.354327361158,
+      "summary_metrics": {
+        "activity": 0.001302083333,
+        "birth_rate": 0.000868055556,
+        "budget_entropy": 0.993091909258,
+        "budget_utilization": 0.4,
+        "cluster_coherence": 0.583333333333,
+        "death_rate": 0.000868055556,
+        "diversity": 0.4,
+        "executed_steps": 40.0,
+        "gene_variance": 0.214345514774,
+        "lineage_concentration": 0.333333333333,
+        "lineage_entropy": 0.917209722459,
+        "lineages": 8.0,
+        "mean_age": 1.833333333333,
+        "mean_charge": 0.226403519511,
+        "mutability_mean": 0.280431568623,
+        "occupancy": 0.005208333333,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 10,
+      "candidate_seed": 1422587096,
+      "discovery_components": {
+        "activity": 0.003472222222,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000868055556,
+      "summary_metrics": {
+        "activity": 0.000868055556,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000868055556,
+        "diversity": 0.0,
+        "executed_steps": 23.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 23.0,
+        "survival_fraction": 0.575
+      }
+    },
+    {
+      "candidate_index": 11,
+      "candidate_seed": 1354574694,
+      "discovery_components": {
+        "activity": 0.015625,
+        "cluster_coherence": 0.290322580645,
+        "diversity": 0.8,
+        "lineage_entropy": 0.774964319508,
+        "occupancy": 0.026909722222
+      },
+      "discovery_score": 0.367829445443,
+      "summary_metrics": {
+        "activity": 0.00390625,
+        "birth_rate": 0.002170138889,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.290322580645,
+        "death_rate": 0.00390625,
+        "diversity": 0.8,
+        "executed_steps": 40.0,
+        "gene_variance": 0.052801724523,
+        "lineage_concentration": 0.387096774194,
+        "lineage_entropy": 0.774964319508,
+        "lineages": 10.0,
+        "mean_age": 18.129032258065,
+        "mean_charge": 0.357760846615,
+        "mutability_mean": 0.055294748396,
+        "occupancy": 0.013454861111,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 12,
+      "candidate_seed": 1909935409,
+      "discovery_components": {
+        "activity": 0.147569444444,
+        "cluster_coherence": 0.428571428571,
+        "diversity": 1.0,
+        "lineage_entropy": 0.937314244425,
+        "occupancy": 0.522569444444
+      },
+      "discovery_score": 0.593154813171,
+      "summary_metrics": {
+        "activity": 0.036892361111,
+        "birth_rate": 0.01953125,
+        "budget_entropy": 0.998907699465,
+        "budget_utilization": 0.398230088496,
+        "cluster_coherence": 0.428571428571,
+        "death_rate": 0.020833333333,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.15925553441,
+        "lineage_concentration": 0.024916943522,
+        "lineage_entropy": 0.937314244425,
+        "lineages": 301.0,
+        "mean_age": 11.892026578073,
+        "mean_charge": 0.35854741931,
+        "mutability_mean": 0.189118921757,
+        "occupancy": 0.261284722222,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 13,
+      "candidate_seed": 318059235,
+      "discovery_components": {
+        "activity": 0.001736111111,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000434027778,
+      "summary_metrics": {
+        "activity": 0.000434027778,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000434027778,
+        "diversity": 0.0,
+        "executed_steps": 7.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 7.0,
+        "survival_fraction": 0.175
+      }
+    },
+    {
+      "candidate_index": 14,
+      "candidate_seed": 1500007788,
+      "discovery_components": {
+        "activity": 0.157986111111,
+        "cluster_coherence": 0.994645247657,
+        "diversity": 1.0,
+        "lineage_entropy": 0.888061231925,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.766305561311,
+      "summary_metrics": {
+        "activity": 0.039496527778,
+        "birth_rate": 0.01171875,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.994645247657,
+        "death_rate": 0.014756944444,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.102088242769,
+        "lineage_concentration": 0.047523427041,
+        "lineage_entropy": 0.888061231925,
+        "lineages": 736.0,
+        "mean_age": 26.836010709505,
+        "mean_charge": 1.095577001572,
+        "mutability_mean": 0.171705842018,
+        "occupancy": 0.6484375,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 15,
+      "candidate_seed": 729464987,
+      "discovery_components": {
+        "activity": 0.001736111111,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000434027778,
+      "summary_metrics": {
+        "activity": 0.000434027778,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000434027778,
+        "diversity": 0.0,
+        "executed_steps": 9.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 9.0,
+        "survival_fraction": 0.225
+      }
+    },
+    {
+      "candidate_index": 16,
+      "candidate_seed": 1954862530,
+      "discovery_components": {
+        "activity": 0.001736111111,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000434027778,
+      "summary_metrics": {
+        "activity": 0.000434027778,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000434027778,
+        "diversity": 0.0,
+        "executed_steps": 7.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 7.0,
+        "survival_fraction": 0.175
+      }
+    },
+    {
+      "candidate_index": 17,
+      "candidate_seed": 529887367,
+      "discovery_components": {
+        "activity": 0.005208333333,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.001302083333,
+      "summary_metrics": {
+        "activity": 0.001302083333,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.001302083333,
+        "diversity": 0.0,
+        "executed_steps": 12.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 12.0,
+        "survival_fraction": 0.3
+      }
+    },
+    {
+      "candidate_index": 18,
+      "candidate_seed": 1218453357,
+      "discovery_components": {
+        "activity": 0.001736111111,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000434027778,
+      "summary_metrics": {
+        "activity": 0.000434027778,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000434027778,
+        "diversity": 0.0,
+        "executed_steps": 2.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 2.0,
+        "survival_fraction": 0.05
+      }
+    },
+    {
+      "candidate_index": 19,
+      "candidate_seed": 47008958,
+      "discovery_components": {
+        "activity": 0.824652777778,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.206163194444,
+      "summary_metrics": {
+        "activity": 0.206163194444,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.206163194444,
+        "diversity": 0.0,
+        "executed_steps": 1.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 1.0,
+        "survival_fraction": 0.025
+      }
+    },
+    {
+      "candidate_index": 20,
+      "candidate_seed": 1457525050,
+      "discovery_components": {
+        "activity": 0.008680555556,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.002170138889,
+      "summary_metrics": {
+        "activity": 0.002170138889,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.002170138889,
+        "diversity": 0.0,
+        "executed_steps": 2.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 2.0,
+        "survival_fraction": 0.05
+      }
+    },
+    {
+      "candidate_index": 21,
+      "candidate_seed": 255129598,
+      "discovery_components": {
+        "activity": 0.003472222222,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000868055556,
+      "summary_metrics": {
+        "activity": 0.000868055556,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000868055556,
+        "diversity": 0.0,
+        "executed_steps": 6.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 6.0,
+        "survival_fraction": 0.15
+      }
+    },
+    {
+      "candidate_index": 22,
+      "candidate_seed": 1958767610,
+      "discovery_components": {
+        "activity": 0.107638888889,
+        "cluster_coherence": 0.060810810811,
+        "diversity": 1.0,
+        "lineage_entropy": 0.921310914083,
+        "occupancy": 0.770833333333
+      },
+      "discovery_score": 0.574460193327,
+      "summary_metrics": {
+        "activity": 0.026909722222,
+        "birth_rate": 0.01171875,
+        "budget_entropy": 0.999525560108,
+        "budget_utilization": 0.173076923077,
+        "cluster_coherence": 0.060810810811,
+        "death_rate": 0.009982638889,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.127328500152,
+        "lineage_concentration": 0.042792792793,
+        "lineage_entropy": 0.921310914083,
+        "lineages": 585.0,
+        "mean_age": 22.864864864865,
+        "mean_charge": 0.53734844923,
+        "mutability_mean": 0.216286599636,
+        "occupancy": 0.385416666667,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 23,
+      "candidate_seed": 284424974,
+      "discovery_components": {
+        "activity": 1.0,
+        "cluster_coherence": 0.997206703911,
+        "diversity": 1.0,
+        "lineage_entropy": 0.94302936055,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.988186877697,
+      "summary_metrics": {
+        "activity": 0.611111111111,
+        "birth_rate": 0.403211805556,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.997206703911,
+        "death_rate": 0.372829861111,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.116541132331,
+        "lineage_concentration": 0.013268156425,
+        "lineage_entropy": 0.94302936055,
+        "lineages": 665.0,
+        "mean_age": 0.429469273743,
+        "mean_charge": 0.233877509832,
+        "mutability_mean": 0.176596730947,
+        "occupancy": 0.621527777778,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 24,
+      "candidate_seed": 1312013585,
+      "discovery_components": {
+        "activity": 0.006944444444,
+        "cluster_coherence": 1.0,
+        "diversity": 0.2,
+        "lineage_entropy": 0.999999999997,
+        "occupancy": 0.001736111111
+      },
+      "discovery_score": 0.392083333333,
+      "summary_metrics": {
+        "activity": 0.001736111111,
+        "birth_rate": 0.0,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 1.0,
+        "death_rate": 0.001736111111,
+        "diversity": 0.2,
+        "executed_steps": 40.0,
+        "gene_variance": 0.007343573961,
+        "lineage_concentration": 0.5,
+        "lineage_entropy": 0.999999999997,
+        "lineages": 2.0,
+        "mean_age": 2.5,
+        "mean_charge": 0.055242877454,
+        "mutability_mean": 0.085862450302,
+        "occupancy": 0.000868055556,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 25,
+      "candidate_seed": 1337966287,
+      "discovery_components": {
+        "activity": 0.03125,
+        "cluster_coherence": 0.42,
+        "diversity": 1.0,
+        "lineage_entropy": 0.94824160872,
+        "occupancy": 0.130208333333
+      },
+      "discovery_score": 0.486502488411,
+      "summary_metrics": {
+        "activity": 0.0078125,
+        "birth_rate": 0.004774305556,
+        "budget_entropy": 0.996311716246,
+        "budget_utilization": 0.392857142857,
+        "cluster_coherence": 0.42,
+        "death_rate": 0.002604166667,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.134129211307,
+        "lineage_concentration": 0.073333333333,
+        "lineage_entropy": 0.94824160872,
+        "lineages": 96.0,
+        "mean_age": 11.313333333333,
+        "mean_charge": 0.765671312809,
+        "mutability_mean": 0.257341712713,
+        "occupancy": 0.065104166667,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 26,
+      "candidate_seed": 420775971,
+      "discovery_components": {
+        "activity": 0.227430555556,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.056857638889,
+      "summary_metrics": {
+        "activity": 0.056857638889,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.056857638889,
+        "diversity": 0.0,
+        "executed_steps": 1.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 1.0,
+        "survival_fraction": 0.025
+      }
+    },
+    {
+      "candidate_index": 27,
+      "candidate_seed": 1133763725,
+      "discovery_components": {
+        "activity": 0.001736111111,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.000434027778,
+      "summary_metrics": {
+        "activity": 0.000434027778,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.000434027778,
+        "diversity": 0.0,
+        "executed_steps": 7.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 7.0,
+        "survival_fraction": 0.175
+      }
+    },
+    {
+      "candidate_index": 28,
+      "candidate_seed": 1688710987,
+      "discovery_components": {
+        "activity": 0.085069444444,
+        "cluster_coherence": 0.961509992598,
+        "diversity": 1.0,
+        "lineage_entropy": 0.939886414349,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.753471142871,
+      "summary_metrics": {
+        "activity": 0.021267361111,
+        "birth_rate": 0.004774305556,
+        "budget_entropy": 0.998715891145,
+        "budget_utilization": 0.065088757396,
+        "cluster_coherence": 0.961509992598,
+        "death_rate": 0.004774305556,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.120819360018,
+        "lineage_concentration": 0.014803849001,
+        "lineage_entropy": 0.939886414349,
+        "lineages": 679.0,
+        "mean_age": 31.072538860104,
+        "mean_charge": 1.777013778687,
+        "mutability_mean": 0.188154831529,
+        "occupancy": 0.586371527778,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      }
+    },
+    {
+      "candidate_index": 29,
+      "candidate_seed": 2023623329,
+      "discovery_components": {
+        "activity": 0.029513888889,
+        "cluster_coherence": 0.0,
+        "diversity": 0.0,
+        "lineage_entropy": 0.0,
+        "occupancy": 0.0
+      },
+      "discovery_score": 0.007378472222,
+      "summary_metrics": {
+        "activity": 0.007378472222,
+        "birth_rate": 0.0,
+        "cluster_coherence": 0.0,
+        "death_rate": 0.007378472222,
+        "diversity": 0.0,
+        "executed_steps": 5.0,
+        "gene_variance": 0.0,
+        "lineage_entropy": 0.0,
+        "lineages": 0.0,
+        "mean_age": 0.0,
+        "mean_charge": 0.0,
+        "mutability_mean": 0.0,
+        "occupancy": 0.0,
+        "step": 5.0,
+        "survival_fraction": 0.125
+      }
+    }
+  ],
+  "protocol": {
+    "audit_pass_threshold": 0.75,
+    "audit_perturbations": [
+      {
+        "kind": "radiation",
+        "magnitude": 0.2
+      },
+      {
+        "factor": 0.3,
+        "kind": "charge_drop"
+      },
+      {
+        "kind": "wipe_patch",
+        "size": 0.22
+      }
+    ],
+    "audit_score": "0.55 * unseen_long_horizon + 0.45 * strong_perturbation",
+    "audit_seeds": [
+      900001,
+      900101,
+      900211,
+      900307,
+      900401,
+      900503,
+      900601,
+      900701,
+      900809,
+      900907,
+      901003,
+      901103
+    ],
+    "audit_steps": 80,
+    "discovery_steps": 40,
+    "grid_size": 48,
+    "pool_seed": 20260722,
+    "pool_size": 30,
+    "selection_holdout_offsets": [
+      1001,
+      2003,
+      3001
+    ],
+    "selection_perturbations": [
+      {
+        "kind": "radiation",
+        "magnitude": 0.16
+      },
+      {
+        "factor": 0.4,
+        "kind": "charge_drop"
+      },
+      {
+        "kind": "wipe_patch",
+        "size": 0.18
+      }
+    ],
+    "shortlist_size": 6,
+    "substrate": "mutation_cells"
+  },
+  "reproduction": {
+    "command": "python examples/certification_benchmark/regenerate.py",
+    "constraints": "requirements-repro.txt",
+    "float_decimal_places": 12,
+    "rendering": {
+      "font_bold": "examples/certification_benchmark/fonts/DejaVuSans-Bold.ttf",
+      "font_bold_sha256": "e6476c1b80502924294eed40894c5b18e06c181444ca953e5334262df9c27724",
+      "font_regular": "examples/certification_benchmark/fonts/DejaVuSans.ttf",
+      "font_regular_sha256": "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954",
+      "font_version": "DejaVu Sans 2.37",
+      "layout_engine": "Pillow BASIC",
+      "png_compression_strategy": "zlib Z_HUFFMAN_ONLY",
+      "png_scanline_filter": 0
+    },
+    "selection_and_audit_are_disjoint": true
+  },
+  "schema_version": 1,
+  "selected": {
+    "certification": {
+      "candidate": {
+        "environment": {
+          "grid_size": 48
+        },
+        "initial_conditions": {
+          "base_mutability": 0.174549757885,
+          "density": 0.183628632024,
+          "initial_charge_max": 0.502373425667,
+          "initial_charge_min": 0.069691410829,
+          "initialization_strategy": "random_uniform",
+          "seed_lineages": 6
+        },
+        "metadata": {},
+        "params": {
+          "background_mortality": 0.017193991776,
+          "background_mutation": 0.049953531096,
+          "charge_decay": 0.096397913763,
+          "charge_gain": 0.2544753025,
+          "crowding_cost": 0.049754354088,
+          "lineage_budget_strength": 0.401719103062,
+          "lineage_split_threshold": 0.082647760546,
+          "mutability_drift": 0.079158689749,
+          "offspring_charge": 0.321637590071,
+          "reproduction_cost": 0.178228978162
+        },
+        "rule_variants": {
+          "birth_max": 4,
+          "birth_min": 2,
+          "budget_mode": "uniform",
+          "survival_max": 7,
+          "survival_min": 1
+        },
+        "search_mode": "certification_benchmark",
+        "seed": 1500007788,
+        "substrate": "mutation_cells"
+      },
+      "candidate_index": 14,
+      "candidate_seed": 1500007788,
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.895052083333
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.874826388889
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.871332465278
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.878877314815
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.904017650463
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [],
+        "passed": true,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.904017650463,
+        "status": "certified"
+      },
+      "certification_score": 0.904017650463,
+      "discovery_components": {
+        "activity": 0.157986111111,
+        "cluster_coherence": 0.994645247657,
+        "diversity": 1.0,
+        "lineage_entropy": 0.888061231925,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.766305561311,
+      "final_audit": {
+        "long_horizon_mean": 0.894542100694,
+        "max_score": 0.8880859375,
+        "mean_score": 0.886619466146,
+        "min_score": 0.88552734375,
+        "pass_rate": 1.0,
+        "pass_threshold": 0.75,
+        "passed_trials": 12,
+        "strong_perturbation_mean": 0.876936246142,
+        "total_trials": 12,
+        "trials": [
+          {
+            "audit_score": 0.8880859375,
+            "long_horizon_score": 0.896614583333,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.047743055556,
+                  "birth_rate": 0.013020833333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.017795138889,
+                  "diversity": 1.0,
+                  "gene_variance": 0.11624468863,
+                  "lineage_concentration": 0.046635576282,
+                  "lineage_entropy": 0.915065091285,
+                  "lineages": 876.0,
+                  "mean_age": 39.011325782811,
+                  "mean_charge": 1.107060790062,
+                  "mutability_mean": 0.226719096303,
+                  "occupancy": 0.651475694444
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.878016493056,
+                "seed": 900001,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.04296875,
+                  "birth_rate": 0.014322916667,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.016493055556,
+                  "diversity": 1.0,
+                  "gene_variance": 0.108891226351,
+                  "lineage_concentration": 0.044816053512,
+                  "lineage_entropy": 0.903904862127,
+                  "lineages": 768.0,
+                  "mean_age": 40.226755852843,
+                  "mean_charge": 1.078275203705,
+                  "mutability_mean": 0.166006669402,
+                  "occupancy": 0.648871527778
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.877105034722,
+                "seed": 900001,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.046006944444,
+                  "birth_rate": 0.020833333333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.017361111111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.112475119531,
+                  "lineage_concentration": 0.052666666667,
+                  "lineage_entropy": 0.899553717187,
+                  "lineages": 764.0,
+                  "mean_age": 40.254666666667,
+                  "mean_charge": 1.161407113075,
+                  "mutability_mean": 0.170918747783,
+                  "occupancy": 0.651041666667
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.877864583333,
+                "seed": 900001,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900001,
+            "strong_perturbation_score": 0.877662037037
+          },
+          {
+            "audit_score": 0.886979166667,
+            "long_horizon_score": 0.895182291667,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.032986111111,
+                  "birth_rate": 0.01171875,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.996651038178,
+                  "death_rate": 0.011284722222,
+                  "diversity": 1.0,
+                  "gene_variance": 0.118628785014,
+                  "lineage_concentration": 0.028801071668,
+                  "lineage_entropy": 0.933061753985,
+                  "lineages": 888.0,
+                  "mean_age": 40.564634963161,
+                  "mean_charge": 1.147457122803,
+                  "mutability_mean": 0.227967694402,
+                  "occupancy": 0.648003472222
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876801215278,
+                "seed": 900101,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.02734375,
+                  "birth_rate": 0.008680555556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.009548611111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.104923933744,
+                  "lineage_concentration": 0.041527126591,
+                  "lineage_entropy": 0.912564347561,
+                  "lineages": 810.0,
+                  "mean_age": 40.665103817816,
+                  "mean_charge": 1.068465352058,
+                  "mutability_mean": 0.173750802875,
+                  "occupancy": 0.648003472222
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876801215278,
+                "seed": 900101,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.037760416667,
+                  "birth_rate": 0.017361111111,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.996657754011,
+                  "death_rate": 0.015625,
+                  "diversity": 1.0,
+                  "gene_variance": 0.105211250484,
+                  "lineage_concentration": 0.038101604278,
+                  "lineage_entropy": 0.924740996908,
+                  "lineages": 822.0,
+                  "mean_age": 41.208556149733,
+                  "mean_charge": 1.183914065361,
+                  "mutability_mean": 0.175418928266,
+                  "occupancy": 0.649305555556
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.877256944444,
+                "seed": 900101,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900101,
+            "strong_perturbation_score": 0.876953125
+          },
+          {
+            "audit_score": 0.885530598958,
+            "long_horizon_score": 0.892838541667,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.047309027778,
+                  "birth_rate": 0.020399305556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.998648648649,
+                  "death_rate": 0.016927083333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.114185340703,
+                  "lineage_concentration": 0.033783783784,
+                  "lineage_entropy": 0.92766304271,
+                  "lineages": 909.0,
+                  "mean_age": 38.807432432432,
+                  "mean_charge": 1.077493309975,
+                  "mutability_mean": 0.237323045731,
+                  "occupancy": 0.642361111111
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.874826388889,
+                "seed": 900211,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.046875,
+                  "birth_rate": 0.020833333333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.016927083333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.102295801044,
+                  "lineage_concentration": 0.043882978723,
+                  "lineage_entropy": 0.920869807085,
+                  "lineages": 814.0,
+                  "mean_age": 36.259308510638,
+                  "mean_charge": 1.004690289497,
+                  "mutability_mean": 0.172690570354,
+                  "occupancy": 0.652777777778
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.878472222222,
+                "seed": 900211,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.038194444444,
+                  "birth_rate": 0.01171875,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.011284722222,
+                  "diversity": 1.0,
+                  "gene_variance": 0.101463504136,
+                  "lineage_concentration": 0.042924211938,
+                  "lineage_entropy": 0.913868884413,
+                  "lineages": 801.0,
+                  "mean_age": 38.289738430583,
+                  "mean_charge": 1.122025728226,
+                  "mutability_mean": 0.176657676697,
+                  "occupancy": 0.647135416667
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876497395833,
+                "seed": 900211,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900211,
+            "strong_perturbation_score": 0.876598668981
+          },
+          {
+            "audit_score": 0.887275390625,
+            "long_horizon_score": 0.895182291667,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.039496527778,
+                  "birth_rate": 0.01171875,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.014322916667,
+                  "diversity": 1.0,
+                  "gene_variance": 0.116007007658,
+                  "lineage_concentration": 0.038409703504,
+                  "lineage_entropy": 0.92687886805,
+                  "lineages": 879.0,
+                  "mean_age": 40.863881401617,
+                  "mean_charge": 1.176091909409,
+                  "mutability_mean": 0.23237067461,
+                  "occupancy": 0.644097222222
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.875434027778,
+                "seed": 900307,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.044704861111,
+                  "birth_rate": 0.021267361111,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.999337748344,
+                  "death_rate": 0.015625,
+                  "diversity": 1.0,
+                  "gene_variance": 0.112812593579,
+                  "lineage_concentration": 0.039735099338,
+                  "lineage_entropy": 0.919255077475,
+                  "lineages": 828.0,
+                  "mean_age": 36.769536423841,
+                  "mean_charge": 1.026103019714,
+                  "mutability_mean": 0.180604487658,
+                  "occupancy": 0.655381944444
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.879383680556,
+                "seed": 900307,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.042534722222,
+                  "birth_rate": 0.017361111111,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.998001332445,
+                  "death_rate": 0.014322916667,
+                  "diversity": 1.0,
+                  "gene_variance": 0.110065244138,
+                  "lineage_concentration": 0.037974683544,
+                  "lineage_entropy": 0.920055369427,
+                  "lineages": 802.0,
+                  "mean_age": 38.023317788141,
+                  "mean_charge": 1.129910588264,
+                  "mutability_mean": 0.176760539412,
+                  "occupancy": 0.651475694444
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.878016493056,
+                "seed": 900307,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900307,
+            "strong_perturbation_score": 0.877611400463
+          },
+          {
+            "audit_score": 0.887405598958,
+            "long_horizon_score": 0.895833333333,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.045572916667,
+                  "birth_rate": 0.013454861111,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.013888888889,
+                  "diversity": 1.0,
+                  "gene_variance": 0.117830142379,
+                  "lineage_concentration": 0.030913978495,
+                  "lineage_entropy": 0.933754745154,
+                  "lineages": 916.0,
+                  "mean_age": 38.165994623656,
+                  "mean_charge": 1.042530179024,
+                  "mutability_mean": 0.234567388892,
+                  "occupancy": 0.645833333333
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876041666667,
+                "seed": 900401,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.042100694444,
+                  "birth_rate": 0.012152777778,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.999338624339,
+                  "death_rate": 0.015625,
+                  "diversity": 1.0,
+                  "gene_variance": 0.107341766357,
+                  "lineage_concentration": 0.03835978836,
+                  "lineage_entropy": 0.911361891425,
+                  "lineages": 802.0,
+                  "mean_age": 37.452380952381,
+                  "mean_charge": 1.066925764084,
+                  "mutability_mean": 0.179859995842,
+                  "occupancy": 0.65625
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.8796875,
+                "seed": 900401,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.044704861111,
+                  "birth_rate": 0.016493055556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.017361111111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.105893023312,
+                  "lineage_concentration": 0.043771043771,
+                  "lineage_entropy": 0.903439015022,
+                  "lineages": 770.0,
+                  "mean_age": 38.397306397306,
+                  "mean_charge": 1.133775115013,
+                  "mutability_mean": 0.176894471049,
+                  "occupancy": 0.64453125
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.8755859375,
+                "seed": 900401,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900401,
+            "strong_perturbation_score": 0.877105034722
+          },
+          {
+            "audit_score": 0.885576171875,
+            "long_horizon_score": 0.89375,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.041666666667,
+                  "birth_rate": 0.015190972222,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.013020833333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.123068489134,
+                  "lineage_concentration": 0.039837947333,
+                  "lineage_entropy": 0.925152503938,
+                  "lineages": 878.0,
+                  "mean_age": 40.18163403106,
+                  "mean_charge": 1.106297254562,
+                  "mutability_mean": 0.227917924523,
+                  "occupancy": 0.642795138889
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.874978298611,
+                "seed": 900503,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.030815972222,
+                  "birth_rate": 0.01171875,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.009114583333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.106464922428,
+                  "lineage_concentration": 0.048096192385,
+                  "lineage_entropy": 0.907415327402,
+                  "lineages": 771.0,
+                  "mean_age": 39.089512358049,
+                  "mean_charge": 1.045943498611,
+                  "mutability_mean": 0.175315439701,
+                  "occupancy": 0.649739583333
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.877408854167,
+                "seed": 900503,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.028645833333,
+                  "birth_rate": 0.012586805556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.998645903859,
+                  "death_rate": 0.013020833333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.106778092682,
+                  "lineage_concentration": 0.052809749492,
+                  "lineage_entropy": 0.907845745531,
+                  "lineages": 773.0,
+                  "mean_age": 40.549763033175,
+                  "mean_charge": 1.18106174469,
+                  "mutability_mean": 0.174597069621,
+                  "occupancy": 0.641059027778
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.874370659722,
+                "seed": 900503,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900503,
+            "strong_perturbation_score": 0.8755859375
+          },
+          {
+            "audit_score": 0.886435546875,
+            "long_horizon_score": 0.894401041667,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.046875,
+                  "birth_rate": 0.019965277778,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.999325236167,
+                  "death_rate": 0.019965277778,
+                  "diversity": 1.0,
+                  "gene_variance": 0.116021841764,
+                  "lineage_concentration": 0.037786774629,
+                  "lineage_entropy": 0.920739261184,
+                  "lineages": 908.0,
+                  "mean_age": 39.5,
+                  "mean_charge": 1.082990646362,
+                  "mutability_mean": 0.228344291449,
+                  "occupancy": 0.643229166667
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.875130208333,
+                "seed": 900601,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.045572916667,
+                  "birth_rate": 0.0234375,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.999330655957,
+                  "death_rate": 0.016927083333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.107717387378,
+                  "lineage_concentration": 0.056894243641,
+                  "lineage_entropy": 0.89887576906,
+                  "lineages": 768.0,
+                  "mean_age": 37.923694779116,
+                  "mean_charge": 1.0375187397,
+                  "mutability_mean": 0.169764861465,
+                  "occupancy": 0.6484375
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876953125,
+                "seed": 900601,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.039930555556,
+                  "birth_rate": 0.014756944444,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.999333777482,
+                  "death_rate": 0.014756944444,
+                  "diversity": 1.0,
+                  "gene_variance": 0.102850317955,
+                  "lineage_concentration": 0.056628914057,
+                  "lineage_entropy": 0.90165803121,
+                  "lineages": 779.0,
+                  "mean_age": 38.696868754164,
+                  "mean_charge": 1.133651137352,
+                  "mutability_mean": 0.172513976693,
+                  "occupancy": 0.651475694444
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.878016493056,
+                "seed": 900601,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900601,
+            "strong_perturbation_score": 0.87669994213
+          },
+          {
+            "audit_score": 0.886328125,
+            "long_horizon_score": 0.89375,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.039930555556,
+                  "birth_rate": 0.012586805556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.013020833333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.12206812948,
+                  "lineage_concentration": 0.034782608696,
+                  "lineage_entropy": 0.930082595661,
+                  "lineages": 872.0,
+                  "mean_age": 38.958528428094,
+                  "mean_charge": 1.097410798073,
+                  "mutability_mean": 0.225255250931,
+                  "occupancy": 0.648871527778
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.877105034722,
+                "seed": 900701,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.036458333333,
+                  "birth_rate": 0.010416666667,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.012152777778,
+                  "diversity": 1.0,
+                  "gene_variance": 0.104881457984,
+                  "lineage_concentration": 0.039280958722,
+                  "lineage_entropy": 0.917614103067,
+                  "lineages": 777.0,
+                  "mean_age": 38.801597869507,
+                  "mean_charge": 1.099075555801,
+                  "mutability_mean": 0.172542124987,
+                  "occupancy": 0.651909722222
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.878168402778,
+                "seed": 900701,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.045572916667,
+                  "birth_rate": 0.015190972222,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.999329309188,
+                  "death_rate": 0.013454861111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.105443693697,
+                  "lineage_concentration": 0.0348759222,
+                  "lineage_entropy": 0.920646021861,
+                  "lineages": 759.0,
+                  "mean_age": 39.247484909457,
+                  "mean_charge": 1.157578587532,
+                  "mutability_mean": 0.16440820694,
+                  "occupancy": 0.647135416667
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876497395833,
+                "seed": 900701,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900701,
+            "strong_perturbation_score": 0.877256944444
+          },
+          {
+            "audit_score": 0.88552734375,
+            "long_horizon_score": 0.893619791667,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.055121527778,
+                  "birth_rate": 0.020399305556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.019097222222,
+                  "diversity": 1.0,
+                  "gene_variance": 0.115732707083,
+                  "lineage_concentration": 0.031778228533,
+                  "lineage_entropy": 0.931704188607,
+                  "lineages": 927.0,
+                  "mean_age": 39.353617308993,
+                  "mean_charge": 1.080738544464,
+                  "mutability_mean": 0.234845533967,
+                  "occupancy": 0.641927083333
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.874674479167,
+                "seed": 900809,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.041232638889,
+                  "birth_rate": 0.013020833333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.999325236167,
+                  "death_rate": 0.014322916667,
+                  "diversity": 1.0,
+                  "gene_variance": 0.107167869806,
+                  "lineage_concentration": 0.032388663968,
+                  "lineage_entropy": 0.921915209915,
+                  "lineages": 797.0,
+                  "mean_age": 38.279352226721,
+                  "mean_charge": 1.03956580162,
+                  "mutability_mean": 0.17549341917,
+                  "occupancy": 0.643229166667
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.875130208333,
+                "seed": 900809,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.046440972222,
+                  "birth_rate": 0.021267361111,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.999331103679,
+                  "death_rate": 0.017361111111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.109680116177,
+                  "lineage_concentration": 0.033444816054,
+                  "lineage_entropy": 0.923702235022,
+                  "lineages": 809.0,
+                  "mean_age": 40.503010033445,
+                  "mean_charge": 1.157218456268,
+                  "mutability_mean": 0.180762171745,
+                  "occupancy": 0.648871527778
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.877105034722,
+                "seed": 900809,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900809,
+            "strong_perturbation_score": 0.875636574074
+          },
+          {
+            "audit_score": 0.887496744792,
+            "long_horizon_score": 0.895833333333,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.044270833333,
+                  "birth_rate": 0.015190972222,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.018663194444,
+                  "diversity": 1.0,
+                  "gene_variance": 0.120341144502,
+                  "lineage_concentration": 0.045545880777,
+                  "lineage_entropy": 0.909377060678,
+                  "lineages": 851.0,
+                  "mean_age": 40.045545880777,
+                  "mean_charge": 1.137330651283,
+                  "mutability_mean": 0.233227327466,
+                  "occupancy": 0.648003472222
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876801215278,
+                "seed": 900907,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.0390625,
+                  "birth_rate": 0.017361111111,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.013454861111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.110932067037,
+                  "lineage_concentration": 0.037873754153,
+                  "lineage_entropy": 0.915676388829,
+                  "lineages": 775.0,
+                  "mean_age": 38.18073089701,
+                  "mean_charge": 1.033225178719,
+                  "mutability_mean": 0.177536025643,
+                  "occupancy": 0.653211805556
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.878624131944,
+                "seed": 900907,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.032118055556,
+                  "birth_rate": 0.013020833333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.997987927565,
+                  "death_rate": 0.01171875,
+                  "diversity": 1.0,
+                  "gene_variance": 0.112810365856,
+                  "lineage_concentration": 0.037558685446,
+                  "lineage_entropy": 0.914145252489,
+                  "lineages": 772.0,
+                  "mean_age": 38.873910127431,
+                  "mean_charge": 1.114803910255,
+                  "mutability_mean": 0.174683436751,
+                  "occupancy": 0.647135416667
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876497395833,
+                "seed": 900907,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900907,
+            "strong_perturbation_score": 0.877307581019
+          },
+          {
+            "audit_score": 0.8860546875,
+            "long_horizon_score": 0.892838541667,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.044270833333,
+                  "birth_rate": 0.016927083333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.995361166335,
+                  "death_rate": 0.013888888889,
+                  "diversity": 1.0,
+                  "gene_variance": 0.119814284146,
+                  "lineage_concentration": 0.032471835653,
+                  "lineage_entropy": 0.925863786891,
+                  "lineages": 909.0,
+                  "mean_age": 37.895957587806,
+                  "mean_charge": 1.094328761101,
+                  "mutability_mean": 0.233380958438,
+                  "occupancy": 0.654947916667
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.879231770833,
+                "seed": 901003,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.043836805556,
+                  "birth_rate": 0.012586805556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.014322916667,
+                  "diversity": 1.0,
+                  "gene_variance": 0.113253198564,
+                  "lineage_concentration": 0.040080160321,
+                  "lineage_entropy": 0.918673305172,
+                  "lineages": 811.0,
+                  "mean_age": 38.207748830995,
+                  "mean_charge": 1.039049744606,
+                  "mutability_mean": 0.183088675141,
+                  "occupancy": 0.649739583333
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.877408854167,
+                "seed": 901003,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.041232638889,
+                  "birth_rate": 0.012586805556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.013020833333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.111639246345,
+                  "lineage_concentration": 0.035522788204,
+                  "lineage_entropy": 0.91718165756,
+                  "lineages": 819.0,
+                  "mean_age": 38.513404825737,
+                  "mean_charge": 1.105670332909,
+                  "mutability_mean": 0.180126234889,
+                  "occupancy": 0.647569444444
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876649305556,
+                "seed": 901003,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 901003,
+            "strong_perturbation_score": 0.877763310185
+          },
+          {
+            "audit_score": 0.88673828125,
+            "long_horizon_score": 0.894661458333,
+            "passed": true,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.037760416667,
+                  "birth_rate": 0.0078125,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.009114583333,
+                  "diversity": 1.0,
+                  "gene_variance": 0.1184521541,
+                  "lineage_concentration": 0.030872483221,
+                  "lineage_entropy": 0.935253605121,
+                  "lineages": 903.0,
+                  "mean_age": 39.610067114094,
+                  "mean_charge": 1.097758769989,
+                  "mutability_mean": 0.231371432543,
+                  "occupancy": 0.646701388889
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876345486111,
+                "seed": 901103,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.040364583333,
+                  "birth_rate": 0.012586805556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.998669328011,
+                  "death_rate": 0.013454861111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.102941215038,
+                  "lineage_concentration": 0.035928143713,
+                  "lineage_entropy": 0.914468450175,
+                  "lineages": 801.0,
+                  "mean_age": 38.385229540918,
+                  "mean_charge": 1.043331623077,
+                  "mutability_mean": 0.175962492824,
+                  "occupancy": 0.65234375
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.8783203125,
+                "seed": 901103,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.042534722222,
+                  "birth_rate": 0.015190972222,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 1.0,
+                  "death_rate": 0.015190972222,
+                  "diversity": 1.0,
+                  "gene_variance": 0.110676653683,
+                  "lineage_concentration": 0.037558685446,
+                  "lineage_entropy": 0.913636023465,
+                  "lineages": 815.0,
+                  "mean_age": 38.99128101945,
+                  "mean_charge": 1.080753684044,
+                  "mutability_mean": 0.17822343111,
+                  "occupancy": 0.647135416667
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.876497395833,
+                "seed": 901103,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 901103,
+            "strong_perturbation_score": 0.877054398148
+          }
+        ]
+      },
+      "summary_metrics": {
+        "activity": 0.039496527778,
+        "birth_rate": 0.01171875,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.994645247657,
+        "death_rate": 0.014756944444,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.102088242769,
+        "lineage_concentration": 0.047523427041,
+        "lineage_entropy": 0.888061231925,
+        "lineages": 736.0,
+        "mean_age": 26.836010709505,
+        "mean_charge": 1.095577001572,
+        "mutability_mean": 0.171705842018,
+        "occupancy": 0.6484375,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      },
+      "validation_scores": {
+        "holdout": 0.895052083333,
+        "long_horizon": 0.874826388889,
+        "neighborhood": 0.871332465278,
+        "perturbation": 0.878877314815
+      }
+    },
+    "single_rollout": {
+      "candidate": {
+        "environment": {
+          "grid_size": 48
+        },
+        "initial_conditions": {
+          "base_mutability": 0.095290627547,
+          "density": 0.151622012315,
+          "initial_charge_max": 0.729162559411,
+          "initial_charge_min": 0.171302410973,
+          "initialization_strategy": "random_uniform",
+          "seed_lineages": 7
+        },
+        "metadata": {},
+        "params": {
+          "background_mortality": 0.001131010205,
+          "background_mutation": 0.037582576019,
+          "charge_decay": 0.121698756779,
+          "charge_gain": 0.102767703413,
+          "crowding_cost": 0.05205796378,
+          "lineage_budget_strength": 0.847164784327,
+          "lineage_split_threshold": 0.103064141705,
+          "mutability_drift": 0.065481182879,
+          "offspring_charge": 0.318986697521,
+          "reproduction_cost": 0.063440470555
+        },
+        "rule_variants": {
+          "birth_max": 4,
+          "birth_min": 2,
+          "budget_mode": "uniform",
+          "survival_max": 5,
+          "survival_min": 3
+        },
+        "search_mode": "certification_benchmark",
+        "seed": 284424974,
+        "substrate": "mutation_cells"
+      },
+      "candidate_index": 23,
+      "candidate_seed": 284424974,
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.867621527778
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.862673611111
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.55787109375
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": false,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.579385127315
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.773510271991
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [
+          "perturbation_below_policy"
+        ],
+        "passed": false,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.773510271991,
+        "status": "rejected"
+      },
+      "certification_score": 0.773510271991,
+      "discovery_components": {
+        "activity": 1.0,
+        "cluster_coherence": 0.997206703911,
+        "diversity": 1.0,
+        "lineage_entropy": 0.94302936055,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.988186877697,
+      "final_audit": {
+        "long_horizon_mean": 0.87021484375,
+        "max_score": 0.747635416667,
+        "mean_score": 0.736964301215,
+        "min_score": 0.727749348958,
+        "pass_rate": 0.0,
+        "pass_threshold": 0.75,
+        "passed_trials": 0,
+        "strong_perturbation_mean": 0.574102527006,
+        "total_trials": 12,
+        "trials": [
+          {
+            "audit_score": 0.739370442708,
+            "long_horizon_score": 0.87265625,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.599826388889,
+                  "birth_rate": 0.355034722222,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.989481592787,
+                  "death_rate": 0.393229166667,
+                  "diversity": 1.0,
+                  "gene_variance": 0.112294003367,
+                  "lineage_concentration": 0.018031555222,
+                  "lineage_entropy": 0.931253960524,
+                  "lineages": 605.0,
+                  "mean_age": 0.496619083396,
+                  "mean_charge": 0.228933110833,
+                  "mutability_mean": 0.16892015934,
+                  "occupancy": 0.577690972222
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.852191840278,
+                "seed": 900001,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.02734375,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.02734375,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900001,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.587239583333,
+                  "birth_rate": 0.376302083333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.953079178886,
+                  "death_rate": 0.365885416667,
+                  "diversity": 1.0,
+                  "gene_variance": 0.110137656331,
+                  "lineage_concentration": 0.021260997067,
+                  "lineage_entropy": 0.937026916899,
+                  "lineages": 597.0,
+                  "mean_age": 0.450879765396,
+                  "mean_charge": 0.232708886266,
+                  "mutability_mean": 0.161455318332,
+                  "occupancy": 0.592013888889
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.857204861111,
+                "seed": 900001,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900001,
+            "strong_perturbation_score": 0.57646556713
+          },
+          {
+            "audit_score": 0.738358072917,
+            "long_horizon_score": 0.86953125,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.52734375,
+                  "birth_rate": 0.354600694444,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.96953541508,
+                  "death_rate": 0.309461805556,
+                  "diversity": 1.0,
+                  "gene_variance": 0.115793429315,
+                  "lineage_concentration": 0.019801980198,
+                  "lineage_entropy": 0.934855343409,
+                  "lineages": 573.0,
+                  "mean_age": 0.473724295506,
+                  "mean_charge": 0.230401784182,
+                  "mutability_mean": 0.169213235378,
+                  "occupancy": 0.569878472222
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.849457465278,
+                "seed": 900101,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.028211805556,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.028211805556,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900101,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.564236111111,
+                  "birth_rate": 0.381076388889,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.968152866242,
+                  "death_rate": 0.325086805556,
+                  "diversity": 1.0,
+                  "gene_variance": 0.104413352907,
+                  "lineage_concentration": 0.017692852088,
+                  "lineage_entropy": 0.943973072442,
+                  "lineages": 686.0,
+                  "mean_age": 0.478414720453,
+                  "mean_charge": 0.229794338346,
+                  "mutability_mean": 0.174694761634,
+                  "occupancy": 0.61328125
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.8646484375,
+                "seed": 900101,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900101,
+            "strong_perturbation_score": 0.578035300926
+          },
+          {
+            "audit_score": 0.736828125,
+            "long_horizon_score": 0.8703125,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.53515625,
+                  "birth_rate": 0.352430555556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.987313432836,
+                  "death_rate": 0.30859375,
+                  "diversity": 1.0,
+                  "gene_variance": 0.109368257225,
+                  "lineage_concentration": 0.018656716418,
+                  "lineage_entropy": 0.945462490898,
+                  "lineages": 642.0,
+                  "mean_age": 0.512686567164,
+                  "mean_charge": 0.227256804705,
+                  "mutability_mean": 0.178149074316,
+                  "occupancy": 0.581597222222
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.853559027778,
+                "seed": 900211,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.032986111111,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.032986111111,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900211,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.605034722222,
+                  "birth_rate": 0.355902777778,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.989230769231,
+                  "death_rate": 0.393663194444,
+                  "diversity": 1.0,
+                  "gene_variance": 0.115794502199,
+                  "lineage_concentration": 0.015384615385,
+                  "lineage_entropy": 0.929772998518,
+                  "lineages": 512.0,
+                  "mean_age": 0.456923076923,
+                  "mean_charge": 0.231265604496,
+                  "mutability_mean": 0.148720040917,
+                  "occupancy": 0.564236111111
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.847482638889,
+                "seed": 900211,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900211,
+            "strong_perturbation_score": 0.573680555556
+          },
+          {
+            "audit_score": 0.736688151042,
+            "long_horizon_score": 0.870182291667,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.574652777778,
+                  "birth_rate": 0.336371527778,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.968998410175,
+                  "death_rate": 0.370659722222,
+                  "diversity": 1.0,
+                  "gene_variance": 0.108501851559,
+                  "lineage_concentration": 0.012718600954,
+                  "lineage_entropy": 0.940779106371,
+                  "lineages": 575.0,
+                  "mean_age": 0.482511923688,
+                  "mean_charge": 0.229967072606,
+                  "mutability_mean": 0.166676178575,
+                  "occupancy": 0.546006944444
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.841102430556,
+                "seed": 900307,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.029079861111,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.029079861111,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900307,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.575520833333,
+                  "birth_rate": 0.378472222222,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.998549673677,
+                  "death_rate": 0.34375,
+                  "diversity": 1.0,
+                  "gene_variance": 0.117254398763,
+                  "lineage_concentration": 0.013778100073,
+                  "lineage_entropy": 0.945139564038,
+                  "lineages": 636.0,
+                  "mean_age": 0.448875997099,
+                  "mean_charge": 0.233143493533,
+                  "mutability_mean": 0.169950842857,
+                  "occupancy": 0.598524305556
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.859483506944,
+                "seed": 900307,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900307,
+            "strong_perturbation_score": 0.573528645833
+          },
+          {
+            "audit_score": 0.747635416667,
+            "long_horizon_score": 0.887890625,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.615885416667,
+                  "birth_rate": 0.355902777778,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.97857689365,
+                  "death_rate": 0.403211805556,
+                  "diversity": 1.0,
+                  "gene_variance": 0.117179900408,
+                  "lineage_concentration": 0.019127773527,
+                  "lineage_entropy": 0.935747903644,
+                  "lineages": 575.0,
+                  "mean_age": 0.462892119357,
+                  "mean_charge": 0.23086835444,
+                  "mutability_mean": 0.162107825279,
+                  "occupancy": 0.567274305556
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.848546006944,
+                "seed": 900401,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.032986111111,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.032986111111,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900401,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.560763888889,
+                  "birth_rate": 0.3671875,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.981200289226,
+                  "death_rate": 0.331597222222,
+                  "diversity": 1.0,
+                  "gene_variance": 0.109393432736,
+                  "lineage_concentration": 0.018076644975,
+                  "lineage_entropy": 0.939254752681,
+                  "lineages": 617.0,
+                  "mean_age": 0.495300072307,
+                  "mean_charge": 0.228708416224,
+                  "mutability_mean": 0.171642646194,
+                  "occupancy": 0.600260416667
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.860091145833,
+                "seed": 900401,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900401,
+            "strong_perturbation_score": 0.576212384259
+          },
+          {
+            "audit_score": 0.736463541667,
+            "long_horizon_score": 0.871223958333,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.568576388889,
+                  "birth_rate": 0.345052083333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.986697965571,
+                  "death_rate": 0.351128472222,
+                  "diversity": 1.0,
+                  "gene_variance": 0.114207811654,
+                  "lineage_concentration": 0.021126760563,
+                  "lineage_entropy": 0.935521386907,
+                  "lineages": 540.0,
+                  "mean_age": 0.462441314554,
+                  "mean_charge": 0.231617122889,
+                  "mutability_mean": 0.157422915101,
+                  "occupancy": 0.5546875
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.844140625,
+                "seed": 900503,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.031684027778,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.031684027778,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900503,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.582465277778,
+                  "birth_rate": 0.368055555556,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.974320241692,
+                  "death_rate": 0.375868055556,
+                  "diversity": 1.0,
+                  "gene_variance": 0.116750918329,
+                  "lineage_concentration": 0.023413897281,
+                  "lineage_entropy": 0.928905225433,
+                  "lineages": 548.0,
+                  "mean_age": 0.444108761329,
+                  "mean_charge": 0.233084961772,
+                  "mutability_mean": 0.162062719464,
+                  "occupancy": 0.574652777778
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.851128472222,
+                "seed": 900503,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900503,
+            "strong_perturbation_score": 0.571756365741
+          },
+          {
+            "audit_score": 0.731736979167,
+            "long_horizon_score": 0.859895833333,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.578125,
+                  "birth_rate": 0.362847222222,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.99171686747,
+                  "death_rate": 0.368923611111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.103428453207,
+                  "lineage_concentration": 0.015060240964,
+                  "lineage_entropy": 0.928974367154,
+                  "lineages": 554.0,
+                  "mean_age": 0.460090361446,
+                  "mean_charge": 0.232611685991,
+                  "mutability_mean": 0.15928119421,
+                  "occupancy": 0.576388888889
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.851736111111,
+                "seed": 900601,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.029513888889,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.029513888889,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900601,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.578125,
+                  "birth_rate": 0.361111111111,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.967164179104,
+                  "death_rate": 0.36328125,
+                  "diversity": 1.0,
+                  "gene_variance": 0.112441040576,
+                  "lineage_concentration": 0.026119402985,
+                  "lineage_entropy": 0.925500950429,
+                  "lineages": 582.0,
+                  "mean_age": 0.483582089552,
+                  "mean_charge": 0.229806706309,
+                  "mutability_mean": 0.158675372601,
+                  "occupancy": 0.581597222222
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.853559027778,
+                "seed": 900601,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900601,
+            "strong_perturbation_score": 0.57509837963
+          },
+          {
+            "audit_score": 0.74098828125,
+            "long_horizon_score": 0.882682291667,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.595052083333,
+                  "birth_rate": 0.333333333333,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.918785890074,
+                  "death_rate": 0.397569444444,
+                  "diversity": 1.0,
+                  "gene_variance": 0.107866972685,
+                  "lineage_concentration": 0.025430680886,
+                  "lineage_entropy": 0.930346994732,
+                  "lineages": 538.0,
+                  "mean_age": 0.446267432322,
+                  "mean_charge": 0.23222668469,
+                  "mutability_mean": 0.164787128568,
+                  "occupancy": 0.529079861111
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.835177951389,
+                "seed": 900701,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.03125,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.03125,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900701,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.5859375,
+                  "birth_rate": 0.351996527778,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.936398467433,
+                  "death_rate": 0.374131944444,
+                  "diversity": 1.0,
+                  "gene_variance": 0.105608850718,
+                  "lineage_concentration": 0.013793103448,
+                  "lineage_entropy": 0.940661815498,
+                  "lineages": 582.0,
+                  "mean_age": 0.480459770115,
+                  "mean_charge": 0.230288654566,
+                  "mutability_mean": 0.162352979183,
+                  "occupancy": 0.56640625
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.8482421875,
+                "seed": 900701,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900701,
+            "strong_perturbation_score": 0.567806712963
+          },
+          {
+            "audit_score": 0.732156901042,
+            "long_horizon_score": 0.860286458333,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.612847222222,
+                  "birth_rate": 0.359375,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.990099009901,
+                  "death_rate": 0.3984375,
+                  "diversity": 1.0,
+                  "gene_variance": 0.109386362135,
+                  "lineage_concentration": 0.016755521706,
+                  "lineage_entropy": 0.931944891581,
+                  "lineages": 554.0,
+                  "mean_age": 0.453160700685,
+                  "mean_charge": 0.232893288136,
+                  "mutability_mean": 0.155168384314,
+                  "occupancy": 0.569878472222
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.849457465278,
+                "seed": 900809,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.029947916667,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.029947916667,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900809,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.553385416667,
+                  "birth_rate": 0.370659722222,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.99633431085,
+                  "death_rate": 0.329861111111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.102993026376,
+                  "lineage_concentration": 0.014662756598,
+                  "lineage_entropy": 0.93632062047,
+                  "lineages": 619.0,
+                  "mean_age": 0.474340175953,
+                  "mean_charge": 0.23053330183,
+                  "mutability_mean": 0.170579865575,
+                  "occupancy": 0.592013888889
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.857204861111,
+                "seed": 900809,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900809,
+            "strong_perturbation_score": 0.575554108796
+          },
+          {
+            "audit_score": 0.741912760417,
+            "long_horizon_score": 0.883203125,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.562934027778,
+                  "birth_rate": 0.3515625,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.986078886311,
+                  "death_rate": 0.346788194444,
+                  "diversity": 1.0,
+                  "gene_variance": 0.106244035065,
+                  "lineage_concentration": 0.023201856148,
+                  "lineage_entropy": 0.936056398353,
+                  "lineages": 588.0,
+                  "mean_age": 0.470997679814,
+                  "mean_charge": 0.230834111571,
+                  "mutability_mean": 0.177647188306,
+                  "occupancy": 0.561197916667
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.846419270833,
+                "seed": 900907,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.031684027778,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.031684027778,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 900907,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.589409722222,
+                  "birth_rate": 0.34765625,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.987291501191,
+                  "death_rate": 0.371527777778,
+                  "diversity": 1.0,
+                  "gene_variance": 0.11023337394,
+                  "lineage_concentration": 0.020651310564,
+                  "lineage_entropy": 0.930813857226,
+                  "lineages": 554.0,
+                  "mean_age": 0.4447974583,
+                  "mean_charge": 0.232273921371,
+                  "mutability_mean": 0.162743091583,
+                  "occupancy": 0.546440972222
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.841254340278,
+                "seed": 900907,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 900907,
+            "strong_perturbation_score": 0.569224537037
+          },
+          {
+            "audit_score": 0.73368359375,
+            "long_horizon_score": 0.863020833333,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.563802083333,
+                  "birth_rate": 0.383246527778,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.996438746439,
+                  "death_rate": 0.337673611111,
+                  "diversity": 1.0,
+                  "gene_variance": 0.114306874573,
+                  "lineage_concentration": 0.023504273504,
+                  "lineage_entropy": 0.929115699098,
+                  "lineages": 618.0,
+                  "mean_age": 0.472934472934,
+                  "mean_charge": 0.2305059582,
+                  "mutability_mean": 0.161813020706,
+                  "occupancy": 0.609375
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.86328125,
+                "seed": 901003,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.031684027778,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.031684027778,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 901003,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.55859375,
+                  "birth_rate": 0.33984375,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.927001569859,
+                  "death_rate": 0.355034722222,
+                  "diversity": 1.0,
+                  "gene_variance": 0.122255608439,
+                  "lineage_concentration": 0.021193092622,
+                  "lineage_entropy": 0.947804657652,
+                  "lineages": 603.0,
+                  "mean_age": 0.484301412873,
+                  "mean_charge": 0.229573577642,
+                  "mutability_mean": 0.182169288397,
+                  "occupancy": 0.552951388889
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.843532986111,
+                "seed": 901003,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 901003,
+            "strong_perturbation_score": 0.57560474537
+          },
+          {
+            "audit_score": 0.727749348958,
+            "long_horizon_score": 0.851692708333,
+            "passed": false,
+            "perturbations": [
+              {
+                "metrics": {
+                  "activity": 0.572048611111,
+                  "birth_rate": 0.384982638889,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.988053408292,
+                  "death_rate": 0.336371527778,
+                  "diversity": 1.0,
+                  "gene_variance": 0.111681550741,
+                  "lineage_concentration": 0.021082220661,
+                  "lineage_entropy": 0.931698701773,
+                  "lineages": 625.0,
+                  "mean_age": 0.473647224174,
+                  "mean_charge": 0.231051161885,
+                  "mutability_mean": 0.166969433427,
+                  "occupancy": 0.617621527778
+                },
+                "perturbation": {
+                  "kind": "radiation",
+                  "magnitude": 0.2
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.866167534722,
+                "seed": 901103,
+                "survived_steps": 40
+              },
+              {
+                "metrics": {
+                  "activity": 0.027777777778,
+                  "birth_rate": 0.0,
+                  "cluster_coherence": 0.0,
+                  "death_rate": 0.027777777778,
+                  "diversity": 0.0,
+                  "gene_variance": 0.0,
+                  "lineage_entropy": 0.0,
+                  "lineages": 0.0,
+                  "mean_age": 0.0,
+                  "mean_charge": 0.0,
+                  "mutability_mean": 0.0,
+                  "occupancy": 0.0
+                },
+                "perturbation": {
+                  "factor": 0.3,
+                  "kind": "charge_drop"
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.02,
+                "seed": 901103,
+                "survived_steps": 2
+              },
+              {
+                "metrics": {
+                  "activity": 0.588541666667,
+                  "birth_rate": 0.34375,
+                  "budget_entropy": 0.0,
+                  "budget_utilization": 1.0,
+                  "cluster_coherence": 0.967665615142,
+                  "death_rate": 0.3828125,
+                  "diversity": 1.0,
+                  "gene_variance": 0.112895615399,
+                  "lineage_concentration": 0.018927444795,
+                  "lineage_entropy": 0.934534375796,
+                  "lineages": 585.0,
+                  "mean_age": 0.489747634069,
+                  "mean_charge": 0.229404777288,
+                  "mutability_mean": 0.175103724003,
+                  "occupancy": 0.550347222222
+                },
+                "perturbation": {
+                  "kind": "wipe_patch",
+                  "size": 0.22
+                },
+                "pre_perturbation_extinct": false,
+                "score": 0.842621527778,
+                "seed": 901103,
+                "survived_steps": 40
+              }
+            ],
+            "seed": 901103,
+            "strong_perturbation_score": 0.576263020833
+          }
+        ]
+      },
+      "summary_metrics": {
+        "activity": 0.611111111111,
+        "birth_rate": 0.403211805556,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.997206703911,
+        "death_rate": 0.372829861111,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.116541132331,
+        "lineage_concentration": 0.013268156425,
+        "lineage_entropy": 0.94302936055,
+        "lineages": 665.0,
+        "mean_age": 0.429469273743,
+        "mean_charge": 0.233877509832,
+        "mutability_mean": 0.176596730947,
+        "occupancy": 0.621527777778,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      },
+      "validation_scores": {
+        "holdout": 0.867621527778,
+        "long_horizon": 0.862673611111,
+        "neighborhood": 0.55787109375,
+        "perturbation": 0.579385127315
+      }
+    }
+  },
+  "selection_shortlist": [
+    {
+      "candidate_index": 23,
+      "candidate_seed": 284424974,
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.867621527778
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.862673611111
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.55787109375
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": false,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.579385127315
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.773510271991
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [
+          "perturbation_below_policy"
+        ],
+        "passed": false,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.773510271991,
+        "status": "rejected"
+      },
+      "certification_score": 0.773510271991,
+      "discovery_components": {
+        "activity": 1.0,
+        "cluster_coherence": 0.997206703911,
+        "diversity": 1.0,
+        "lineage_entropy": 0.94302936055,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.988186877697,
+      "summary_metrics": {
+        "activity": 0.611111111111,
+        "birth_rate": 0.403211805556,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.997206703911,
+        "death_rate": 0.372829861111,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.116541132331,
+        "lineage_concentration": 0.013268156425,
+        "lineage_entropy": 0.94302936055,
+        "lineages": 665.0,
+        "mean_age": 0.429469273743,
+        "mean_charge": 0.233877509832,
+        "mutability_mean": 0.176596730947,
+        "occupancy": 0.621527777778,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      },
+      "validation_scores": {
+        "holdout": 0.867621527778,
+        "long_horizon": 0.862673611111,
+        "neighborhood": 0.55787109375,
+        "perturbation": 0.579385127315
+      }
+    },
+    {
+      "candidate_index": 3,
+      "candidate_seed": 1555558539,
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.882378472222
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.855381944444
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": false,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.240953776042
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": false,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.599503761574
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": false,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.715643590856
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [
+          "perturbation_below_policy",
+          "neighborhood_below_policy",
+          "promotion_below_policy"
+        ],
+        "passed": false,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.715643590856,
+        "status": "rejected"
+      },
+      "certification_score": 0.715643590856,
+      "discovery_components": {
+        "activity": 0.758680555556,
+        "cluster_coherence": 0.891449814126,
+        "diversity": 1.0,
+        "lineage_entropy": 0.88575662912,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.900538936832,
+      "summary_metrics": {
+        "activity": 0.189670138889,
+        "birth_rate": 0.095920138889,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.891449814126,
+        "death_rate": 0.105034722222,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.099469065666,
+        "lineage_concentration": 0.043866171004,
+        "lineage_entropy": 0.88575662912,
+        "lineages": 398.0,
+        "mean_age": 2.747211895911,
+        "mean_charge": 0.264024794102,
+        "mutability_mean": 0.171171009541,
+        "occupancy": 0.583767361111,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      },
+      "validation_scores": {
+        "holdout": 0.882378472222,
+        "long_horizon": 0.855381944444,
+        "neighborhood": 0.240953776042,
+        "perturbation": 0.599503761574
+      }
+    },
+    {
+      "candidate_index": 14,
+      "candidate_seed": 1500007788,
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.895052083333
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.874826388889
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.871332465278
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.878877314815
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.904017650463
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [],
+        "passed": true,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.904017650463,
+        "status": "certified"
+      },
+      "certification_score": 0.904017650463,
+      "discovery_components": {
+        "activity": 0.157986111111,
+        "cluster_coherence": 0.994645247657,
+        "diversity": 1.0,
+        "lineage_entropy": 0.888061231925,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.766305561311,
+      "summary_metrics": {
+        "activity": 0.039496527778,
+        "birth_rate": 0.01171875,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.994645247657,
+        "death_rate": 0.014756944444,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.102088242769,
+        "lineage_concentration": 0.047523427041,
+        "lineage_entropy": 0.888061231925,
+        "lineages": 736.0,
+        "mean_age": 26.836010709505,
+        "mean_charge": 1.095577001572,
+        "mutability_mean": 0.171705842018,
+        "occupancy": 0.6484375,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      },
+      "validation_scores": {
+        "holdout": 0.895052083333,
+        "long_horizon": 0.874826388889,
+        "neighborhood": 0.871332465278,
+        "perturbation": 0.878877314815
+      }
+    },
+    {
+      "candidate_index": 28,
+      "candidate_seed": 1688710987,
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.871267361111
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.849153645833
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.851584201389
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.854723668981
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.885345775463
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [],
+        "passed": true,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.885345775463,
+        "status": "certified"
+      },
+      "certification_score": 0.885345775463,
+      "discovery_components": {
+        "activity": 0.085069444444,
+        "cluster_coherence": 0.961509992598,
+        "diversity": 1.0,
+        "lineage_entropy": 0.939886414349,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.753471142871,
+      "summary_metrics": {
+        "activity": 0.021267361111,
+        "birth_rate": 0.004774305556,
+        "budget_entropy": 0.998715891145,
+        "budget_utilization": 0.065088757396,
+        "cluster_coherence": 0.961509992598,
+        "death_rate": 0.004774305556,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.120819360018,
+        "lineage_concentration": 0.014803849001,
+        "lineage_entropy": 0.939886414349,
+        "lineages": 679.0,
+        "mean_age": 31.072538860104,
+        "mean_charge": 1.777013778687,
+        "mutability_mean": 0.188154831529,
+        "occupancy": 0.586371527778,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      },
+      "validation_scores": {
+        "holdout": 0.871267361111,
+        "long_horizon": 0.849153645833,
+        "neighborhood": 0.851584201389,
+        "perturbation": 0.854723668981
+      }
+    },
+    {
+      "candidate_index": 7,
+      "candidate_seed": 433747832,
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.899435763889
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.894118923611
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.726350911458
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.896600115741
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.88330114294
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [],
+        "passed": true,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.88330114294,
+        "status": "certified"
+      },
+      "certification_score": 0.88330114294,
+      "discovery_components": {
+        "activity": 0.043402777778,
+        "cluster_coherence": 1.0,
+        "diversity": 1.0,
+        "lineage_entropy": 0.808841725412,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.722619039527,
+      "summary_metrics": {
+        "activity": 0.010850694444,
+        "birth_rate": 0.003038194444,
+        "budget_entropy": 0.999965050551,
+        "budget_utilization": 0.112903225806,
+        "cluster_coherence": 1.0,
+        "death_rate": 0.004340277778,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.088709518313,
+        "lineage_concentration": 0.049321824908,
+        "lineage_entropy": 0.808841725412,
+        "lineages": 165.0,
+        "mean_age": 26.846485819975,
+        "mean_charge": 1.95646739006,
+        "mutability_mean": 0.083982549608,
+        "occupancy": 0.703993055556,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      },
+      "validation_scores": {
+        "holdout": 0.899435763889,
+        "long_horizon": 0.894118923611,
+        "neighborhood": 0.726350911458,
+        "perturbation": 0.896600115741
+      }
+    },
+    {
+      "candidate_index": 8,
+      "candidate_seed": 850019066,
+      "certification": {
+        "checks": {
+          "deterministic_replay": {
+            "evaluated": true,
+            "operator": "is",
+            "passed": true,
+            "required": true,
+            "threshold": true,
+            "value": true
+          },
+          "holdout": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.884027777778
+          },
+          "long_horizon": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.7,
+            "value": 0.859027777778
+          },
+          "neighborhood": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.45,
+            "value": 0.87763671875
+          },
+          "perturbation": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.65,
+            "value": 0.866471354167
+          },
+          "promotion": {
+            "evaluated": true,
+            "operator": ">=",
+            "passed": true,
+            "required": true,
+            "threshold": 0.75,
+            "value": 0.897432725694
+          },
+          "replay_difference": {
+            "evaluated": true,
+            "operator": "<=",
+            "passed": true,
+            "required": true,
+            "threshold": 1e-09,
+            "value": 0.0
+          }
+        },
+        "failure_codes": [],
+        "passed": true,
+        "policy": {
+          "max_replay_difference": 1e-09,
+          "min_holdout_score": 0.7,
+          "min_long_horizon_score": 0.7,
+          "min_neighborhood_score": 0.45,
+          "min_perturbation_score": 0.65,
+          "min_promotion_score": 0.75,
+          "name": "default-v1",
+          "require_deterministic_replay": true
+        },
+        "promotion_score": 0.897432725694,
+        "status": "certified"
+      },
+      "certification_score": 0.897432725694,
+      "discovery_components": {
+        "activity": 0.088541666667,
+        "cluster_coherence": 0.991513437058,
+        "diversity": 1.0,
+        "lineage_entropy": 0.669159886688,
+        "occupancy": 1.0
+      },
+      "discovery_score": 0.704694409563,
+      "summary_metrics": {
+        "activity": 0.022135416667,
+        "birth_rate": 0.000868055556,
+        "budget_entropy": 0.0,
+        "budget_utilization": 1.0,
+        "cluster_coherence": 0.991513437058,
+        "death_rate": 0.001302083333,
+        "diversity": 1.0,
+        "executed_steps": 40.0,
+        "gene_variance": 0.076514720917,
+        "lineage_concentration": 0.107496463932,
+        "lineage_entropy": 0.669159886688,
+        "lineages": 113.0,
+        "mean_age": 34.397454031117,
+        "mean_charge": 1.254197239876,
+        "mutability_mean": 0.077940888703,
+        "occupancy": 0.613715277778,
+        "step": 40.0,
+        "survival_fraction": 1.0
+      },
+      "validation_scores": {
+        "holdout": 0.884027777778,
+        "long_horizon": 0.859027777778,
+        "neighborhood": 0.87763671875,
+        "perturbation": 0.866471354167
+      }
+    }
+  ],
+  "title": "ASAL-M leakage-safe certification benchmark"
+}

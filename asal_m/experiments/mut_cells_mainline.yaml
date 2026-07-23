@@ -1,0 +1,58 @@
+name: mutation_cells_mainline
+seed: 5
+substrate: mutation_cells
+search_mode: frontier
+budget: 18
+steps: 72
+frame_stride: 4
+capture_state_every: 12
+artifact_root: runs
+# Optional metadata only — ASAL-M does not require external freezes to run.
+reference:
+  baseline_name: example_guest_baseline
+  intent: example search for durable mutation-cells regimes under frontier pressure
+objective_weights:
+  mechanism_signal: 0.14
+target_metrics:
+  occupancy: 0.16
+  diversity: 0.4
+  gene_variance: 0.06
+prefilter:
+  min_steps: 16
+  min_activity: 0.01
+  min_occupancy: 0.02
+validation:
+  interval: 4
+  long_steps_multiplier: 2
+  neighbor_samples: 4
+  perturbations:
+    - kind: radiation
+      magnitude: 0.12
+    - kind: wipe_patch
+      size: 0.15
+search_space:
+  params:
+    lineage_budget_strength:
+      type: float
+      min: 0.25
+      max: 1.0
+  rule_variants:
+    budget_mode:
+      type: choice
+      values:
+        - dynamic
+        - uniform
+      weights:
+        - 0.8
+        - 0.2
+  initial_conditions:
+    initialization_strategy:
+      type: choice
+      values:
+        - opposition
+        - stratified
+        - random_uniform
+      weights:
+        - 0.45
+        - 0.45
+        - 0.1

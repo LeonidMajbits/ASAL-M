@@ -1,0 +1,35 @@
+ASAL-M
+Copyright 2026 Leonid Majbits
+
+This project acknowledges ASAL (Automating the Search for Artificial Life with
+Foundation Models), developed by Sakana AI and contributors, as related work
+and as the origin of the ASAL name used for research-context comparison.
+
+Upstream project:
+  https://github.com/SakanaAI/asal
+
+Development reference snapshot:
+  677ba0ea4d3b3ca78273c9906c6e84d2b1481ce7
+
+Upstream license:
+  Apache License, Version 2.0
+  (see the Sakana AI ASAL repository LICENSE)
+
+The public ASAL-M distribution does not ship the upstream ASAL source tree.
+
+The ASAL-M code under `asal_m/` is independent research software built around
+substrate isolation, composite scoring, multi-archive discipline, held-out
+evaluation, and hard-gated certification.
+
+Licensing of this distribution:
+  - ASAL-M distribution: Apache License, Version 2.0 (see LICENSE)
+
+Bundled rendering assets:
+  - DejaVu Sans 2.37 regular and bold TrueType fonts
+  - Copyright (c) 2003 by Bitstream, Inc.; DejaVu changes are in the public
+    domain; imported Arev glyphs are Copyright (c) 2006 by Tavmjong Bah.
+  - Distributed under the DejaVu font license in
+    examples/certification_benchmark/fonts/LICENSE-DEJAVU.txt.
+
+Third-party dependencies (NumPy, PyYAML, Pillow, etc.) remain
+under their own licenses as declared by their respective packages.

@@ -1,0 +1,2 @@
+# Alias of the default workbench requirements (kept for older docs/scripts).
+-r requirements.txt

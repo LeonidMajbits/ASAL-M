@@ -1,0 +1,58 @@
+name: mutation_cells_robust
+seed: 13
+substrate: mutation_cells
+search_mode: robustness
+budget: 18
+steps: 84
+frame_stride: 4
+capture_state_every: 14
+artifact_root: runs
+reference:
+  baseline_name: example_guest_baseline
+  intent: example search for mutation-cells regimes that survive stronger validation pressure
+objective_weights:
+  mechanism_signal: 0.16
+target_metrics:
+  occupancy: 0.12
+  diversity: 0.35
+prefilter:
+  min_steps: 20
+  min_activity: 0.008
+  min_occupancy: 0.015
+validation:
+  interval: 2
+  long_steps_multiplier: 2
+  neighbor_samples: 6
+  perturbations:
+    - kind: radiation
+      magnitude: 0.15
+    - kind: charge_drop
+      factor: 0.4
+    - kind: wipe_patch
+      size: 0.18
+search_space:
+  params:
+    lineage_budget_strength:
+      type: float
+      min: 0.35
+      max: 1.0
+  rule_variants:
+    budget_mode:
+      type: choice
+      values:
+        - dynamic
+        - uniform
+      weights:
+        - 0.85
+        - 0.15
+  initial_conditions:
+    initialization_strategy:
+      type: choice
+      values:
+        - opposition
+        - stratified
+        - random_uniform
+      weights:
+        - 0.4
+        - 0.4
+        - 0.2

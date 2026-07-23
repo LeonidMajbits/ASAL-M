@@ -1,0 +1,27 @@
+name: alpha_robust
+seed: 11
+substrate: alpha_alife
+search_mode: robustness
+budget: 18
+steps: 84
+frame_stride: 4
+capture_state_every: 14
+artifact_root: runs
+target_metrics:
+  occupancy: 0.14
+  diversity: 0.16
+prefilter:
+  min_steps: 20
+  min_activity: 0.008
+  min_occupancy: 0.015
+validation:
+  interval: 2
+  long_steps_multiplier: 2
+  neighbor_samples: 6
+  perturbations:
+    - kind: wipe_patch
+      size: 0.2
+    - kind: mortality_burst
+      rate: 0.18
+    - kind: resource_drought
+      factor: 0.45

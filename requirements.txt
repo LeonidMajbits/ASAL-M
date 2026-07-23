@@ -1,0 +1,6 @@
+# ASAL-M certification workbench core.
+# Prefer for development: pip install -e ".[dev]"
+
+numpy>=1.26
+PyYAML>=6.0
+Pillow>=10.0

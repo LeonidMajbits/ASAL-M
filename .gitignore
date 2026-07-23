@@ -1,0 +1,61 @@
+# Virtual envs / bytecode
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.pytest_cache
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Experiment outputs & heavy freezes (never commit)
+runs/
+runs_*/
+artifacts/
+ARTIFACTS/
+external_refs/
+# Public postcard: only keep intended surface files
+examples/public_demo/**
+!examples/public_demo/README.md
+!examples/public_demo/regenerate.py
+!examples/public_demo/benchmark.json
+!examples/public_demo/mutation_cells_seed42.gif
+
+# Local decorative artwork is not part of the evidence-led public surface.
+docs/assets/
+
+# Local upstream reference snapshot and dependency notes are not shipped.
+vendor/asal/
+requirements-asal.txt
+
+*.pkl
+*.pt
+*.ckpt
+*.npz
+*.h5
+*.gguf
+*.exe
+*.pdb
+
+# Secrets / machine
+.env
+.env.*
+*.pem
+secrets/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp

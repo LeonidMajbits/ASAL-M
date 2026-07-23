@@ -1,0 +1,19 @@
+include README.md
+include AUTHORS.md
+include CLAIM_BOUNDARY.md
+include CONTRIBUTING.md
+include SECURITY.md
+include LICENSE
+include NOTICE
+include .markdownlint-cli2.jsonc
+include requirements-repro.txt
+recursive-include docs *.md
+recursive-include examples *.py *.md *.json *.png *.gif *.ttf *.txt
+recursive-include tools *.py
+recursive-include tests *.py
+recursive-include asal_m/experiments *.yaml
+prune vendor
+prune runs
+prune docs/assets
+prune examples/public_demo/findings
+global-exclude __pycache__ *.py[cod] .DS_Store Thumbs.db

@@ -1,0 +1,54 @@
+# Template only — not a private lab freeze.
+# Copy this file, fill candidate fields from your own runs, then:
+#   python -m asal_m.analysis.validate_flagship asal_m/experiments/your_flagship.yaml
+kind: flagship
+name: example_flagship_template
+description: >
+  Public example of a frozen-basin validation spec. Replace candidate values
+  with your own search winners. Do not treat these numbers as published claims.
+source:
+  note: replace with your experiment summary path after a real run
+candidate:
+  substrate: mutation_cells
+  search_mode: promotion
+  seed: 1
+  params:
+    background_mortality: 0.012
+    background_mutation: 0.01
+    charge_decay: 0.07
+    charge_gain: 0.27
+    crowding_cost: 0.13
+    lineage_budget_strength: 0.9
+    lineage_split_threshold: 0.18
+    mutability_drift: 0.08
+    offspring_charge: 0.2
+    reproduction_cost: 0.1
+  rule_variants:
+    birth_max: 6
+    birth_min: 2
+    budget_mode: dynamic
+    survival_max: 6
+    survival_min: 1
+  environment:
+    grid_size: 64
+  initial_conditions:
+    base_mutability: 0.12
+    density: 0.16
+    initial_charge_max: 0.45
+    initial_charge_min: 0.15
+    initialization_strategy: stratified
+    seed_lineages: 8
+export:
+  steps: 48
+  frame_stride: 4
+  capture_state_every: 16
+  output_dir: runs/flagships/example_flagship_template
+validation:
+  steps: 48
+  long_steps_multiplier: 2
+  neighbor_samples: 3
+  perturbations:
+    - kind: radiation
+      magnitude: 0.12
+    - kind: wipe_patch
+      size: 0.15
