@@ -4,6 +4,8 @@ import zipfile
 from pathlib import Path
 
 from tools.verify_public_repository import (
+    _commit_identity_errors,
+    _github_pull_request_merge_commit,
     _scan_text,
     scan_archive,
     verify,
@@ -48,6 +50,52 @@ def test_public_scan_allows_noreply_identity_and_relative_paths() -> None:
     )
 
     assert errors == []
+
+
+def test_identity_scan_ignores_only_the_confirmed_github_pr_merge() -> None:
+    merge = "a" * 40
+    head = "b" * 40
+    noreply = "77941374+LeonidMajbits@users.noreply.github.com"
+    rows = (
+        f"{merge}\t{noreply}\t{'noreply' + '@github.com'}",
+        f"{head}\t{noreply}\t{noreply}",
+    )
+
+    assert _commit_identity_errors(rows, ignored_commit=merge) == []
+    assert any(
+        "committer email" in error
+        for error in _commit_identity_errors(rows, ignored_commit=None)
+    )
+
+
+def test_github_pr_merge_requires_event_sha_and_exactly_two_parents(
+    tmp_path: Path, monkeypatch
+) -> None:
+    merge = "a" * 40
+    base = "b" * 40
+    head = "c" * 40
+
+    def fake_run(*_args, **_kwargs):
+        return type(
+            "Completed",
+            (),
+            {
+                "returncode": 0,
+                "stdout": f"{merge} {base} {head}\n",
+            },
+        )()
+
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "pull_request")
+    monkeypatch.setenv("GITHUB_SHA", merge)
+    monkeypatch.setattr(
+        "tools.verify_public_repository.subprocess.run",
+        fake_run,
+    )
+
+    assert _github_pull_request_merge_commit(tmp_path) == merge
+
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "push")
+    assert _github_pull_request_merge_commit(tmp_path) is None
 
 
 def test_archive_scan_checks_text_and_path_names(tmp_path: Path) -> None:

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import subprocess
 import tarfile
@@ -97,6 +98,7 @@ def prospective_public_files(root: Path = ROOT) -> list[Path]:
 
 def verify_commit_identity(root: Path = ROOT) -> list[str]:
     """Require GitHub noreply commit and annotated-tag identity."""
+    ignored_commit = _github_pull_request_merge_commit(root)
     completed = subprocess.run(
         [
             "git",
@@ -110,14 +112,10 @@ def verify_commit_identity(root: Path = ROOT) -> list[str]:
         capture_output=True,
         text=True,
     )
-    errors: list[str] = []
-    for row in completed.stdout.splitlines():
-        commit, author, committer = row.split("\t")
-        for role, email in (("author", author), ("committer", committer)):
-            if not email.lower().endswith("@users.noreply.github.com"):
-                errors.append(
-                    f"history:{commit}: {role} email is not a GitHub noreply address"
-                )
+    errors = _commit_identity_errors(
+        completed.stdout.splitlines(),
+        ignored_commit=ignored_commit,
+    )
     tags = subprocess.run(
         [
             "git",
@@ -138,6 +136,57 @@ def verify_commit_identity(root: Path = ROOT) -> list[str]:
             errors.append(
                 f"history:{reference}: tagger email is not a GitHub noreply address"
             )
+    return errors
+
+
+def _github_pull_request_merge_commit(root: Path) -> str | None:
+    """Identify GitHub's ephemeral two-parent PR test merge, if present."""
+    if os.environ.get("GITHUB_EVENT_NAME") != "pull_request":
+        return None
+    sha = os.environ.get("GITHUB_SHA", "")
+    if not re.fullmatch(r"[0-9a-fA-F]{40}", sha):
+        return None
+
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(root),
+            "rev-list",
+            "--parents",
+            "-n",
+            "1",
+            sha,
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    parts = completed.stdout.split()
+    if (
+        completed.returncode == 0
+        and len(parts) == 3
+        and parts[0].lower() == sha.lower()
+    ):
+        return sha.lower()
+    return None
+
+
+def _commit_identity_errors(
+    rows: Iterable[str],
+    *,
+    ignored_commit: str | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    for row in rows:
+        commit, author, committer = row.split("\t")
+        if ignored_commit and commit.lower() == ignored_commit.lower():
+            continue
+        for role, email in (("author", author), ("committer", committer)):
+            if not email.lower().endswith("@users.noreply.github.com"):
+                errors.append(
+                    f"history:{commit}: {role} email is not a GitHub noreply address"
+                )
     return errors
 
 

@@ -12,6 +12,8 @@ All notable public changes are documented here.
   launcher in the source distribution.
 - Add prospective protocol commitments, whole-repository/archive privacy
   scanning, release checksums, citation metadata, and expanded regressions.
+- Keep real-history identity checks strict while recognizing GitHub's
+  ephemeral two-parent pull-request test merge.
 - Pin the release-branch formatter and declare a stable baseline lint policy.
 - Narrow the bundled benchmark label from `leakage-safe` to the
   provenance-supported `partition-disjoint` claim.
