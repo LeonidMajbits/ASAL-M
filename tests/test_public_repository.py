@@ -3,6 +3,8 @@ from __future__ import annotations
 import zipfile
 from pathlib import Path
 
+import yaml
+
 from tools.verify_public_repository import (
     _commit_identity_errors,
     _github_pull_request_merge_commit,
@@ -96,6 +98,21 @@ def test_github_pr_merge_requires_event_sha_and_exactly_two_parents(
 
     monkeypatch.setenv("GITHUB_EVENT_NAME", "push")
     assert _github_pull_request_merge_commit(tmp_path) is None
+
+
+def test_history_scanning_ci_jobs_fetch_complete_history() -> None:
+    workflow = yaml.safe_load(
+        Path(".github/workflows/ci.yml").read_text(encoding="utf-8")
+    )
+
+    for job_name in ("test", "package"):
+        checkout = next(
+            step
+            for step in workflow["jobs"][job_name]["steps"]
+            if str(step.get("uses", "")).startswith("actions/checkout@")
+        )
+        assert checkout["with"]["fetch-depth"] == 0
+        assert checkout["with"]["persist-credentials"] is False
 
 
 def test_archive_scan_checks_text_and_path_names(tmp_path: Path) -> None:
