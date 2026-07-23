@@ -8,6 +8,9 @@ release; it does not authorize a commit, push, tag, or package upload.
 - [ ] Version and release scope are explicit.
 - [ ] README result numbers match `examples/certification_benchmark/benchmark.json`.
 - [ ] Discovery/certification evidence is disjoint from the final audit.
+- [ ] A prospective-reservation claim is made only when
+  [PROTOCOL_REGISTRATION.md](PROTOCOL_REGISTRATION.md) was followed before
+  discovery.
 - [ ] Claims stay within [CLAIM_BOUNDARY.md](../CLAIM_BOUNDARY.md).
 - [ ] `AUTHORS.md`, `NOTICE`, and license metadata are current.
 
@@ -23,14 +26,18 @@ release; it does not authorize a commit, push, tag, or package upload.
 - [ ] The exact staged file list is reviewed before commit.
 - [ ] Author and committer metadata use the maintainer's GitHub noreply address.
 - [ ] The candidate history contains only deliberate public commits and refs.
+- [ ] The full prospective tree and every built archive pass
+  `tools/verify_public_repository.py`.
 
 ## Fast verification
 
 ```sh
 python tools/verify_public_docs.py
+python tools/verify_public_repository.py
 python tools/verify_public_evidence.py
 python -O tools/verify_public_evidence.py
 python -m ruff check asal_m tests examples tools
+python -m ruff format --check asal_m tests examples tools
 python -m pytest -q
 ```
 
@@ -61,17 +68,24 @@ python -O tools/verify_public_evidence.py
 
 ```sh
 python -m build
+python tools/build_release_assets.py
+python tools/build_release_assets.py --verify
+python tools/verify_public_repository.py --archives dist
 ```
 
 Confirm that:
 
 - the wheel contains the packaged experiment YAMLs, `LICENSE`, and `NOTICE`;
 - the source distribution contains the public docs, examples, tests, and tools;
+- the source distribution includes the PowerShell campaign launcher;
 - the source distribution contains the reproduction constraints, release fonts,
   and DejaVu license;
 - neither archive contains `vendor/`, `runs/`, secrets, or host paths;
 - the wheel imports and `python -m asal_m --help` works from a temporary
-  directory outside the checkout.
+  directory outside the checkout;
+- the installed wheel can run the default flagship validator outside the
+  checkout with small positive step overrides;
+- `SHA256SUMS` matches the exact wheel and source distribution.
 
 ## Publication
 
@@ -80,7 +94,17 @@ Confirm that:
 - [ ] Stage the approved file list deliberately; do not begin with a broad add.
 - [ ] Review the staged diff and public repository URL.
 - [ ] Inspect author and committer metadata on the exact commit to be pushed.
+- [ ] Require CI on the protected default branch before merge or release.
 - [ ] Push `main`, wait for CI to pass, then create the annotated version tag.
+- [ ] Sign the release commit and tag when maintainer signing is configured;
+  otherwise state clearly that they are unsigned.
 - [ ] Create and inspect the corresponding GitHub Release.
+- [ ] Attach the wheel, source distribution, and `SHA256SUMS` to the Release.
+- [ ] Enable private vulnerability reporting, secret scanning, push protection,
+  Dependabot security updates, read-only workflow tokens, and GitHub-owned
+  Actions.
+- [ ] Set repository description, homepage, and topics deliberately.
+- [ ] Publish to PyPI only as a separate, explicitly authorized action after
+  testing the exact distribution files.
 - [ ] Commit, push, tag, release, or publish only after explicit maintainer
   approval.

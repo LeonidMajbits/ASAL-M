@@ -1,5 +1,7 @@
 include README.md
 include AUTHORS.md
+include CHANGELOG.md
+include CITATION.cff
 include CLAIM_BOUNDARY.md
 include CONTRIBUTING.md
 include SECURITY.md
@@ -9,7 +11,7 @@ include .markdownlint-cli2.jsonc
 include requirements-repro.txt
 recursive-include docs *.md
 recursive-include examples *.py *.md *.json *.png *.gif *.ttf *.txt
-recursive-include tools *.py
+recursive-include tools *.py *.ps1
 recursive-include tests *.py
 recursive-include asal_m/experiments *.yaml
 prune vendor

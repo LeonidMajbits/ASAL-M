@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
+import pytest
 import yaml
 
 from asal_m.core.candidate import CandidateConfig
+from asal_m.core import runner as runner_module
 from asal_m.core.runner import SimulationRunner
 from asal_m.search import run_search_experiment
 from asal_m.substrates import create_substrate
@@ -109,3 +112,68 @@ def test_promotion_mode_yaml_loads_and_runs_tiny(tmp_path: Path) -> None:
     }
     summary = run_search_experiment(experiment)
     assert "counts" in summary
+
+
+def test_artifact_directories_remain_unique_at_the_same_timestamp(
+    tmp_path: Path, monkeypatch
+) -> None:
+    class FrozenDatetime(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return cls(2026, 7, 23, 18, 0, tzinfo=timezone.utc)
+
+    monkeypatch.setattr(runner_module, "datetime", FrozenDatetime)
+    candidate = CandidateConfig(
+        substrate="alpha_alife",
+        search_mode="frontier",
+        seed=1,
+    )
+    runner = SimulationRunner(tmp_path)
+
+    first = runner._create_artifact_dir(candidate)
+    second = runner._create_artifact_dir(candidate)
+
+    assert first != second
+    assert first.name.endswith("20260723T180000000000Z")
+    assert second.name.endswith("20260723T180000000000Z__001")
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("budget", 0),
+        ("budget", -1),
+        ("steps", 0),
+        ("steps", -1),
+    ],
+)
+def test_search_rejects_non_positive_work_limits(
+    tmp_path: Path, field: str, value: int
+) -> None:
+    experiment = {
+        "name": "invalid_limits",
+        "seed": 1,
+        "substrate": "alpha_alife",
+        "search_mode": "frontier",
+        "budget": 1,
+        "steps": 1,
+        "artifact_root": str(tmp_path),
+    }
+    experiment[field] = value
+    with pytest.raises(ValueError, match=rf"{field} must be a positive integer"):
+        run_search_experiment(experiment)
+
+
+def test_runner_rejects_non_positive_steps(tmp_path: Path) -> None:
+    runner = SimulationRunner(tmp_path)
+    candidate = CandidateConfig(
+        substrate="alpha_alife",
+        search_mode="frontier",
+        seed=1,
+    )
+    with pytest.raises(ValueError, match="steps must be a positive integer"):
+        runner.run_candidate(
+            create_substrate("alpha_alife"),
+            candidate,
+            steps=0,
+        )

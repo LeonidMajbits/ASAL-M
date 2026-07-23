@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 from collections import Counter
 from dataclasses import asdict, dataclass
-from datetime import datetime
 from pathlib import Path
 from typing import Any
+
+from ..public_output import public_path, to_public_data, utc_timestamp
 
 
 @dataclass(frozen=True)
@@ -40,11 +42,16 @@ def default_artifact_root(start: str | Path | None = None) -> Path:
     )
 
 
-def inspect_artifact_root(root: str | Path) -> dict[str, Any]:
+def inspect_artifact_root(
+    root: str | Path,
+    *,
+    include_machine_details: bool = False,
+    path_base: str | Path | None = None,
+) -> dict[str, Any]:
     """Generic read-only inventory of a local artifact directory tree.
 
     Does not encode private lab bundle names. Safe default is inventory only;
-    never auto-executes binaries.
+    never auto-executes binaries and omits machine/GPU details.
     """
     artifact_root = Path(root).resolve()
     if not artifact_root.exists():
@@ -63,7 +70,7 @@ def inspect_artifact_root(root: str | Path) -> dict[str, Any]:
         children.append(
             {
                 "name": child.name,
-                "path": str(child),
+                "path": public_path(child, base_dir=path_base),
                 "file_count": stats["file_count"],
                 "dir_count": stats["dir_count"],
                 "total_bytes": stats["total_bytes"],
@@ -87,10 +94,10 @@ def inspect_artifact_root(root: str | Path) -> dict[str, Any]:
         ],
     }
 
-    return {
-        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
-        "artifact_root": str(artifact_root),
-        "gpu": detect_gpu_status().to_dict(),
+    report = {
+        "generated_at": utc_timestamp(),
+        "artifact_root": public_path(artifact_root, base_dir=path_base),
+        "machine_details_included": include_machine_details,
         "summary": summary,
         "children": children,
         "notes": [
@@ -98,6 +105,9 @@ def inspect_artifact_root(root: str | Path) -> dict[str, Any]:
             "ASAL-M never auto-executes binaries found under ARTIFACTS.",
         ],
     }
+    if include_machine_details:
+        report["machine_details"] = {"gpu": detect_gpu_status().to_dict()}
+    return report
 
 
 def write_artifact_report(
@@ -109,25 +119,24 @@ def write_artifact_report(
     json_path = destination / "artifact_report.json"
     md_path = destination / "artifact_report.md"
 
-    json_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
-    md_path.write_text(render_artifact_report(report), encoding="utf-8")
+    public_report = to_public_data(report)
+    json_path.write_text(
+        json.dumps(public_report, indent=2, sort_keys=True), encoding="utf-8"
+    )
+    md_path.write_text(render_artifact_report(public_report), encoding="utf-8")
 
     return {"json": json_path, "markdown": md_path}
 
 
 def render_artifact_report(report: dict[str, Any]) -> str:
-    gpu = report.get("gpu", {})
+    machine_details = report.get("machine_details", {})
+    gpu = machine_details.get("gpu", {})
     summary = report.get("summary", {})
     lines = [
         "# Artifact inventory",
         "",
         f"Generated: `{report.get('generated_at')}`",
         f"Root: `{report.get('artifact_root')}`",
-        "",
-        "## GPU",
-        f"- Available: `{gpu.get('available')}`",
-        f"- Name: `{gpu.get('name')}`",
-        f"- Recommendation: {gpu.get('recommendation')}",
         "",
         "## Summary",
         f"- Child directories: `{summary.get('child_dir_count')}`",
@@ -137,6 +146,17 @@ def render_artifact_report(report: dict[str, Any]) -> str:
         "",
         "## Children",
     ]
+    if machine_details:
+        lines[5:5] = [
+            "## Machine details (explicitly requested)",
+            "",
+            f"- GPU available: `{gpu.get('available')}`",
+            f"- GPU name: `{gpu.get('name')}`",
+            f"- Driver: `{gpu.get('driver_version')}`",
+            f"- CUDA: `{gpu.get('cuda_version')}`",
+            f"- Recommendation: {gpu.get('recommendation')}",
+            "",
+        ]
     for child in report.get("children", []):
         lines.extend(
             [
@@ -155,10 +175,15 @@ def render_artifact_report(report: dict[str, Any]) -> str:
 
 
 def detect_gpu_status() -> GPUStatus:
+    executable = _find_nvidia_smi()
+    if executable is None:
+        return GPUStatus(
+            available=False, recommendation="nvidia-smi not found. Staying CPU-only."
+        )
     try:
         completed = subprocess.run(
             [
-                "nvidia-smi",
+                executable,
                 "--query-gpu=name,driver_version,memory.total,memory.used,utilization.gpu",
                 "--format=csv,noheader,nounits",
             ],
@@ -225,7 +250,7 @@ def detect_gpu_status() -> GPUStatus:
         available=True,
         name=name,
         driver_version=driver_version,
-        cuda_version=_detect_cuda_version(),
+        cuda_version=_detect_cuda_version(executable),
         memory_total_mib=memory_total,
         memory_used_mib=memory_used,
         utilization_gpu_pct=utilization,
@@ -234,10 +259,13 @@ def detect_gpu_status() -> GPUStatus:
     )
 
 
-def _detect_cuda_version() -> str | None:
+def _detect_cuda_version(executable: str | None = None) -> str | None:
+    resolved = executable or _find_nvidia_smi()
+    if resolved is None:
+        return None
     try:
         completed = subprocess.run(
-            ["nvidia-smi"],
+            [resolved],
             check=False,
             capture_output=True,
             text=True,
@@ -248,6 +276,26 @@ def _detect_cuda_version() -> str | None:
     for line in completed.stdout.splitlines():
         if "CUDA Version:" in line:
             return line.split("CUDA Version:")[-1].strip().split()[0]
+    return None
+
+
+def _find_nvidia_smi() -> str | None:
+    """Locate NVIDIA tooling only at known absolute installation paths."""
+    candidates = [
+        Path("/usr/bin/nvidia-smi"),
+        Path("/usr/local/nvidia/bin/nvidia-smi"),
+    ]
+    system_root = os.environ.get("SystemRoot")
+    if system_root:
+        candidates.append(Path(system_root) / "System32" / "nvidia-smi.exe")
+    program_files = os.environ.get("ProgramW6432") or os.environ.get("ProgramFiles")
+    if program_files:
+        candidates.append(
+            Path(program_files) / "NVIDIA Corporation" / "NVSMI" / "nvidia-smi.exe"
+        )
+    for candidate in candidates:
+        if candidate.is_file():
+            return str(candidate.resolve())
     return None
 
 

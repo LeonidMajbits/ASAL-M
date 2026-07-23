@@ -63,7 +63,10 @@ proposal → discovery rollout → shortlist
 The generic runner performs certification. A final audit is a separate frozen
 protocol because only the operator can guarantee that its evidence did not
 influence discovery, calibration, or selection. The bundled benchmark makes
-that separation explicit.
+the three execution partitions disjoint. Because its protocol and results were
+first published together, repository history alone does not prove prospective
+reservation. Future stronger claims can use the
+[protocol registration](docs/PROTOCOL_REGISTRATION.md) workflow.
 
 The `promotion` winner is chosen lexicographically: certification state first
 (`certified`, then `rejected`, then not evaluated), aggregate promotion score
@@ -183,15 +186,17 @@ Walkthrough: [adding a substrate](docs/ADDING_A_SUBSTRATE.md) ·
 - [Architecture](docs/ARCHITECTURE.md) — boundaries, data flow, and contracts
 - [Adding a substrate](docs/ADDING_A_SUBSTRATE.md) — implementation and test checklist
 - [Reproducibility](docs/REPRODUCIBILITY.md) — full-precision computation, canonical evidence, and release hashes
+- [Protocol registration](docs/PROTOCOL_REGISTRATION.md) — prospective commitments for stronger audit provenance
 - [Claim boundary](CLAIM_BOUNDARY.md) — what results do and do not establish
 - [Release checklist](docs/RELEASE_CHECKLIST.md) — maintainer publication gate
+- [Changelog](CHANGELOG.md) — versioned public changes
 
 ## Repository map
 
 ```text
 asal_m/                           package: runner, search, scoring, validation
 docs/                             user, configuration, architecture, extension guides
-examples/certification_benchmark/ leakage-safe comparison + real evidence
+examples/certification_benchmark/ partition-disjoint comparison + real evidence
 examples/public_demo/             fixed-seed simulation postcard
 tests/                            unit, integration, privacy, and CLI tests
 tools/                            public evidence and documentation verification
@@ -204,13 +209,14 @@ tools/                            public evidence and documentation verification
 pytest -q
 ```
 
-CI tests Python 3.10, 3.12, and 3.14, enforces coverage, builds the wheel and
-source distribution, inspects packaged licenses and experiment YAMLs, and
-  smoke-tests the installed wheel outside the source tree. A separate six-cell
-  Windows/Ubuntu matrix regenerates all four public evidence artifacts under the
-  pinned release constraints and requires exact byte identity. CI also verifies
-  local documentation links and evidence integrity under normal and optimized
-  Python.
+CI tests Python 3.10, 3.12, and 3.14 on Windows and Ubuntu, enforces 80% package
+coverage, builds the wheel and source distribution, scans the prospective
+repository and both archives, inspects packaged licenses and experiment YAMLs,
+and smoke-tests the installed wheel outside the source tree—including the
+default flagship command. A separate six-cell Windows/Ubuntu matrix regenerates
+all four public evidence artifacts under the pinned release constraints and
+requires exact byte identity. CI also verifies local documentation links and
+evidence integrity under normal and optimized Python.
 
 ## Related work and scope
 
@@ -241,7 +247,7 @@ Contributions: [CONTRIBUTING.md](CONTRIBUTING.md) · security reports:
 
 ## Status
 
-Research software, version `0.1.0`. The benchmark is fixed and reproducible
+Research software, version `0.1.1`. The benchmark is fixed and reproducible
 under the documented scientific and release-artifact contracts; additional
 substrates, external proposer adapters, and independently calibrated domain
 policies remain future work.

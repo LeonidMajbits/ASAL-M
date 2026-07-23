@@ -4,8 +4,6 @@ import argparse
 import json
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -21,6 +19,13 @@ def main() -> None:
     winners = [winner for winner in payload.get("winners", {}).values() if winner]
     if not winners:
         raise ValueError("No winners found in summary.")
+
+    try:
+        import matplotlib.pyplot as plt
+    except ModuleNotFoundError as exc:
+        raise ModuleNotFoundError(
+            "Plotting requires the analysis extra: pip install 'asal-m[analysis]'"
+        ) from exc
 
     novelty = [winner["score_components"].get("novelty", 0.0) for winner in winners]
     robustness = [

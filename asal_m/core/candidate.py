@@ -29,7 +29,7 @@ class CandidateConfig:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-    def with_updates(self, **sections: dict[str, Any]) -> "CandidateConfig":
+    def with_updates(self, **sections: Any) -> "CandidateConfig":
         payload = self.to_dict()
         for key, value in sections.items():
             if key in {

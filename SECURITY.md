@@ -25,8 +25,12 @@ reproduction steps, impact, and a minimal proof of concept.
 - ASAL-M reads and writes local experiment artifacts. Run it with normal user
   privileges and use a dedicated output directory for untrusted workloads.
 - The optional artifact inventory is read-only and never auto-executes binaries.
-- Example output verification checks for common secret and host-path leakage,
-  but it is not a substitute for reviewing a public diff.
+- Shareable reports redact absolute host roots and omit machine/GPU inventory
+  by default. Local machine details require explicit opt-in.
+- Repository verification scans the complete prospective tree, commit identity,
+  wheel, and source distribution for common secret, personal-email,
+  internal-name, and host-path leakage. It is not a substitute for reviewing
+  the exact public diff.
 
 Scientific disagreements, benchmark limitations, and claim-boundary concerns
 are important project issues but are not security vulnerabilities.

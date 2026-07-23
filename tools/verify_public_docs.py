@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_DOCS = {
     Path("README.md"),
     Path("AUTHORS.md"),
+    Path("CHANGELOG.md"),
+    Path("CITATION.cff"),
     Path("CLAIM_BOUNDARY.md"),
     Path("CONTRIBUTING.md"),
     Path("SECURITY.md"),
@@ -21,6 +23,7 @@ REQUIRED_DOCS = {
     Path("docs/ADDING_A_SUBSTRATE.md"),
     Path("docs/REPRODUCIBILITY.md"),
     Path("docs/RELEASE_CHECKLIST.md"),
+    Path("docs/PROTOCOL_REGISTRATION.md"),
     Path("examples/certification_benchmark/README.md"),
     Path("examples/public_demo/README.md"),
 }
@@ -132,6 +135,7 @@ def verify() -> tuple[int, int]:
     for required_link in (
         "docs/USER_GUIDE.md",
         "docs/EXPERIMENTS.md",
+        "docs/PROTOCOL_REGISTRATION.md",
         "CONTRIBUTING.md",
         "SECURITY.md",
     ):

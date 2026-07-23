@@ -25,8 +25,13 @@ this repository.
 Certification is not automatically a final audit. Certification evidence may
 participate in candidate selection. A final audit must be reserved from
 discovery, policy calibration, certification, and selection until the candidate
-and policy are frozen. The bundled benchmark demonstrates that stronger
-separation; generic searches leave audit ownership to the operator.
+and policy are frozen. The bundled benchmark's program and output demonstrate
+disjoint discovery, certification, and audit partitions under one fixed
+protocol. They were first published together, so public repository provenance
+does not independently prove that a human prospectively reserved the audit.
+Generic searches leave audit ownership to the operator. Use
+[protocol registration](docs/PROTOCOL_REGISTRATION.md) when a future claim
+requires a timestamped pre-discovery commitment and later reveal.
 
 ## Table and tools vs blueprint
 
@@ -44,6 +49,7 @@ You may say ASAL-M:
 - provides YAML-driven experiments and analysis utilities
 - can surface regimes that survive a **stated** validation suite on the metrics of that suite
 - distinguishes ranked scores from explicit pass/reject certification decisions
+- ships a fixed benchmark whose program keeps discovery, certification, and audit inputs disjoint
 
 ## Forbidden or misleading claims
 
@@ -53,6 +59,8 @@ Do **not** present this repository as:
 - a digital species or legal/biological life system
 - quantum advantage
 - a universal optimizer that “beats everything” without scoped tasks, seeds, budgets, and metrics
+- proof of prospective audit reservation unless an earlier public commitment,
+  candidate/policy freeze, and exact reveal are available
 - a dump of private third-party commercial packaging or unrelated monorepo systems
 
 If you publish numbers, always include substrate, experiment identity, seeds/budget, validation definition, and what was not tested.
@@ -74,7 +82,12 @@ on downstream certification, and does not ship the upstream source tree. See
 ## How to talk about results
 
 **Good:** “Under policy *P*, candidate *X* passed every declared gate and then
-scored *Y* on audit seeds that were not used for discovery or certification.”
+scored *Y* on a partition-disjoint audit that did not feed the program's
+discovery or certification stages.”
+
+**Stronger, only with registration:** “The audit protocol was prospectively
+committed at reference *R* and remained reserved until the candidate and policy
+freeze at reference *F*.”
 
 **Bad:** “ASAL-M discovered life.” / “This proves digital organisms.”
 

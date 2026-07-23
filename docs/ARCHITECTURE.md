@@ -20,7 +20,10 @@
 Certification is part of the workbench. The final audit is a separate protocol
 boundary: a generic search cannot guarantee evidence is untouched because only
 the operator knows what influenced candidate selection and policy calibration.
-The bundled benchmark demonstrates a leakage-safe audit explicitly.
+The bundled benchmark program demonstrates partition-disjoint discovery,
+certification, and audit stages. Its one-publication provenance does not prove
+prospective human reservation; use
+[PROTOCOL_REGISTRATION.md](PROTOCOL_REGISTRATION.md) for that stronger claim.
 
 ### `asal_m/core`
 
@@ -103,10 +106,12 @@ a named hard policy and emits stable failure codes.
 
 ### Artifact contract
 
-`experiment_summary.json` is the experiment-level interchange surface. Paths
-written into public JSON are normalized to repository-relative POSIX form where
-possible; outside-tree paths are reduced to a leaf name to avoid leaking host
-roots.
+`experiment_summary.json` is the experiment-level interchange surface. One
+shared public-output boundary covers JSON, Markdown, and resolved YAML written
+by runner and analysis commands. Paths are normalized to repository-relative
+POSIX form where possible; outside-tree paths are reduced to a leaf name.
+Timestamps are UTC. Artifact inventories omit GPU and machine detail unless the
+operator explicitly opts in.
 
 ## Modes
 
@@ -130,7 +135,7 @@ score alone.
 3. **Archives are plural** — one elite list is not enough.
 4. **Validation is adversarial** — interesting is cheap; durable is expensive.
 5. **Missing is not failed** — incomplete evidence is reported as `not_evaluated`.
-6. **Audit stays untouched** — final evidence cannot participate in candidate or policy selection.
+6. **Audit stays untouched** — final evidence cannot participate in candidate or policy selection; a prospective claim also needs an earlier public commitment.
 7. **No private path requirements** — public runs must work without host-specific freezes.
 8. **Table vs blueprint** — ASAL-M is the workbench; users bring guest substrates and freezes.
 

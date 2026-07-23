@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asal-m"
-version = "0.1.0"
+version = "0.1.1"
 description = "Held-out certification and stress testing for discovered simulation regimes"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -32,16 +32,18 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/LeonidMajbits/asal-m"
-Documentation = "https://github.com/LeonidMajbits/asal-m/blob/main/docs/USER_GUIDE.md"
-Issues = "https://github.com/LeonidMajbits/asal-m/issues"
+Homepage = "https://github.com/LeonidMajbits/ASAL-M"
+Repository = "https://github.com/LeonidMajbits/ASAL-M"
+Documentation = "https://github.com/LeonidMajbits/ASAL-M/blob/main/docs/USER_GUIDE.md"
+Issues = "https://github.com/LeonidMajbits/ASAL-M/issues"
+Changelog = "https://github.com/LeonidMajbits/ASAL-M/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
   "build>=1.2",
   "coverage>=7.6",
   "pytest>=8.0",
-  "ruff>=0.8",
+  "ruff==0.16.0",
 ]
 analysis = ["matplotlib>=3.8"]
 
@@ -57,3 +59,6 @@ include = ["asal_m*"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]

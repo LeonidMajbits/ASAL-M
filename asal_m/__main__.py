@@ -9,6 +9,7 @@ import yaml
 
 from .search import run_search_experiment
 from .substrates import list_substrates
+from .core.limits import positive_int_argument
 
 
 def main() -> None:
@@ -20,10 +21,16 @@ def main() -> None:
         help="Experiment YAML path or packaged starter name (for example: alpha_mainline).",
     )
     parser.add_argument(
-        "--budget", type=int, default=None, help="Optional override for search budget."
+        "--budget",
+        type=positive_int_argument,
+        default=None,
+        help="Optional positive override for search budget.",
     )
     parser.add_argument(
-        "--steps", type=int, default=None, help="Optional override for rollout steps."
+        "--steps",
+        type=positive_int_argument,
+        default=None,
+        help="Optional positive override for rollout steps.",
     )
     args = parser.parse_args()
 

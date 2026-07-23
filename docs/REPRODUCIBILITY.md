@@ -56,7 +56,7 @@ standards-compliant PNG.
 
 ## Certified release environment
 
-For exact byte reproduction of the v0.1.0 public evidence, install the pinned
+For exact byte reproduction of the v0.1.1 public evidence, install the pinned
 direct dependencies:
 
 ```sh
@@ -80,7 +80,7 @@ The expected SHA-256 digests are:
 
 | Artifact | SHA-256 |
 |---|---|
-| `examples/certification_benchmark/benchmark.json` | `a61ab2f98569f60ea27b0f4074fe06f2886fb3e23eca07a69228a52f02739c29` |
+| `examples/certification_benchmark/benchmark.json` | `c9f4c6a19e254140ffd7ec3edc8cc93a351b03ecbf801d6b59aaecd56a126e26` |
 | `examples/certification_benchmark/certification-comparison.png` | `d9ace3de92e11a5381dbb06aae489048f525f67445c1ac80052b0affe1490434` |
 | `examples/public_demo/benchmark.json` | `02fc23842d28cf28875f0fcde93fd447e7b1afe4a3cd2abcb4ceddd2dc6cd53c` |
 | `examples/public_demo/mutation_cells_seed42.gif` | `439588b196430cf2b8622def124010fbdb2449efa840db0bb61d97a2fd876e3b` |
@@ -92,7 +92,7 @@ disable them.
 
 ## Boundary
 
-The exact-byte guarantee applies to the documented v0.1.0 release constraints
+The exact-byte guarantee applies to the documented v0.1.1 release constraints
 and CI matrix. Arbitrary future dependency releases, Python implementations,
 CPU architectures, or locally modified rendering assets are outside that
 contract until tested.

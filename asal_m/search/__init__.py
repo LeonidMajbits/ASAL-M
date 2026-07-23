@@ -10,6 +10,7 @@ import yaml
 
 from ..archive import EliteArchive, NoveltyArchive, RobustnessArchive
 from ..core import CandidateConfig, ScoredCandidate, SimulationRunner
+from ..core.limits import require_positive_int
 from ..core.runner import _to_serializable
 from ..scoring import (
     compute_behavior_embedding,
@@ -40,6 +41,8 @@ def create_search_mode(name: str):
 
 
 def run_search_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
+    budget = require_positive_int(experiment.get("budget", 24), "budget")
+    steps = require_positive_int(experiment.get("steps", 96), "steps")
     artifact_root = Path(experiment.get("artifact_root", "runs")) / experiment.get(
         "name",
         f"{experiment['substrate']}_{experiment['search_mode']}",
@@ -61,7 +64,6 @@ def run_search_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
     )
 
     records: list[ScoredCandidate] = []
-    steps = int(experiment.get("steps", 96))
     frame_stride = int(experiment.get("frame_stride", 4))
     capture_state_every = int(experiment.get("capture_state_every", 16))
     validation_cfg = experiment.get("validation", {})
@@ -95,7 +97,7 @@ def run_search_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
         if scored is not None:
             bootstrap_evaluated += 1
 
-    for iteration in range(int(experiment.get("budget", 24))):
+    for iteration in range(budget):
         candidate = _propose_candidate(
             rng=rng,
             iteration=iteration,

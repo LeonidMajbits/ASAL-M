@@ -4,6 +4,8 @@ import argparse
 import json
 from pathlib import Path
 
+from ..public_output import to_public_data
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -23,7 +25,7 @@ def main() -> None:
         Path(args.output) if args.output else summary_path.with_name("winners.json")
     )
     output_path.write_text(
-        json.dumps(winners, indent=2, sort_keys=True), encoding="utf-8"
+        json.dumps(to_public_data(winners), indent=2, sort_keys=True), encoding="utf-8"
     )
     print(output_path)
 

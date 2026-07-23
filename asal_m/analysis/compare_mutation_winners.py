@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from ..public_output import to_public_data
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -44,20 +46,23 @@ def main() -> None:
         "flagship": ranked[0] if ranked else None,
         "ranked_winners": ranked,
     }
+    public_payload = to_public_data(payload)
 
     json_path = output_dir / "mutation_winner_comparison.json"
     md_path = output_dir / "mutation_winner_comparison.md"
     json_path.write_text(
-        json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8"
+        json.dumps(public_payload, indent=2, sort_keys=True), encoding="utf-8"
     )
-    md_path.write_text(_render_markdown(payload), encoding="utf-8")
+    md_path.write_text(_render_markdown(public_payload), encoding="utf-8")
 
     print(f"comparison_json={json_path}")
     print(f"comparison_md={md_path}")
     if ranked:
+        public_flagship = public_payload["ranked_winners"][0]
         print(
-            f"flagship_artifact={ranked[0]['artifact_dir']} "
-            f"mode={ranked[0]['search_mode']} flagship_score={ranked[0]['flagship_score']:.3f}"
+            f"flagship_artifact={public_flagship['artifact_dir']} "
+            f"mode={public_flagship['search_mode']} "
+            f"flagship_score={public_flagship['flagship_score']:.3f}"
         )
 
 

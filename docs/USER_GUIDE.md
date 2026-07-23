@@ -214,6 +214,12 @@ Without explicit paths, the comparison command looks for those three default
 locations. Generated comparison files go to `runs/mutation_cells_analysis/`
 unless `--output-dir` overrides it.
 
+Shareable JSON, Markdown, and resolved YAML pass through one public-output
+boundary. Paths inside the working tree become POSIX-style relative paths;
+outside-tree paths retain only their leaf name. Persisted timestamps are UTC.
+This is a safety default, not permission to publish output without reviewing
+it.
+
 ## 7. Freeze and revalidate a candidate
 
 Copy `asal_m/experiments/flagship_template_example.yaml`, replace the candidate
@@ -224,10 +230,19 @@ Then run:
 python -m asal_m.analysis.validate_flagship asal_m/experiments/your_flagship.yaml
 ```
 
+Running the command without a positional path uses the packaged example, so it
+also works from outside a source checkout:
+
+```sh
+python -m asal_m.analysis.validate_flagship
+```
+
 This writes a replay, resolved YAML, JSON report, and Markdown report. It is an
 out-of-loop revalidation tool, not proof that the evidence is an untouched
 final audit. To make that claim, freeze the candidate and policy first, then
-evaluate a separately reserved seed/evidence partition exactly once.
+evaluate a separately reserved seed/evidence partition exactly once. Use
+[PROTOCOL_REGISTRATION.md](PROTOCOL_REGISTRATION.md) when the claim also needs
+public evidence that reservation was prospective.
 
 ## 8. Run standalone substrates
 
@@ -244,7 +259,7 @@ checking rendering and substrate behavior; they do not certify a regime.
 
 ## 9. Reproduce the checked-in evidence
 
-Install the exact direct dependencies used for the v0.1.0 release artifacts:
+Install the exact direct dependencies used for the v0.1.1 release artifacts:
 
 ```sh
 python -m pip install -c requirements-repro.txt -e .
@@ -275,6 +290,7 @@ Verify the checked-in evidence and documentation without regenerating it:
 python tools/verify_public_evidence.py
 python -O tools/verify_public_evidence.py
 python tools/verify_public_docs.py
+python tools/verify_public_repository.py
 ```
 
 See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for the exact hashes, rounding
@@ -290,11 +306,40 @@ tree:
 python -m asal_m.analysis.inspect_artifacts --root path/to/ARTIFACTS
 ```
 
-It reports file counts, extensions, executable presence, and available NVIDIA
-GPU status. It never executes binaries found in the artifact tree. This tool is
-not needed for normal ASAL-M runs.
+It reports file counts, extensions, and executable presence. It never executes
+binaries found in the artifact tree. Absolute roots and machine/GPU information
+are omitted by default. Local GPU model, driver, CUDA, memory, and utilization
+can be recorded only by explicit opt-in:
 
-## 11. Add a substrate
+```sh
+python -m asal_m.analysis.inspect_artifacts \
+  --root path/to/ARTIFACTS \
+  --include-machine-details
+```
+
+This tool is not needed for normal ASAL-M runs.
+
+## 11. Launch a local parallel campaign on Windows
+
+The source distribution includes a PowerShell helper for launching several
+experiment YAMLs:
+
+```powershell
+.\tools\launch_parallel_campaign.ps1 `
+  -CampaignName comparison-01 `
+  -Experiments @(
+    "asal_m\experiments\alpha_mainline.yaml",
+    "asal_m\experiments\mut_cells_promotion.yaml"
+  )
+```
+
+It writes a resume-oriented manifest and log pointers under
+`runs/campaigns/<name>/`. Persisted paths are repository-relative by default.
+`-IncludeLocalPaths` explicitly opts into absolute local paths. The helper does
+not resume, terminate, or interpret a run; completion still means an
+`experiment_summary.json` exists for that experiment.
+
+## 12. Add a substrate
 
 The built-in runner currently uses an explicit in-package registry. A custom
 substrate therefore needs:
@@ -307,7 +352,7 @@ substrate therefore needs:
 
 Follow [ADDING_A_SUBSTRATE.md](ADDING_A_SUBSTRATE.md) for the complete process.
 
-## 12. Troubleshooting
+## 13. Troubleshooting
 
 ### `Experiment not found`
 
@@ -317,7 +362,7 @@ from the current working directory.
 ### `Unknown substrate`
 
 The YAML `substrate` must match an entry in
-`asal_m/substrates/__init__.py`. Registration is explicit in version 0.1.0.
+`asal_m/substrates/__init__.py`. Registration is explicit in version 0.1.1.
 
 ### The evaluated count is below the budget
 
@@ -350,7 +395,7 @@ Every attempted proposal saves frames and final state before prefiltering.
 Archive or remove old ignored `runs/` directories deliberately; do not commit
 them by accident.
 
-## 13. Safe result reporting
+## 14. Safe result reporting
 
 When publishing a result, include:
 

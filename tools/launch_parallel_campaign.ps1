@@ -3,11 +3,20 @@ param(
     [string]$CampaignName,
 
     [Parameter(Mandatory = $true)]
-    [string[]]$Experiments
+    [string[]]$Experiments,
+
+    [switch]$IncludeLocalPaths,
+
+    [ValidateRange(0, 300)]
+    [int]$StartupProbeSeconds = 8
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
+if ($CampaignName -notmatch '^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$') {
+    throw "CampaignName must be 1-64 characters using letters, numbers, dot, underscore, or hyphen."
+}
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $pythonExe = Join-Path $repoRoot ".venv\Scripts\python.exe"
@@ -24,6 +33,33 @@ if (-not (Test-Path $pythonExe)) {
     throw "Python executable not found. Create .venv or ensure python is on PATH."
 }
 
+function ConvertTo-PublicPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PathValue
+    )
+
+    $fullPath = [IO.Path]::GetFullPath($PathValue)
+    if ($IncludeLocalPaths) {
+        return $fullPath
+    }
+
+    $basePath = [IO.Path]::GetFullPath($repoRoot).TrimEnd("\", "/")
+    $prefix = $basePath + [IO.Path]::DirectorySeparatorChar
+    if ($fullPath.StartsWith($prefix, [StringComparison]::OrdinalIgnoreCase)) {
+        return $fullPath.Substring($prefix.Length).Replace("\", "/")
+    }
+    if ($fullPath.Equals($basePath, [StringComparison]::OrdinalIgnoreCase)) {
+        return "."
+    }
+
+    $leaf = [IO.Path]::GetFileName($fullPath.TrimEnd("\", "/"))
+    if ([string]::IsNullOrWhiteSpace($leaf)) {
+        return "external_path"
+    }
+    return $leaf
+}
+
 $campaignRoot = Join-Path $repoRoot ("runs\campaigns\" + $CampaignName)
 $logsRoot = Join-Path $campaignRoot "logs"
 New-Item -ItemType Directory -Force -Path $campaignRoot | Out-Null
@@ -34,9 +70,9 @@ function Get-ExperimentMeta {
         [string]$SpecPath
     )
 
-    $resolved = Resolve-Path $SpecPath
+    $resolved = Resolve-Path -LiteralPath $SpecPath
     if (Get-Command ConvertFrom-Yaml -ErrorAction SilentlyContinue) {
-        $raw = Get-Content -Path $resolved -Raw
+        $raw = Get-Content -LiteralPath $resolved -Raw
         $data = $raw | ConvertFrom-Yaml
         return [pscustomobject]@{
             SpecPath = $resolved.Path
@@ -54,20 +90,26 @@ function Get-ExperimentMeta {
     }
 }
 
-$startedAt = Get-Date
+$startedAt = [DateTimeOffset]::UtcNow
 $manifest = [ordered]@{
     campaign_name = $CampaignName
-    repo_root = $repoRoot
-    launched_at = $startedAt.ToString("o")
+    repo_root = ConvertTo-PublicPath -PathValue $repoRoot
+    launched_at = $startedAt.ToString("yyyy-MM-ddTHH:mm:ssZ")
+    local_paths_included = [bool]$IncludeLocalPaths
     experiments = @()
 }
+$runtimeEntries = @()
 
 foreach ($experiment in $Experiments) {
     $meta = Get-ExperimentMeta -SpecPath $experiment
     $slug = [IO.Path]::GetFileNameWithoutExtension($meta.SpecPath)
     $stdoutPath = Join-Path $logsRoot ($slug + ".stdout.log")
     $stderrPath = Join-Path $logsRoot ($slug + ".stderr.log")
-    $runDir = Join-Path $repoRoot (Join-Path $meta.ArtifactRoot $meta.Name)
+    $artifactRoot = $meta.ArtifactRoot
+    if (-not [IO.Path]::IsPathRooted($artifactRoot)) {
+        $artifactRoot = Join-Path $repoRoot $artifactRoot
+    }
+    $runDir = Join-Path $artifactRoot $meta.Name
     $arguments = @(
         "-m",
         "asal_m",
@@ -81,31 +123,51 @@ foreach ($experiment in $Experiments) {
         -WorkingDirectory $repoRoot `
         -RedirectStandardOutput $stdoutPath `
         -RedirectStandardError $stderrPath `
+        -WindowStyle Hidden `
         -PassThru
 
-    $manifest.experiments += [ordered]@{
-        spec_path = $meta.SpecPath
+    $publicArguments = @(
+        "-m",
+        "asal_m",
+        "--experiment",
+        (ConvertTo-PublicPath -PathValue $meta.SpecPath)
+    )
+    $publicEntry = [ordered]@{
+        spec_path = ConvertTo-PublicPath -PathValue $meta.SpecPath
         experiment_name = $meta.Name
-        run_dir = $runDir
-        stdout_log = $stdoutPath
-        stderr_log = $stderrPath
-        command = @($pythonExe) + $arguments
+        run_dir = ConvertTo-PublicPath -PathValue $runDir
+        stdout_log = ConvertTo-PublicPath -PathValue $stdoutPath
+        stderr_log = ConvertTo-PublicPath -PathValue $stderrPath
+        command = @((ConvertTo-PublicPath -PathValue $pythonExe)) + $publicArguments
         pid = $process.Id
-        launched_at = (Get-Date).ToString("o")
+        launched_at = [DateTimeOffset]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ")
+    }
+    $manifest.experiments += $publicEntry
+    $runtimeEntries += [pscustomobject]@{
+        ProcessId = $process.Id
+        RunDir = $runDir
+        ManifestEntry = $publicEntry
     }
 }
 
-Start-Sleep -Seconds 8
+if ($StartupProbeSeconds -gt 0) {
+    Start-Sleep -Seconds $StartupProbeSeconds
+}
 
-foreach ($entry in $manifest.experiments) {
-    $process = Get-Process -Id $entry.pid -ErrorAction SilentlyContinue
+foreach ($runtime in $runtimeEntries) {
+    $entry = $runtime.ManifestEntry
+    $process = Get-Process -Id $runtime.ProcessId -ErrorAction SilentlyContinue
     $entry["startup_running"] = [bool]$process
-    $entry["run_dir_exists"] = Test-Path $entry.run_dir
-    if (Test-Path $entry.run_dir) {
-        $recentFiles = Get-ChildItem -Path $entry.run_dir -Recurse -File -ErrorAction SilentlyContinue |
+    $entry["run_dir_exists"] = Test-Path -LiteralPath $runtime.RunDir
+    if (Test-Path -LiteralPath $runtime.RunDir) {
+        $recentFiles = Get-ChildItem -LiteralPath $runtime.RunDir -Recurse -File -ErrorAction SilentlyContinue |
             Sort-Object LastWriteTime -Descending |
-            Select-Object -First 5 -ExpandProperty FullName
-        $entry["recent_files"] = @($recentFiles)
+            Select-Object -First 5
+        $entry["recent_files"] = @(
+            $recentFiles | ForEach-Object {
+                ConvertTo-PublicPath -PathValue $_.FullName
+            }
+        )
     } else {
         $entry["recent_files"] = @()
     }
@@ -119,8 +181,9 @@ $lines = @(
     "# $CampaignName",
     "",
     "- Launched at: ``$($manifest.launched_at)``",
-    "- Repo root: ``$repoRoot``",
-    "- Manifest: ``$manifestPath``",
+    "- Repo root: ``$($manifest.repo_root)``",
+    "- Manifest: ``$(ConvertTo-PublicPath -PathValue $manifestPath)``",
+    "- Local paths included: ``$($manifest.local_paths_included)``",
     "",
     "## Resume Rule",
     "",

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -14,6 +14,12 @@ except ModuleNotFoundError:  # pragma: no cover - depends on local env
 
 from .candidate import CandidateConfig, RunArtifacts
 from .interfaces import SubstrateProtocol
+from .limits import require_positive_int
+from ..public_output import (
+    public_path,
+    sanitize_public_string,
+    to_public_data,
+)
 
 
 class SimulationRunner:
@@ -29,6 +35,7 @@ class SimulationRunner:
         capture_state_every: int = 16,
         save_artifacts: bool = True,
     ) -> RunArtifacts:
+        steps = require_positive_int(steps, "steps")
         substrate.reset(candidate.to_substrate_config(), candidate.seed)
 
         frames: list[np.ndarray] = []
@@ -91,11 +98,22 @@ class SimulationRunner:
         )
 
     def _create_artifact_dir(self, candidate: CandidateConfig) -> Path:
-        timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
-        dirname = f"{candidate.substrate}__{candidate.search_mode}__seed{candidate.seed}__{timestamp}"
-        artifact_dir = self.artifact_root / dirname
-        artifact_dir.mkdir(parents=True, exist_ok=False)
-        return artifact_dir
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        stem = (
+            f"{candidate.substrate}__{candidate.search_mode}__"
+            f"seed{candidate.seed}__{timestamp}"
+        )
+        for collision_index in range(1000):
+            suffix = "" if collision_index == 0 else f"__{collision_index:03d}"
+            artifact_dir = self.artifact_root / f"{stem}{suffix}"
+            try:
+                artifact_dir.mkdir(parents=True, exist_ok=False)
+            except FileExistsError:
+                continue
+            return artifact_dir
+        raise FileExistsError(
+            f"Could not allocate a unique artifact directory under {self.artifact_root}"
+        )
 
     def _write_gif(self, path: Path, frames: list[np.ndarray]) -> Path | None:
         if not frames or Image is None:
@@ -133,51 +151,15 @@ def _coerce_metrics(metrics: dict[str, Any]) -> dict[str, float]:
 
 
 def _to_serializable(payload: Any) -> Any:
-    if isinstance(payload, Path):
-        return _public_path_string(payload)
-    if isinstance(payload, dict):
-        return {str(key): _to_serializable(value) for key, value in payload.items()}
-    if isinstance(payload, (list, tuple)):
-        return [_to_serializable(value) for value in payload]
-    if isinstance(payload, np.ndarray):
-        return payload.tolist()
-    if isinstance(payload, (np.floating, np.integer)):
-        return payload.item()
-    if isinstance(payload, (date, datetime)):
-        return payload.isoformat()
-    if isinstance(payload, str):
-        return _maybe_relativize_path_string(payload)
-    return payload
+    """Compatibility wrapper for the v0.1.0 internal helper."""
+    return to_public_data(payload)
 
 
 def _public_path_string(path: Path) -> str:
-    """Prefer repo-relative POSIX paths in written JSON (no host absolute roots)."""
-    resolved = path
-    try:
-        resolved = path.resolve()
-    except OSError:
-        resolved = path
-    cwd = Path.cwd()
-    try:
-        return resolved.relative_to(cwd).as_posix()
-    except ValueError:
-        pass
-    # Outside the working tree, retain only the leaf name. Persisted public JSON
-    # must never disclose drive roots, UNC shares, or Unix home/temp prefixes.
-    normalized = str(path).replace("\\", "/").rstrip("/")
-    return normalized.rsplit("/", 1)[-1] or "external_path"
+    """Compatibility wrapper for the v0.1.0 internal helper."""
+    return public_path(path)
 
 
 def _maybe_relativize_path_string(value: str) -> str:
-    if not value:
-        return value
-    # Windows drive, UNC, rooted Windows, or POSIX absolute paths embedded as strings.
-    looks_absolute = value.startswith(("/", "\\")) or (
-        len(value) >= 3 and value[1] == ":" and value[2] in {"/", "\\"}
-    )
-    if not looks_absolute:
-        return value.replace("\\", "/")
-    try:
-        return _public_path_string(Path(value))
-    except OSError:
-        return Path(value).name
+    """Compatibility wrapper for the v0.1.0 internal helper."""
+    return sanitize_public_string(value)

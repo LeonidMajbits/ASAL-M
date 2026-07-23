@@ -1,4 +1,4 @@
-# Leakage-safe certification benchmark
+# Partition-disjoint certification benchmark
 
 This benchmark asks a narrow question:
 
@@ -20,6 +20,12 @@ The final audit score is:
 An audit trial passes at `0.75`. Selection holdout seeds are derived from each
 candidate and are disjoint from the 12 fixed audit seeds. Audit perturbations
 are stronger than the selection suite and never enter candidate choice.
+
+The code and output establish that these inputs are disjoint within the fixed
+program. Because the protocol and results were first published together, they
+do not independently prove prospective human reservation. See
+[protocol registration](../../docs/PROTOCOL_REGISTRATION.md) for the stronger
+future provenance workflow.
 
 Regenerate from the repository root:
 

@@ -37,7 +37,7 @@ representation is canonicalized to 12 decimal places. See the
 
 This postcard demonstrates one simulation and its certification record. The
 separate [certification benchmark](../certification_benchmark/README.md) contains
-the leakage-safe selection comparison used for the main project claim.
+the partition-disjoint selection comparison used for the main project claim.
 
 The current fixed postcard is honestly **rejected** by the default policy: it
 survives replay, long horizon, perturbations, and held-out seeds, but does not

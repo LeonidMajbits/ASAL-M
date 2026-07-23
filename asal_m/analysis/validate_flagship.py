@@ -2,20 +2,22 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import datetime
+from importlib.resources import files
 from pathlib import Path
 from typing import Any
 
 import yaml
 
 from ..core import CandidateConfig, SimulationRunner
-from ..core.runner import _to_serializable
+from ..core.limits import positive_int_argument, require_positive_int
+from ..public_output import to_public_data, utc_timestamp
 from ..scoring import compute_mechanism_score
 from ..substrates import create_substrate, get_search_space
 from ..validation import validate_candidate
 from ..validation.holdout_eval import compute_trajectory_quality_score
 
-DEFAULT_SPEC = "asal_m/experiments/flagship_template_example.yaml"
+DEFAULT_SPEC_NAME = "flagship_template_example.yaml"
+DEFAULT_SPEC_LABEL = f"packaged:{DEFAULT_SPEC_NAME}"
 
 
 def main() -> None:
@@ -25,8 +27,8 @@ def main() -> None:
     parser.add_argument(
         "spec",
         nargs="?",
-        default=DEFAULT_SPEC,
-        help=f"Path to a flagship YAML spec. Defaults to {DEFAULT_SPEC}.",
+        default=None,
+        help=f"Path to a flagship YAML spec. Defaults to {DEFAULT_SPEC_LABEL}.",
     )
     parser.add_argument(
         "--output-dir",
@@ -36,20 +38,20 @@ def main() -> None:
     )
     parser.add_argument(
         "--export-steps",
-        type=int,
+        type=positive_int_argument,
         default=None,
         help="Optional override for the saved replay rollout length.",
     )
     parser.add_argument(
         "--validation-steps",
-        type=int,
+        type=positive_int_argument,
         default=None,
         help="Optional override for the validation base rollout length.",
     )
     args = parser.parse_args()
 
     payload, paths = generate_flagship_report(
-        Path(args.spec),
+        Path(args.spec) if args.spec else None,
         output_dir=Path(args.output_dir) if args.output_dir else None,
         export_steps=args.export_steps,
         validation_steps=args.validation_steps,
@@ -66,12 +68,12 @@ def main() -> None:
 
 
 def generate_flagship_report(
-    spec_path: Path,
+    spec_path: Path | None = None,
     output_dir: Path | None = None,
     export_steps: int | None = None,
     validation_steps: int | None = None,
 ) -> tuple[dict[str, Any], dict[str, Path]]:
-    spec = _load_yaml(spec_path)
+    spec, spec_label = _load_spec(spec_path)
     candidate = CandidateConfig(**spec["candidate"])
 
     export_cfg = dict(spec.get("export", {}))
@@ -79,14 +81,20 @@ def generate_flagship_report(
     resolved_output_dir = Path(
         output_dir or export_cfg.get("output_dir") or f"runs/flagships/{spec['name']}"
     )
-    resolved_output_dir.mkdir(parents=True, exist_ok=True)
 
-    resolved_export_steps = int(export_steps or export_cfg.get("steps", 192))
+    resolved_export_steps = require_positive_int(
+        export_steps if export_steps is not None else export_cfg.get("steps", 192),
+        "export_steps",
+    )
     export_frame_stride = int(export_cfg.get("frame_stride", 4))
     export_capture_state_every = int(export_cfg.get("capture_state_every", 16))
-    resolved_validation_steps = int(
-        validation_steps or validation_cfg.pop("steps", 128)
+    resolved_validation_steps = require_positive_int(
+        validation_steps
+        if validation_steps is not None
+        else validation_cfg.pop("steps", 128),
+        "validation_steps",
     )
+    resolved_output_dir.mkdir(parents=True, exist_ok=True)
     validation_frame_stride = int(
         validation_cfg.pop("frame_stride", export_frame_stride)
     )
@@ -115,7 +123,7 @@ def generate_flagship_report(
         search_space=search_space,
     )
 
-    generated_at = _timestamp_now()
+    generated_at = utc_timestamp()
     export_trajectory_quality = compute_trajectory_quality_score(replay_run)
     export_holdout = float(validation.holdout_score)
     export_mechanism_signal = compute_mechanism_score(replay_run)
@@ -123,7 +131,7 @@ def generate_flagship_report(
 
     payload = {
         "generated_at": generated_at,
-        "spec_path": str(spec_path),
+        "spec_path": spec_label,
         "flagship": {
             "name": spec["name"],
             "description": spec.get("description", ""),
@@ -131,11 +139,9 @@ def generate_flagship_report(
         },
         "source": source_payload,
         "export": {
-            "artifact_dir": str(replay_run.artifact_dir)
-            if replay_run.artifact_dir
-            else None,
-            "video_path": str(replay_run.video_path) if replay_run.video_path else None,
-            "trace_path": str(replay_run.trace_path) if replay_run.trace_path else None,
+            "artifact_dir": replay_run.artifact_dir,
+            "video_path": replay_run.video_path,
+            "trace_path": replay_run.trace_path,
             "executed_steps": replay_run.executed_steps,
             "summary_metrics": replay_run.summary_metrics,
             "trajectory_quality_score": export_trajectory_quality,
@@ -161,14 +167,18 @@ def generate_flagship_report(
     json_path = resolved_output_dir / "flagship_validation_report.json"
     md_path = resolved_output_dir / "flagship_validation_report.md"
 
-    spec_copy_path.write_text(yaml.safe_dump(spec, sort_keys=False), encoding="utf-8")
+    public_spec = to_public_data(spec)
+    public_payload = to_public_data(payload, base_dir=resolved_output_dir)
+    spec_copy_path.write_text(
+        yaml.safe_dump(public_spec, sort_keys=False), encoding="utf-8"
+    )
     json_path.write_text(
-        json.dumps(_to_serializable(payload), indent=2, sort_keys=True),
+        json.dumps(public_payload, indent=2, sort_keys=True),
         encoding="utf-8",
     )
-    md_path.write_text(_render_markdown(payload), encoding="utf-8")
+    md_path.write_text(_render_markdown(public_payload), encoding="utf-8")
 
-    return payload, {
+    return public_payload, {
         "output_dir": resolved_output_dir,
         "spec_copy": spec_copy_path,
         "json": json_path,
@@ -176,12 +186,22 @@ def generate_flagship_report(
     }
 
 
-def _load_yaml(path: Path) -> dict[str, Any]:
-    with path.open("r", encoding="utf-8") as handle:
-        payload = yaml.safe_load(handle)
+def _load_spec(path: Path | None) -> tuple[dict[str, Any], str]:
+    if path is None:
+        resource = files("asal_m.experiments").joinpath(DEFAULT_SPEC_NAME)
+        if not resource.is_file():
+            raise FileNotFoundError(
+                f"Packaged flagship spec is missing: {DEFAULT_SPEC_NAME}"
+            )
+        text = resource.read_text(encoding="utf-8")
+        label = DEFAULT_SPEC_LABEL
+    else:
+        text = path.read_text(encoding="utf-8")
+        label = str(path)
+    payload = yaml.safe_load(text)
     if not isinstance(payload, dict):
-        raise ValueError(f"Flagship spec did not parse as a mapping: {path}")
-    return payload
+        raise ValueError(f"Flagship spec did not parse as a mapping: {label}")
+    return payload, label
 
 
 def _resolve_search_space(spec: dict[str, Any], substrate: str) -> dict[str, Any]:
@@ -314,10 +334,6 @@ def _render_markdown(payload: dict[str, Any]) -> str:
     for note in assessment.get("notes", []):
         lines.append(f"- {note}")
     return "\n".join(lines).strip() + "\n"
-
-
-def _timestamp_now() -> str:
-    return datetime.now().astimezone().isoformat(timespec="seconds")
 
 
 if __name__ == "__main__":

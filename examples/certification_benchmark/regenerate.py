@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate the leakage-safe ASAL-M certification benchmark.
+"""Regenerate the partition-disjoint ASAL-M certification benchmark.
 
 The benchmark deliberately separates three evidence partitions:
 
@@ -477,7 +477,7 @@ def regenerate() -> dict[str, Any]:
         absolute_gain = certified_audit["mean_score"] - raw_audit["mean_score"]
 
         payload = {
-            "title": "ASAL-M leakage-safe certification benchmark",
+            "title": "ASAL-M partition-disjoint certification benchmark",
             "schema_version": 1,
             "claim": (
                 "On this fixed candidate pool, hard-gated certification selected a regime "

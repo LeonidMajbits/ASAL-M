@@ -4139,5 +4139,5 @@
       }
     }
   ],
-  "title": "ASAL-M leakage-safe certification benchmark"
+  "title": "ASAL-M partition-disjoint certification benchmark"
 }

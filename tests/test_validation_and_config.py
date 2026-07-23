@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any, get_type_hints
+
 import pytest
 
 from asal_m.core.candidate import CandidateConfig
@@ -72,3 +74,16 @@ def test_validation_composition_has_holdout_details() -> None:
     assert all(item["seed"] == 9 for item in report.details["perturbations"])
     assert report.certification["status"] in {"certified", "rejected"}
     assert "checks" in report.certification
+
+
+def test_candidate_with_updates_accepts_scalar_and_mapping_sections() -> None:
+    candidate = _alpha_candidate()
+    updated = candidate.with_updates(
+        seed=77,
+        metadata={"source": "test"},
+    )
+    hints = get_type_hints(CandidateConfig.with_updates)
+
+    assert updated.seed == 77
+    assert updated.metadata == {"source": "test"}
+    assert hints["sections"] is Any

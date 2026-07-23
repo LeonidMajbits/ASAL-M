@@ -26,17 +26,32 @@ def main() -> None:
         default="runs/artifact_inspection",
         help="Directory for the generated report files.",
     )
+    parser.add_argument(
+        "--include-machine-details",
+        action="store_true",
+        help=(
+            "Opt in to recording local GPU model, driver, CUDA, memory, and "
+            "utilization details. Omitted from reports by default."
+        ),
+    )
     args = parser.parse_args()
 
     artifact_root = Path(args.root) if args.root else default_artifact_root()
-    report = inspect_artifact_root(artifact_root)
+    report = inspect_artifact_root(
+        artifact_root,
+        include_machine_details=args.include_machine_details,
+    )
     outputs = write_artifact_report(report, args.output_dir)
 
     print(f"artifact_root={report['artifact_root']}")
     print(f"artifact_report_json={outputs['json']}")
     print(f"artifact_report_md={outputs['markdown']}")
-    print(f"gpu_safe_for_heavy_jobs={report['gpu']['safe_for_heavy_jobs']}")
-    print(f"gpu_recommendation={report['gpu']['recommendation']}")
+    if args.include_machine_details:
+        gpu = report["machine_details"]["gpu"]
+        print(f"gpu_safe_for_heavy_jobs={gpu['safe_for_heavy_jobs']}")
+        print(f"gpu_recommendation={gpu['recommendation']}")
+    else:
+        print("machine_details=omitted")
     for child in report.get("children", []):
         print(
             f"{child['name']}: files={child['file_count']} "

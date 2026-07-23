@@ -329,7 +329,9 @@ python -m asal_m.analysis.validate_flagship asal_m/experiments/your_flagship.yam
 
 Template values are not published scientific claims. Revalidation is not an
 untouched final audit unless its evidence was reserved before candidate and
-policy selection.
+policy selection. A stronger prospective-reservation claim also needs the
+timestamped commitment and reveal procedure in
+[PROTOCOL_REGISTRATION.md](PROTOCOL_REGISTRATION.md).
 
 ## Hygiene
 
@@ -339,3 +341,5 @@ policy selection.
   freezes.
 - Publish the resolved experiment mapping, candidate seed, policy, and evidence
   partition with every numeric claim.
+- Treat zero or negative `budget` and `steps` values as configuration errors;
+  CLI and programmatic entry points reject them.

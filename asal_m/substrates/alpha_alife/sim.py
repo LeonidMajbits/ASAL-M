@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 
 from ...core import CandidateConfig, SimulationRunner
+from ...core.limits import positive_int_argument
 from .metrics import compute_metrics
 from .perturb import apply_alpha_perturbation
 from .render import render_alpha_frame
@@ -174,7 +175,7 @@ def _merge_config(
 
 def _main() -> None:
     parser = argparse.ArgumentParser(description="Run Alpha ALife standalone.")
-    parser.add_argument("--steps", type=int, default=96)
+    parser.add_argument("--steps", type=positive_int_argument, default=96)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--output", type=str, default="runs/alpha_alife_demo")
     args = parser.parse_args()

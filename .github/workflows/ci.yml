@@ -14,12 +14,13 @@ concurrency:
 
 jobs:
   test:
-    name: Test / Python ${{ matrix.python-version }}
-    runs-on: ubuntu-latest
+    name: Test / ${{ matrix.os }} / Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest, windows-latest]
         python-version: ["3.10", "3.12", "3.14"]
     steps:
       - name: Check out repository
@@ -61,13 +62,15 @@ jobs:
       - name: Run tests
         run: |
           coverage run --source=asal_m -m pytest -q
-          coverage report --fail-under=65
+          coverage report --fail-under=80
       - name: Verify checked-in public evidence
         run: |
           python tools/verify_public_evidence.py
           python -O tools/verify_public_evidence.py
       - name: Verify public documentation
         run: python tools/verify_public_docs.py
+      - name: Verify prospective public repository and history
+        run: python tools/verify_public_repository.py
 
   reproducibility:
     name: Reproduce / ${{ matrix.os }} / Python ${{ matrix.python-version }}
@@ -123,6 +126,10 @@ jobs:
         run: |
           python -m pip install -U pip build
           python -m build
+          python tools/build_release_assets.py
+          python tools/build_release_assets.py --verify
+      - name: Scan built archives for public-data leaks
+        run: python tools/verify_public_repository.py --archives dist
       - name: Inspect wheel contents
         run: |
           python - <<'PY'
@@ -161,14 +168,19 @@ jobs:
               "docs/USER_GUIDE.md",
               "docs/REPRODUCIBILITY.md",
               "docs/EXPERIMENTS.md",
+              "docs/PROTOCOL_REGISTRATION.md",
               "CONTRIBUTING.md",
               "SECURITY.md",
+              "CHANGELOG.md",
+              "CITATION.cff",
               "requirements-repro.txt",
               "examples/certification_benchmark/benchmark.json",
               "examples/certification_benchmark/fonts/DejaVuSans.ttf",
               "examples/certification_benchmark/fonts/DejaVuSans-Bold.ttf",
               "examples/certification_benchmark/fonts/LICENSE-DEJAVU.txt",
               "tools/verify_public_docs.py",
+              "tools/verify_public_repository.py",
+              "tools/launch_parallel_campaign.ps1",
           )
           require(
               all(any(name.endswith(item) for name in source_names) for item in required),
@@ -193,3 +205,7 @@ jobs:
               raise SystemExit("installed wheel cannot load the bundled alpha experiment")
           PY
           python -m asal_m --help
+          python -m asal_m.analysis.validate_flagship \
+            --output-dir flagship-smoke \
+            --export-steps 1 \
+            --validation-steps 1

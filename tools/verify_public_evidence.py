@@ -39,7 +39,7 @@ FONT_SHA256 = {
 }
 ARTIFACT_SHA256 = {
     "certification-benchmark.json": (
-        "a61ab2f98569f60ea27b0f4074fe06f2886fb3e23eca07a69228a52f02739c29"
+        "c9f4c6a19e254140ffd7ec3edc8cc93a351b03ecbf801d6b59aaecd56a126e26"
     ),
     "certification-comparison.png": (
         "d9ace3de92e11a5381dbb06aae489048f525f67445c1ac80052b0affe1490434"

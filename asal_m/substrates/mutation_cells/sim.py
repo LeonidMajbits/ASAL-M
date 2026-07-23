@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 
 from ...core import CandidateConfig, SimulationRunner
+from ...core.limits import positive_int_argument
 from .metrics import compute_metrics
 from .perturb import apply_mutation_cells_perturbation
 from .render import render_mutation_cells_frame
@@ -290,7 +291,7 @@ def _sample_mutability_values(
 
 def _main() -> None:
     parser = argparse.ArgumentParser(description="Run Mutation Cells standalone.")
-    parser.add_argument("--steps", type=int, default=96)
+    parser.add_argument("--steps", type=positive_int_argument, default=96)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--output", type=str, default="runs/mutation_cells_demo")
     args = parser.parse_args()
