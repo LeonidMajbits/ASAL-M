@@ -130,8 +130,10 @@ software is vulnerability-free or scientifically correct.
 After v0.1.2 publication:
 
 - the active `main` ruleset blocks deletion and force pushes;
-- updates require a pull request, successful package gate, linear history, and
-  GitHub-verified commit signatures;
+- updates require a successful package gate on the exact SHA, linear history,
+  and GitHub-verified commit signatures;
+- the release workflow reviews that exact SHA in a pull request before a
+  signature-preserving fast-forward;
 - version tags are protected from deletion and movement;
 - future Releases are immutable;
 - private vulnerability reporting is enabled; and
