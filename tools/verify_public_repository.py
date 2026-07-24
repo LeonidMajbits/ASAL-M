@@ -582,9 +582,16 @@ def _archive_relative_path(name: str) -> str:
 
 
 def _scan_path(relative: str) -> list[str]:
-    normalized = PurePosixPath(relative).as_posix().lstrip("./")
-    parts = {part.lower() for part in PurePosixPath(normalized).parts}
+    normalized = PurePosixPath(relative.replace("\\", "/")).as_posix()
+    while normalized.startswith("./"):
+        normalized = normalized[2:]
+    path = PurePosixPath(normalized)
+    parts = {part.lower() for part in path.parts}
     errors: list[str] = []
+    if path.is_absolute() or re.match(r"^[A-Za-z]:/", normalized):
+        errors.append(f"{normalized}: absolute public path is forbidden")
+    if ".." in path.parts:
+        errors.append(f"{normalized}: parent traversal is forbidden")
     if parts & FORBIDDEN_PATH_PARTS:
         errors.append(f"{normalized}: forbidden public path component")
     if any(
@@ -641,26 +648,75 @@ def _decode_text(data: bytes) -> str | None:
                 return data.decode(encoding)
             except UnicodeDecodeError:
                 return None
-    try:
-        return data.decode("utf-8")
-    except UnicodeDecodeError:
-        pass
 
-    if len(data) >= 4:
-        pairs = len(data) // 2
-        even_nulls = data[0::2].count(0) / pairs
-        odd_nulls = data[1::2].count(0) / pairs
-        encoding = None
-        if odd_nulls >= 0.3 and even_nulls <= 0.05:
-            encoding = "utf-16-le"
-        elif even_nulls >= 0.3 and odd_nulls <= 0.05:
-            encoding = "utf-16-be"
-        if encoding is not None:
-            try:
-                return data.decode(encoding)
-            except UnicodeDecodeError:
-                pass
+    wide_text = _decode_bomless_wide_text(data)
+    if wide_text is not None:
+        return wide_text
+
+    try:
+        decoded = data.decode("utf-8")
+    except UnicodeDecodeError:
+        return None
+    if decoded and not _looks_like_text(decoded):
+        return None
+    return decoded
+
+
+def _decode_bomless_wide_text(data: bytes) -> str | None:
+    """Decode conservative BOM-less UTF-16/32 text before permissive UTF-8.
+
+    ASCII-heavy wide text is also valid UTF-8 with embedded NUL bytes. Detect
+    its byte-lane shape first, require a lossless round trip, and reject
+    decoded control-heavy data so ordinary binary payloads stay binary.
+    """
+    if b"\0" not in data or len(data) < 4:
+        return None
+
+    candidates: list[tuple[str, int, int, tuple[int, ...]]] = []
+    if len(data) % 4 == 0 and len(data) >= 8:
+        candidates.extend(
+            (
+                ("utf-32-le", 4, 0, (1, 2, 3)),
+                ("utf-32-be", 4, 3, (0, 1, 2)),
+            )
+        )
+    if len(data) % 2 == 0:
+        candidates.extend(
+            (
+                ("utf-16-le", 2, 0, (1,)),
+                ("utf-16-be", 2, 1, (0,)),
+            )
+        )
+
+    for encoding, width, text_lane, null_lanes in candidates:
+        lanes = [data[index::width] for index in range(width)]
+        if not lanes[text_lane]:
+            continue
+        text_null_fraction = lanes[text_lane].count(0) / len(lanes[text_lane])
+        padding_null_fractions = [
+            lanes[index].count(0) / len(lanes[index]) for index in null_lanes
+        ]
+        if text_null_fraction > 0.1 or any(
+            fraction < 0.8 for fraction in padding_null_fractions
+        ):
+            continue
+        try:
+            decoded = data.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+        if decoded.encode(encoding) != data or not _looks_like_text(decoded):
+            continue
+        return decoded
     return None
+
+
+def _looks_like_text(value: str) -> bool:
+    if not value or "\0" in value:
+        return False
+    readable = sum(
+        character.isprintable() or character in "\r\n\t" for character in value
+    )
+    return readable / len(value) >= 0.9
 
 
 def verify(

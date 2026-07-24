@@ -259,6 +259,39 @@ def test_public_data_redacts_conjunctions_and_quoted_directories_in_paths() -> N
     assert "Research and Development" not in rendered
 
 
+def test_public_data_redacts_unquoted_spaced_and_extensionless_paths() -> None:
+    windows_directory = (
+        "C:" + "\\Users\\Jane Doe\\Private Lab"  # public-scan: host-pattern
+    )
+    windows_extensionless = (
+        windows_directory + "\\candidate"  # public-scan: host-pattern
+    )
+    posix_directory = "/home/Jane Doe/Private Lab"  # public-scan: host-pattern
+    posix_extensionless = (
+        posix_directory + "/candidate"  # public-scan: host-pattern
+    )
+
+    cleaned = to_public_data(
+        {
+            "windows_directory": f"loaded from {windows_directory} and continued",
+            "windows_extensionless": (f"input={windows_extensionless} then validated"),
+            "posix_directory": f"loaded from {posix_directory} and continued",
+            "posix_extensionless": f"input={posix_extensionless} then validated",
+        }
+    )
+
+    assert cleaned == {
+        "windows_directory": "loaded from Private Lab and continued",
+        "windows_extensionless": "input=candidate then validated",
+        "posix_directory": "loaded from Private Lab and continued",
+        "posix_extensionless": "input=candidate then validated",
+    }
+    rendered = json.dumps(cleaned)
+    assert "Jane Doe" not in rendered
+    assert "Users" not in rendered
+    assert "/home/" not in rendered  # public-scan: host-pattern
+
+
 def test_public_data_rejects_mapping_key_collision_after_sanitization() -> None:
     with pytest.raises(
         ValueError,

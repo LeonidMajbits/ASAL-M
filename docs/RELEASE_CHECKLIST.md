@@ -41,6 +41,7 @@ python tools/verify_public_evidence.py
 python -O tools/verify_public_evidence.py
 python -m ruff check asal_m tests examples tools
 python -m ruff format --check asal_m tests examples tools
+python -m mypy asal_m tools
 python -m pytest -q
 ```
 
@@ -91,6 +92,9 @@ Confirm that:
   checkout with small positive step overrides;
 - the SPDX 2.3 SBOM binds the exact wheel digest and resolved runtime
   dependencies;
+- ASAL-M's completeness verifier accepts the exact expected package and
+  relationship graph, and the pinned official SPDX validator accepts the
+  document;
 - `SHA256SUMS` matches the exact wheel, source distribution, SBOM, public
   signing key, and allowed-signers policy.
 

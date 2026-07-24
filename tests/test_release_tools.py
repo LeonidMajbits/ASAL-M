@@ -107,14 +107,105 @@ def test_spdx_sbom_is_deterministic_and_binds_wheel(tmp_path: Path) -> None:
     )
 
     assert json.dumps(first, sort_keys=True) == json.dumps(second, sort_keys=True)
-    assert verify_spdx(first, wheel) == []
+    dependencies = {"PyYAML": "6.0.3", "numpy": "2.4.1"}
+    assert (
+        verify_spdx(
+            first,
+            wheel,
+            package_name="asal-m",
+            package_version="0.1.2",
+            dependency_versions=dependencies,
+        )
+        == []
+    )
     assert first["spdxVersion"] == "SPDX-2.3"
     assert len(first["packages"]) == 3
 
     wheel.write_bytes(b"tampered")
-    assert verify_spdx(first, wheel) == [
-        "SBOM subject checksum does not match the wheel"
-    ]
+    assert verify_spdx(
+        first,
+        wheel,
+        package_name="asal-m",
+        package_version="0.1.2",
+        dependency_versions=dependencies,
+    ) == ["SBOM subject checksum does not match the wheel"]
+
+
+def test_spdx_verifier_rejects_removed_dependencies_and_relationships(
+    tmp_path: Path,
+) -> None:
+    wheel = tmp_path / "asal_m-0.1.2-py3-none-any.whl"
+    wheel.write_bytes(b"wheel")
+    payload = render_spdx(
+        package_name="asal-m",
+        package_version="0.1.2",
+        dependency_versions={
+            "numpy": "2.5.1",
+            "Pillow": "12.3.0",
+            "PyYAML": "6.0.3",
+        },
+        subject=wheel,
+        source_date_epoch=1_753_300_000,
+    )
+    payload["packages"] = payload["packages"][:1]
+    payload["relationships"] = []
+
+    errors = verify_spdx(
+        payload,
+        wheel,
+        package_name="asal-m",
+        package_version="0.1.2",
+        dependency_versions={
+            "numpy": "2.5.1",
+            "Pillow": "12.3.0",
+            "PyYAML": "6.0.3",
+        },
+    )
+
+    assert any("missing dependency package" in error for error in errors)
+    assert any("missing DESCRIBES relationship" in error for error in errors)
+    assert any("missing DEPENDS_ON relationship" in error for error in errors)
+
+
+def test_spdx_verifier_rejects_dependency_and_graph_tampering(
+    tmp_path: Path,
+) -> None:
+    wheel = tmp_path / "asal_m-0.1.2-py3-none-any.whl"
+    wheel.write_bytes(b"wheel")
+    dependencies = {"numpy": "2.5.1", "Pillow": "12.3.0", "PyYAML": "6.0.3"}
+    payload = render_spdx(
+        package_name="asal-m",
+        package_version="0.1.2",
+        dependency_versions=dependencies,
+        subject=wheel,
+        source_date_epoch=1_753_300_000,
+    )
+    numpy_package = next(
+        package for package in payload["packages"] if package["name"] == "numpy"
+    )
+    numpy_package["versionInfo"] = "0.0.0"
+    numpy_package["externalRefs"][0]["referenceLocator"] = "pkg:pypi/numpy@0.0.0"
+    payload["relationships"].append(dict(payload["relationships"][0]))
+    payload["relationships"].append(
+        {
+            "spdxElementId": "SPDXRef-DOCUMENT",
+            "relationshipType": "DESCRIBES",
+            "relatedSpdxElement": "SPDXRef-UNKNOWN",
+        }
+    )
+
+    errors = verify_spdx(
+        payload,
+        wheel,
+        package_name="asal-m",
+        package_version="0.1.2",
+        dependency_versions=dependencies,
+    )
+
+    assert any("dependency version does not match" in error for error in errors)
+    assert any("dependency purl does not match" in error for error in errors)
+    assert any("duplicate relationship" in error for error in errors)
+    assert any("unknown target" in error for error in errors)
 
 
 def test_release_public_key_and_allowed_signers_match() -> None:
@@ -141,7 +232,7 @@ def test_release_metadata_versions_align() -> None:
 
     assert match is not None
     version = match.group(1)
-    assert version == "0.1.2"
+    assert version == "0.1.3"
     assert citation["version"] == version
     assert f"version `{version}`" in readme
     assert f"## {version}" in changelog

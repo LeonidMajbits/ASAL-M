@@ -35,8 +35,8 @@ def mutate_sections(
             spec_type = spec.get("type")
             current = sections[section][key]
             if spec_type == "int":
-                span = max(1, int(spec["max"]) - int(spec["min"]))
-                delta = max(1, span // 6)
+                int_span = max(1, int(spec["max"]) - int(spec["min"]))
+                delta = max(1, int_span // 6)
                 sections[section][key] = int(
                     np.clip(
                         int(current) + int(rng.integers(-delta, delta + 1)),
@@ -45,10 +45,10 @@ def mutate_sections(
                     )
                 )
             elif spec_type == "float":
-                span = float(spec["max"]) - float(spec["min"])
+                float_span = float(spec["max"]) - float(spec["min"])
                 sections[section][key] = float(
                     np.clip(
-                        float(current) + rng.normal(0.0, span * 0.08),
+                        float(current) + rng.normal(0.0, float_span * 0.08),
                         float(spec["min"]),
                         float(spec["max"]),
                     )

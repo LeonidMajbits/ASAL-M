@@ -14,7 +14,7 @@ from .perturb import apply_mutation_cells_perturbation
 from .render import render_mutation_cells_frame
 from .rules import step_mutation_cells
 
-MUTATION_CELLS_DEFAULT_CONFIG = {
+MUTATION_CELLS_DEFAULT_CONFIG: dict[str, dict[str, Any]] = {
     "params": {
         "charge_gain": 0.22,
         "charge_decay": 0.09,
@@ -91,7 +91,7 @@ class MutationCellsSubstrate:
     name = "mutation_cells"
 
     def __init__(self) -> None:
-        self.config = deepcopy(MUTATION_CELLS_DEFAULT_CONFIG)
+        self.config: dict[str, Any] = deepcopy(MUTATION_CELLS_DEFAULT_CONFIG)
         self.rng = np.random.default_rng(0)
         self.state: dict[str, Any] = {}
 

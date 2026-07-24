@@ -71,24 +71,24 @@ def _mutate_candidate(
                 continue
             spec_type = spec.get("type")
             if spec_type == "int":
-                span = max(1, int(spec["max"]) - int(spec["min"]))
-                delta = max(1, span // 8)
-                value = int(
+                int_span = max(1, int(spec["max"]) - int(spec["min"]))
+                delta = max(1, int_span // 8)
+                int_value = int(
                     np.clip(
                         int(current) + rng.integers(-delta, delta + 1),
                         int(spec["min"]),
                         int(spec["max"]),
                     )
                 )
-                sections[section][key] = value
+                sections[section][key] = int_value
             elif spec_type == "float":
-                span = float(spec["max"]) - float(spec["min"])
-                value = float(
+                float_span = float(spec["max"]) - float(spec["min"])
+                float_value = float(
                     np.clip(
-                        float(current) + rng.normal(0.0, span * 0.08),
+                        float(current) + rng.normal(0.0, float_span * 0.08),
                         float(spec["min"]),
                         float(spec["max"]),
                     )
                 )
-                sections[section][key] = value
+                sections[section][key] = float_value
     return candidate.with_updates(**sections)

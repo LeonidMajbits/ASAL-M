@@ -2,6 +2,25 @@
 
 All notable public changes are documented here.
 
+## 0.1.3
+
+- Preserve root dotfile names during path normalization so forbidden files such
+  as `.env` and `.git/config` cannot bypass prospective or archive scans.
+- Detect BOM-less UTF-16 and UTF-32 text conservatively before permissive
+  UTF-8 decoding, while keeping control-heavy binary payloads out of the text
+  scanner.
+- Sanitize unquoted, space-containing directory and extensionless host paths
+  without truncating valid path components that contain conjunctions.
+- Require the exact installed subject, every direct dependency package, its
+  version and purl, and the complete expected relationship graph when locally
+  verifying an SPDX SBOM.
+- Validate release SBOMs independently with the pinned official SPDX tools in
+  addition to ASAL-M's release-specific completeness checks.
+- Resolve the existing static-analysis findings and make zero-error mypy
+  analysis a required CI dependency of the protected `Package` gate.
+- Baseline the one exact historical synthetic fixture fingerprint so standard
+  Gitleaks remains strict while reporting no known false positive.
+
 ## 0.1.2
 
 - Read prospective tracked content from exact staged Git blobs and additionally

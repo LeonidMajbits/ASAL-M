@@ -10,7 +10,7 @@ import numpy as np
 try:
     from PIL import Image
 except ModuleNotFoundError:  # pragma: no cover - depends on local env
-    Image = None
+    Image = None  # type: ignore[assignment]
 
 from .candidate import CandidateConfig, RunArtifacts
 from .interfaces import SubstrateProtocol
@@ -146,7 +146,7 @@ def _coerce_metrics(metrics: dict[str, Any]) -> dict[str, float]:
         if isinstance(value, (bool, np.bool_)):
             coerced[key] = float(value)
         elif np.isscalar(value):
-            coerced[key] = float(value)
+            coerced[key] = float(np.asarray(value).item())
     return coerced
 
 

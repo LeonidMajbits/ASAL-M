@@ -14,7 +14,7 @@ from .perturb import apply_alpha_perturbation
 from .render import render_alpha_frame
 from .rules import step_alpha
 
-ALPHA_ALIFE_DEFAULT_CONFIG = {
+ALPHA_ALIFE_DEFAULT_CONFIG: dict[str, dict[str, Any]] = {
     "params": {
         "mutation_rate": 0.12,
         "harvest_rate": 0.08,
@@ -83,7 +83,7 @@ class AlphaALifeSubstrate:
     name = "alpha_alife"
 
     def __init__(self) -> None:
-        self.config = deepcopy(ALPHA_ALIFE_DEFAULT_CONFIG)
+        self.config: dict[str, Any] = deepcopy(ALPHA_ALIFE_DEFAULT_CONFIG)
         self.rng = np.random.default_rng(0)
         self.state: dict[str, Any] = {}
 

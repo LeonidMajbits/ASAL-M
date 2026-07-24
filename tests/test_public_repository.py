@@ -14,6 +14,7 @@ from tools.verify_public_repository import (
     _contains_internal_marker,
     _decode_text,
     _github_pull_request_merge_commit,
+    _scan_path,
     _scan_text,
     scan_archive,
     scan_release_file,
@@ -211,10 +212,26 @@ def test_release_workflow_attests_sbom_and_uses_pinned_actions() -> None:
     )
     assert "-c requirements-repro.txt" in sbom_step["run"]
     assert 'RELEASE_VENV="$RUNNER_TEMP/asal-m-release-venv"' in sbom_step["run"]
+    assert 'SPDX_VENV="$RUNNER_TEMP/spdx-validator-venv"' in sbom_step["run"]
+    assert "spdx-tools==0.8.5" in sbom_step["run"]
+    assert '"$SPDX_VENV/bin/pyspdxtools" --infile "$SBOM_PATH"' in sbom_step["run"]
     assert "python -m venv .release-venv" not in sbom_step["run"]
     assert sbom_step["id"] == "release_assets"
     assert "sbom_path=%s" in sbom_step["run"]
     assert "GITHUB_OUTPUT" in sbom_step["run"]
+
+
+def test_gitleaks_baseline_is_one_exact_historical_fixture() -> None:
+    entries = [
+        line
+        for line in Path(".gitleaksignore").read_text(encoding="utf-8").splitlines()
+        if line and not line.startswith("#")
+    ]
+
+    assert entries == [
+        "e1279df342606e47ee32e4395984b1af6836d3be:"
+        "tests/test_public_repository.py:generic-api-key:27"
+    ]
 
 
 def test_archive_scan_checks_text_and_path_names(tmp_path: Path) -> None:
@@ -234,6 +251,26 @@ def test_archive_scan_checks_text_and_path_names(tmp_path: Path) -> None:
     errors, _ = scan_archive(unsafe_archive)
     assert any("forbidden public path component" in error for error in errors)
     assert any("absolute host path" in error for error in errors)
+
+
+@pytest.mark.parametrize(
+    "path",
+    [".env", "./.env", r".\.env", "nested/.env", r"nested\.env", ".git/config"],
+)
+def test_public_scan_rejects_forbidden_root_dotfiles(path: str) -> None:
+    assert any("forbidden public path component" in error for error in _scan_path(path))
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "../safe.txt",
+        "/absolute/safe.txt",
+        "C:" + r"\private\safe.txt",
+    ],
+)
+def test_public_scan_rejects_traversal_and_absolute_archive_paths(path: str) -> None:
+    assert _scan_path(path)
 
 
 def _git(root: Path, *args: str) -> None:
@@ -274,6 +311,16 @@ def test_prospective_scan_reads_staged_blob_not_clean_worktree(
     probe.write_text("safe worktree\n", encoding="utf-8")
 
     with pytest.raises(AssertionError, match="secret-like content"):
+        verify(root=root)
+
+
+def test_prospective_scan_rejects_staged_root_dotfile(tmp_path: Path) -> None:
+    root = _audit_repository(tmp_path)
+    probe = root / ".env"
+    probe.write_text("SAFE_FIXTURE=true\n", encoding="utf-8")
+    _git(root, "add", "--force", ".env")
+
+    with pytest.raises(AssertionError, match="forbidden public path component"):
         verify(root=root)
 
 
@@ -338,6 +385,34 @@ def test_utf16_payload_is_decoded_and_scanned(tmp_path: Path) -> None:
 
     assert text_count == 1
     assert any("secret-like content" in error for error in errors)
+
+
+@pytest.mark.parametrize(
+    "encoding",
+    ["utf-16-le", "utf-16-be", "utf-32-le", "utf-32-be"],
+)
+def test_bomless_wide_text_payload_is_decoded_and_scanned(
+    tmp_path: Path,
+    encoding: str,
+) -> None:
+    text = f"token='{_secret('I')}'"
+    encoded = text.encode(encoding)
+
+    assert _decode_text(encoded) == text
+
+    archive_path = tmp_path / f"{encoding}.whl"
+    with zipfile.ZipFile(archive_path, "w") as archive:
+        archive.writestr("asal_m/probe.txt", encoded)
+    errors, text_count = scan_archive(archive_path)
+
+    assert text_count == 1
+    assert any("secret-like content" in error for error in errors)
+
+
+def test_wide_text_detection_does_not_decode_control_heavy_binary() -> None:
+    binary = b"\x01\x00\x02\x00\x03\x00\x04\x00\x05\x00\x06\x00"
+
+    assert _decode_text(binary) is None
 
 
 def test_plain_release_metadata_is_scanned(tmp_path: Path) -> None:

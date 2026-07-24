@@ -1,6 +1,6 @@
 # Release integrity
 
-ASAL-M v0.1.2 makes the release boundary independently inspectable. This
+ASAL-M v0.1.3 makes the release boundary independently inspectable. This
 document distinguishes repository policy, cryptographic identity, build
 provenance, artifact contents, and GitHub's release controls.
 
@@ -19,11 +19,12 @@ provenance, artifact contents, and GitHub's release controls.
 3. Every annotated-tag message and tagger identity is scanned.
 4. Every text payload and path in the wheel and source distribution is scanned.
 
-The decoder recognizes UTF-8 with or without a byte-order mark, UTF-16
-little-endian and big-endian text, and UTF-32 byte-order marks. High-confidence
-provider-token shapes, private-key blocks, assigned secret values, personal
-email addresses, host paths, forbidden public paths, and digest-identified
-workspace labels are rejected.
+The decoder recognizes UTF-8 with or without a byte-order mark, BOM-marked
+UTF-16/UTF-32, and conservatively identified BOM-less UTF-16/UTF-32 in both
+byte orders. Root dotfiles retain their leading dot during path checks.
+High-confidence provider-token shapes, private-key blocks, assigned secret
+values, personal email addresses, host paths, forbidden public paths, and
+digest-identified workspace labels are rejected.
 
 The scanner is a release gate, not a claim that regular expressions can prove
 the absence of every possible secret. Human diff, manifest, archive, and
@@ -52,13 +53,14 @@ enabled. They are preserved by maintainer policy and protected tag rules, but
 GitHub cannot retroactively grant them an immutable release attestation.
 
 v0.1.2 is the first ASAL-M Release published after repository-level immutable
-releases were enabled. Its tag and assets become locked when the prepared draft
-is published, and GitHub generates a release attestation binding the tag,
-commit, and assets.
+releases were enabled. v0.1.3 follows the same protected publication path.
+Each tag and its assets become locked when the prepared draft is published,
+and GitHub generates a release attestation binding that tag, commit, and
+assets.
 
 ## Signed identity
 
-The v0.1.2 commit, annotated tag, and `SHA256SUMS` use the dedicated public key
+The v0.1.3 commit, annotated tag, and `SHA256SUMS` use the dedicated public key
 in [`keys/asal-m-release-signing.pub`](keys/asal-m-release-signing.pub). The
 private key is not stored in this repository or in a GitHub Actions secret.
 Its OpenSSH SHA-256 fingerprint is
@@ -68,8 +70,8 @@ Configure Git's allowed signers and verify the commit and tag:
 
 ```sh
 git config gpg.ssh.allowedSignersFile docs/keys/allowed_signers
-git verify-commit v0.1.2^{}
-git verify-tag v0.1.2
+git verify-commit v0.1.3^{}
+git verify-tag v0.1.3
 ```
 
 Verify the detached checksum signature:
@@ -99,6 +101,9 @@ The tag-triggered `release-artifacts` workflow:
   dependency constraints;
 - generates a deterministic SPDX 2.3 JSON SBOM for the wheel and its resolved
   runtime dependencies;
+- requires the exact subject package, direct dependency set, versions, purls,
+  and relationship graph with ASAL-M's completeness verifier;
+- independently validates the document using pinned official SPDX tools;
 - generates `SHA256SUMS`;
 - includes the public signing key and allowed-signers policy in that checksum
   manifest for offline verification;
@@ -110,15 +115,15 @@ The tag-triggered `release-artifacts` workflow:
 Verify a downloaded artifact's workflow provenance:
 
 ```sh
-gh attestation verify asal_m-0.1.2-py3-none-any.whl \
+gh attestation verify asal_m-0.1.3-py3-none-any.whl \
   --repo LeonidMajbits/ASAL-M
 ```
 
 Verify GitHub's immutable Release and an exact downloaded asset:
 
 ```sh
-gh release verify v0.1.2 --repo LeonidMajbits/ASAL-M
-gh release verify-asset v0.1.2 asal_m-0.1.2-py3-none-any.whl \
+gh release verify v0.1.3 --repo LeonidMajbits/ASAL-M
+gh release verify-asset v0.1.3 asal_m-0.1.3-py3-none-any.whl \
   --repo LeonidMajbits/ASAL-M
 ```
 

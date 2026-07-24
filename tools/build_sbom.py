@@ -173,27 +173,135 @@ def write_spdx(payload: dict[str, Any], output: Path) -> None:
     )
 
 
-def verify_spdx(payload: dict[str, Any], subject: Path) -> list[str]:
+def verify_spdx(
+    payload: dict[str, Any],
+    subject: Path,
+    *,
+    package_name: str,
+    package_version: str,
+    dependency_versions: dict[str, str],
+) -> list[str]:
     errors: list[str] = []
     if payload.get("spdxVersion") != SPDX_VERSION:
         errors.append("SBOM does not declare SPDX 2.3")
     if payload.get("dataLicense") != DATA_LICENSE:
         errors.append("SBOM does not declare CC0-1.0 data license")
+    if payload.get("SPDXID") != "SPDXRef-DOCUMENT":
+        errors.append("SBOM document SPDXID is invalid")
+
     packages = payload.get("packages")
     if not isinstance(packages, list) or not packages:
         errors.append("SBOM has no packages")
         return errors
-    described = packages[0]
-    checksums = described.get("checksums", [])
-    expected = sha256(subject)
-    if not any(
-        item.get("algorithm") == "SHA256" and item.get("checksumValue") == expected
-        for item in checksums
-        if isinstance(item, dict)
-    ):
-        errors.append("SBOM subject checksum does not match the wheel")
-    if described.get("packageFileName") != subject.name:
-        errors.append("SBOM subject filename does not match the wheel")
+
+    package_by_id: dict[str, dict[str, Any]] = {}
+    for index, package in enumerate(packages):
+        if not isinstance(package, dict):
+            errors.append(f"SBOM package at index {index} is not an object")
+            continue
+        package_id = package.get("SPDXID")
+        if not isinstance(package_id, str) or not package_id:
+            errors.append(f"SBOM package at index {index} has no SPDXID")
+            continue
+        if package_id in package_by_id:
+            errors.append(f"SBOM has duplicate package SPDXID {package_id}")
+            continue
+        package_by_id[package_id] = package
+
+    main_id = spdx_id(f"{package_name}-{package_version}")
+    expected_dependencies = {
+        spdx_id(f"{name}-{version}"): (name, version)
+        for name, version in dependency_versions.items()
+    }
+    expected_package_ids = {main_id, *expected_dependencies}
+
+    for dependency_id, (name, version) in sorted(expected_dependencies.items()):
+        if dependency_id not in package_by_id:
+            errors.append(f"SBOM is missing dependency package {name}=={version}")
+
+    for extra_id in sorted(set(package_by_id) - expected_package_ids):
+        errors.append(f"SBOM has unexpected package {extra_id}")
+
+    described = package_by_id.get(main_id)
+    if described is None:
+        errors.append(
+            f"SBOM is missing subject package {package_name}=={package_version}"
+        )
+    else:
+        if normalized_name(str(described.get("name", ""))) != normalized_name(
+            package_name
+        ):
+            errors.append("SBOM subject package name does not match")
+        if described.get("versionInfo") != package_version:
+            errors.append("SBOM subject package version does not match")
+        checksums = described.get("checksums", [])
+        expected_digest = sha256(subject)
+        if not isinstance(checksums, list) or not any(
+            item.get("algorithm") == "SHA256"
+            and item.get("checksumValue") == expected_digest
+            for item in checksums
+            if isinstance(item, dict)
+        ):
+            errors.append("SBOM subject checksum does not match the wheel")
+        if described.get("packageFileName") != subject.name:
+            errors.append("SBOM subject filename does not match the wheel")
+
+    for dependency_id, (name, version) in sorted(expected_dependencies.items()):
+        package = package_by_id.get(dependency_id)
+        if package is None:
+            continue
+        if normalized_name(str(package.get("name", ""))) != normalized_name(name):
+            errors.append(f"SBOM dependency name does not match for {name}=={version}")
+        if package.get("versionInfo") != version:
+            errors.append(
+                f"SBOM dependency version does not match for {name}=={version}"
+            )
+        expected_purl = f"pkg:pypi/{normalized_name(name)}@{version}"
+        references = package.get("externalRefs", [])
+        if not isinstance(references, list) or not any(
+            reference.get("referenceCategory") == "PACKAGE-MANAGER"
+            and reference.get("referenceType") == "purl"
+            and reference.get("referenceLocator") == expected_purl
+            for reference in references
+            if isinstance(reference, dict)
+        ):
+            errors.append(f"SBOM dependency purl does not match for {name}=={version}")
+
+    relationships = payload.get("relationships")
+    relationship_set: set[tuple[str, str, str]] = set()
+    if not isinstance(relationships, list):
+        errors.append("SBOM relationships are missing or invalid")
+        relationships = []
+    valid_ids = {"SPDXRef-DOCUMENT", *package_by_id}
+    for index, relationship in enumerate(relationships):
+        if not isinstance(relationship, dict):
+            errors.append(f"SBOM relationship at index {index} is not an object")
+            continue
+        item = (
+            str(relationship.get("spdxElementId", "")),
+            str(relationship.get("relationshipType", "")),
+            str(relationship.get("relatedSpdxElement", "")),
+        )
+        if item in relationship_set:
+            errors.append(f"SBOM has duplicate relationship {' '.join(item)}")
+            continue
+        relationship_set.add(item)
+        if item[0] not in valid_ids or item[2] not in valid_ids:
+            errors.append(f"SBOM relationship at index {index} has an unknown target")
+
+    describes = ("SPDXRef-DOCUMENT", "DESCRIBES", main_id)
+    if describes not in relationship_set:
+        errors.append("SBOM is missing DESCRIBES relationship to the subject")
+    expected_relationships = {describes}
+    for dependency_id, (name, version) in sorted(expected_dependencies.items()):
+        relationship = (main_id, "DEPENDS_ON", dependency_id)
+        expected_relationships.add(relationship)
+        if relationship not in relationship_set:
+            errors.append(
+                f"SBOM is missing DEPENDS_ON relationship for {name}=={version}"
+            )
+    for unexpected in sorted(relationship_set - expected_relationships):
+        errors.append(f"SBOM has unexpected relationship {' '.join(unexpected)}")
     return errors
 
 
@@ -218,7 +326,14 @@ def main() -> None:
 
     if args.verify:
         payload = json.loads(args.output.read_text(encoding="utf-8"))
-        errors = verify_spdx(payload, subject)
+        name, version, dependencies = installed_release(args.package)
+        errors = verify_spdx(
+            payload,
+            subject,
+            package_name=name,
+            package_version=version,
+            dependency_versions=dependencies,
+        )
         if errors:
             raise SystemExit("\n".join(errors))
         print(f"release SBOM: verified ({len(payload['packages'])} packages)")

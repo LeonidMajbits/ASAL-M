@@ -26,6 +26,15 @@ _EMBEDDED_WINDOWS_FILE_PATH = re.compile(
     r"(?=$|[\s,;:)\]}])"
     # public-scan: host-pattern
 )
+_EMBEDDED_WINDOWS_SPACED_PATH = re.compile(
+    r"(?<![A-Za-z0-9])(?:[A-Za-z]:[\\/]|\\\\)"  # public-scan: host-pattern
+    r"[^'\"`<>|\r\n,;:)\]}]+?"  # public-scan: host-pattern
+    r"(?="  # public-scan: host-pattern
+    r"$|[,;:)\]}]|"  # public-scan: host-pattern
+    r"\s+(?:and|then|before|after|while)\s+(?=[^\\/'\"`<>|\r\n]*$)"  # public-scan: host-pattern
+    r")",
+    re.IGNORECASE,
+)
 _EMBEDDED_WINDOWS_COMPACT_PATH = re.compile(
     r"(?<![A-Za-z0-9])(?:[A-Za-z]:[\\/]|\\\\)[^\s'\"`<>|]+"  # public-scan: host-pattern
 )
@@ -33,6 +42,15 @@ _EMBEDDED_POSIX_HOST_FILE_PATH = re.compile(
     r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp)/"
     r"[^'\"`<>|\r\n]*?/[^/'\"`<>|\r\n]*?\.[A-Za-z0-9]{1,16}"
     r"(?=$|[\s,;:)\]}])",  # public-scan: host-pattern
+    re.IGNORECASE,
+)
+_EMBEDDED_POSIX_HOST_SPACED_PATH = re.compile(
+    r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp)/"  # public-scan: host-pattern
+    r"[^'\"`<>|\r\n,;:)\]}]+?"  # public-scan: host-pattern
+    r"(?="  # public-scan: host-pattern
+    r"$|[,;:)\]}]|"  # public-scan: host-pattern
+    r"\s+(?:and|then|before|after|while)\s+(?=[^/'\"`<>|\r\n]*$)"  # public-scan: host-pattern
+    r")",
     re.IGNORECASE,
 )
 _EMBEDDED_POSIX_HOST_COMPACT_PATH = re.compile(
@@ -91,12 +109,20 @@ def sanitize_public_string(value: str, *, base_dir: str | Path | None = None) ->
         lambda match: _path_leaf(match.group(0)),
         value,
     )
+    value = _EMBEDDED_WINDOWS_SPACED_PATH.sub(
+        lambda match: _path_leaf(match.group(0).rstrip()),
+        value,
+    )
     value = _EMBEDDED_WINDOWS_COMPACT_PATH.sub(
         lambda match: _path_leaf(match.group(0)),
         value,
     )
     value = _EMBEDDED_POSIX_HOST_FILE_PATH.sub(
         lambda match: _path_leaf(match.group(0)),
+        value,
+    )
+    value = _EMBEDDED_POSIX_HOST_SPACED_PATH.sub(
+        lambda match: _path_leaf(match.group(0).rstrip()),
         value,
     )
     return _EMBEDDED_POSIX_HOST_COMPACT_PATH.sub(

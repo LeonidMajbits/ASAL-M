@@ -56,7 +56,7 @@ standards-compliant PNG.
 
 ## Certified release environment
 
-For exact byte reproduction of the v0.1.2 public evidence, install the pinned
+For exact byte reproduction of the v0.1.3 public evidence, install the pinned
 direct dependencies:
 
 ```sh
@@ -92,7 +92,7 @@ disable them.
 
 ## Boundary
 
-The exact-byte guarantee applies to the documented v0.1.2 release constraints
+The exact-byte guarantee applies to the documented v0.1.3 release constraints
 and CI matrix. Arbitrary future dependency releases, Python implementations,
 CPU architectures, or locally modified rendering assets are outside that
 contract until tested.

@@ -56,6 +56,7 @@ jobs:
         id: release_assets
         run: |
           RELEASE_VENV="$RUNNER_TEMP/asal-m-release-venv"
+          SPDX_VENV="$RUNNER_TEMP/spdx-validator-venv"
           SBOM_PATH="dist/asal_m-${GITHUB_REF_NAME#v}.spdx.json"
           python -m venv "$RELEASE_VENV"
           "$RELEASE_VENV/bin/python" -m pip install -U pip
@@ -72,6 +73,10 @@ jobs:
             --output "$SBOM_PATH" \
             --source-date-epoch "$SOURCE_DATE_EPOCH" \
             --verify
+          python -m venv "$SPDX_VENV"
+          "$SPDX_VENV/bin/python" -m pip install -U pip
+          "$SPDX_VENV/bin/python" -m pip install spdx-tools==0.8.5
+          "$SPDX_VENV/bin/pyspdxtools" --infile "$SBOM_PATH"
           cp docs/keys/asal-m-release-signing.pub dist/
           cp docs/keys/allowed_signers dist/
           python tools/build_release_assets.py
