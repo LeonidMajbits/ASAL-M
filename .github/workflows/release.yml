@@ -54,17 +54,18 @@ jobs:
           python tools/verify_public_repository.py --archives dist
       - name: Build deterministic SPDX SBOM
         run: |
-          python -m venv .release-venv
-          .release-venv/bin/python -m pip install -U pip
-          .release-venv/bin/python -m pip install \
+          RELEASE_VENV="$RUNNER_TEMP/asal-m-release-venv"
+          python -m venv "$RELEASE_VENV"
+          "$RELEASE_VENV/bin/python" -m pip install -U pip
+          "$RELEASE_VENV/bin/python" -m pip install \
             -c requirements-repro.txt \
             dist/*.whl
           SOURCE_DATE_EPOCH="$(git show -s --format=%ct "$GITHUB_SHA")"
-          .release-venv/bin/python tools/build_sbom.py \
+          "$RELEASE_VENV/bin/python" tools/build_sbom.py \
             --subject dist/*.whl \
             --output "dist/asal_m-${GITHUB_REF_NAME#v}.spdx.json" \
             --source-date-epoch "$SOURCE_DATE_EPOCH"
-          .release-venv/bin/python tools/build_sbom.py \
+          "$RELEASE_VENV/bin/python" tools/build_sbom.py \
             --subject dist/*.whl \
             --output "dist/asal_m-${GITHUB_REF_NAME#v}.spdx.json" \
             --source-date-epoch "$SOURCE_DATE_EPOCH" \

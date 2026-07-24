@@ -208,6 +208,8 @@ def test_release_workflow_attests_sbom_and_uses_pinned_actions() -> None:
         step for step in job["steps"] if step["name"].startswith("Build deterministic")
     )
     assert "-c requirements-repro.txt" in sbom_step["run"]
+    assert 'RELEASE_VENV="$RUNNER_TEMP/asal-m-release-venv"' in sbom_step["run"]
+    assert "python -m venv .release-venv" not in sbom_step["run"]
 
 
 def test_archive_scan_checks_text_and_path_names(tmp_path: Path) -> None:
