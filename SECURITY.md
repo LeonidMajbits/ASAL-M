@@ -31,13 +31,16 @@ reproduction steps, impact, and a minimal proof of concept.
   worktree content, untracked public files, every reachable historical blob
   and path, commit and annotated-tag messages, noreply identities, the wheel,
   and source distribution for common secret, personal-email, internal-name,
-  and host-path leakage. Root dotfiles retain their leading dot during path
-  checks, and the text scanner recognizes BOM-marked and high-confidence
-  BOM-less UTF-16/UTF-32. It is not a substitute for reviewing the exact
-  public diff or for a dedicated secret-scanning service.
+  and host-path leakage. Tar link names and targets are scanned, and
+  unsupported special-file members fail closed. Root dotfiles retain their
+  leading dot during path checks, and the text scanner recognizes UTF-8 with
+  isolated NUL bytes plus BOM-marked and high-confidence BOM-less
+  UTF-16/UTF-32. It is not a substitute for reviewing the exact public diff or
+  for a dedicated secret-scanning service.
 - `.gitleaksignore` acknowledges one exact published fingerprint for a
-  synthetic scanner test value. It does not suppress that commit, file, rule,
-  or any future finding broadly.
+  historical synthetic scanner test value. The current source and source
+  distribution do not contain that credential-shaped literal. The baseline
+  does not suppress that commit, file, rule, or any future finding broadly.
 
 Release signing, SBOM, provenance, historical baseline, and immutable-release
 boundaries are documented in

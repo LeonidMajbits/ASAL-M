@@ -61,21 +61,29 @@ ACKNOWLEDGED_HISTORY_INTERNAL_MARKER_BLOBS = frozenset(
 # verifier regexes that detect them. Only the host-path finding is suppressed.
 ACKNOWLEDGED_HISTORY_HOST_FIXTURE_BLOBS = frozenset(
     {
+        "0f10fc23dab185704235fb91049e2e03cc042bb0",
+        "16cd3fdd811201b40d8adc9dc92328bf6ef20342",
         "16e430b571bf77508fe2627bc4bc30d750208db4",
         "1e0f46b5a5e714f54d38d1eb1b99edce72de898e",
         "1f67b362da21d43be3a5b54f812c331ca64c762c",
         "246c5c25771780f16ceee89a65d12600a02009a3",
+        "2d84063dbfae3f679ebaf32b302dd69b40f7400d",
         "4256f73ffab4ea62f45e725bb00ad6bfe335553f",
+        "5331a70f1f634abc1032d111195eab4d20b0d31d",
         "6333609f2595cae01563668a02a165f23a0fc1a9",
+        "700d26a162ba3da7e71e1188458e84287a998f40",
         "70c7a547f6d23f42e4fa487d600fe8294a20bc4a",
         "7290917163e7698d2fe52591564d4c9d8d34e70a",
         "8148e41a95431c333846fc9bd7638661e056e2eb",
         "83b5906e35b60b30bd6d8d5cf2185dfca618a28e",
         "89b0bf6fd9d168f71aafa3a23807f581d5d00fbf",
+        "a25a03c8de0331bb22abdbdc7080554731526ede",
         "a88a608ce36c489fefaa042a64f8b2632a504645",
+        "ad0dd833e59e643c8657203ce16cd4e72d5ed7da",
         "e3fc9acf755b55a8c86de829022540b2e8eab8a8",
         "e84e1e108666c1fe1ca5cbad743ab2f7315f293d",
         "fe7fc9be60f7c316f3ee524fad647fd7f97accc0",
+        "ff3c7cf31daf2497a63a5d656eb3b54928130ed0",
     }
 )
 ACKNOWLEDGED_UNSIGNED_COMMITS = frozenset(
@@ -94,10 +102,14 @@ ACKNOWLEDGED_UNSIGNED_TAG_OBJECTS = frozenset(
 )
 RELEASE_SIGNING_FINGERPRINT = "SHA256:AcVmWdXtxjOJagwIlL635w7WdQzOvHK3d144G0HC6ng"
 MAINTAINER_NOREPLY_EMAIL = "77941374+LeonidMajbits@users.noreply.github.com"
+UNC_HOST_PATTERN = r"(?<![\\])\\\\[A-Za-z0-9._-]+[\\/]"
 HOST_PATTERNS = (
     re.compile(r"(?<![A-Za-z])[A-Za-z]:[\\/]"),
-    re.compile(r"\\\\[^\\\s]+[\\/]"),  # public-scan: host-pattern
-    re.compile(r"/(?:Users|home|tmp)/", re.IGNORECASE),
+    re.compile(UNC_HOST_PATTERN),
+    re.compile(
+        r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp|root|workspace|opt)/",
+        re.IGNORECASE,
+    ),
 )
 SECRET_PATTERNS = (
     re.compile(r"-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----"),
@@ -547,13 +559,33 @@ def scan_archive(path: Path) -> tuple[list[str], int]:
     elif path.name.endswith((".tar.gz", ".tgz")):
         with tarfile.open(path, "r:gz") as archive:
             for member in archive.getmembers():
+                relative = _archive_relative_path(member.name)
+                errors.extend(_scan_path(relative))
+                if member.isdir():
+                    continue
+                if member.issym() or member.islnk():
+                    target = member.linkname
+                    target_label = f"{relative} -> {target}"
+                    if not target:
+                        errors.append(f"{relative}: tar link target is empty")
+                        continue
+                    errors.extend(
+                        f"{target_label}: {error}" for error in _scan_path(target)
+                    )
+                    errors.extend(
+                        f"{target_label}: {error}"
+                        for error in _scan_text("link-target.txt", target)
+                    )
+                    continue
                 if not member.isfile():
+                    errors.append(
+                        f"{relative}: unsupported tar member type {member.type!r}"
+                    )
                     continue
                 extracted = archive.extractfile(member)
                 if extracted is None:
+                    errors.append(f"{relative}: regular tar member is unreadable")
                     continue
-                relative = _archive_relative_path(member.name)
-                errors.extend(_scan_path(relative))
                 text = _decode_text(extracted.read())
                 if text is not None:
                     text_count += 1
@@ -613,8 +645,6 @@ def _scan_text(relative: str, text: str) -> list[str]:
         if not email.lower().endswith(ALLOWED_EMAIL_SUFFIXES):
             errors.append(f"{relative}: contains a non-public email address")
     for line_number, line in enumerate(text.splitlines(), start=1):
-        if "public-scan: host-pattern" in line:
-            continue
         for pattern in HOST_PATTERNS:
             if pattern.search(line):
                 errors.append(
@@ -711,11 +741,13 @@ def _decode_bomless_wide_text(data: bytes) -> str | None:
 
 
 def _looks_like_text(value: str) -> bool:
-    if not value or "\0" in value:
+    if not value:
         return False
     readable = sum(
         character.isprintable() or character in "\r\n\t" for character in value
     )
+    if value.count("\0") == 1 and readable == len(value) - 1:
+        return True
     return readable / len(value) >= 0.9
 
 

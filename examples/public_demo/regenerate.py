@@ -121,8 +121,8 @@ def _assert_no_host_paths(text: str) -> None:
     normalized = text.replace("\\\\", "\\")
     patterns = (
         r"[A-Za-z]:[\\/]",
-        r"\\\\[^\\\s]+[\\/]",  # public-scan: host-pattern
-        r"/(?:Users|home|tmp)/",
+        r"(?<![\\])\\\\[A-Za-z0-9._-]+[\\/]",
+        r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp|root|workspace|opt)/",
     )
     if any(re.search(pattern, normalized, flags=re.IGNORECASE) for pattern in patterns):
         raise RuntimeError(

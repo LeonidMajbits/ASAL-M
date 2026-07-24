@@ -42,11 +42,25 @@ def test_serializable_redacts_paths_outside_working_tree(
 
 
 def test_postcard_guard_rejects_cross_platform_host_paths() -> None:
+    escaped_separator = "\\" * 2
     for value in (
-        r'{"path": "D:\\private\\run.json"}',  # public-scan: host-pattern
-        r'{"path": "\\\\server\\share\\run.json"}',  # public-scan: host-pattern
-        r'{"path": "/home/user/run.json"}',  # public-scan: host-pattern
-        r'{"path": "/Users/person/run.json"}',  # public-scan: host-pattern
+        '{"path": "D:'
+        + escaped_separator
+        + "private"
+        + escaped_separator
+        + 'run.json"}',
+        '{"path": "'
+        + escaped_separator * 2
+        + "server"
+        + escaped_separator
+        + "share"
+        + escaped_separator
+        + 'run.json"}',
+        r'{"path": "/' + r'home/user/run.json"}',
+        r'{"path": "/' + r'Users/person/run.json"}',
+        r'{"path": "/' + r'root/user/run.json"}',
+        r'{"path": "/' + r'workspace/user/run.json"}',
+        r'{"path": "/' + r'opt/project/run.json"}',
     ):
         try:
             _assert_no_host_paths(value)

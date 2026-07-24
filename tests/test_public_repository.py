@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import subprocess
+import tarfile
 import zipfile
 from pathlib import Path
 
@@ -35,7 +37,7 @@ def test_public_scan_rejects_host_paths_secrets_email_and_internal_names() -> No
         (
             "C:" + r"\Users\person\private\result.json",
             "person" + "@mail" + ".invalid",
-            "api_" + "key='abcdefghijklmnop1234'",
+            "api_" + "key='" + "abcdefghijkl" + "mnop1234" + "'",
         )
     )
 
@@ -74,18 +76,14 @@ def test_public_scan_allows_noreply_identity_and_relative_paths() -> None:
     assert errors == []
 
 
-def test_host_path_fixture_annotation_is_line_scoped() -> None:
-    text = "\n".join(
-        (
-            "C:" + r"\fixture\path.json  # public-scan: host-pattern",
-            "C:" + r"\private\result.json",
-        )
-    )
+def test_host_path_fixture_annotation_cannot_suppress_a_finding() -> None:
+    annotation = "public-" + "scan: host-pattern"
+    text = "C:" + rf"\fixture\path.json  # {annotation}"
 
     errors = _scan_text("tests/probe.py", text)
 
     assert len([error for error in errors if "absolute host path" in error]) == 1
-    assert errors[0].startswith("tests/probe.py:2:")
+    assert errors[0].startswith("tests/probe.py:1:")
 
 
 def test_identity_scan_ignores_only_the_confirmed_github_pr_merge() -> None:
@@ -232,6 +230,8 @@ def test_gitleaks_baseline_is_one_exact_historical_fixture() -> None:
         "e1279df342606e47ee32e4395984b1af6836d3be:"
         "tests/test_public_repository.py:generic-api-key:27"
     ]
+    source = Path(__file__).read_text(encoding="utf-8")
+    assert "key='" + "abcdefghijklmnop1234" + "'" not in source
 
 
 def test_archive_scan_checks_text_and_path_names(tmp_path: Path) -> None:
@@ -246,11 +246,102 @@ def test_archive_scan_checks_text_and_path_names(tmp_path: Path) -> None:
     with zipfile.ZipFile(unsafe_archive, "w") as archive:
         archive.writestr(
             "runs/private.txt",
-            "/home/person/private/result.json",  # public-scan: host-pattern
+            "/" + "home/person/private/result.json",
         )
     errors, _ = scan_archive(unsafe_archive)
     assert any("forbidden public path component" in error for error in errors)
     assert any("absolute host path" in error for error in errors)
+
+
+def test_archive_scan_rejects_unsafe_tar_links_and_special_members(
+    tmp_path: Path,
+) -> None:
+    archive_path = tmp_path / "unsafe.tar.gz"
+    with tarfile.open(archive_path, "w:gz") as archive:
+        directory = tarfile.TarInfo("asal_m-0.0.0/asal_m")
+        directory.type = tarfile.DIRTYPE
+        archive.addfile(directory)
+
+        safe_data = b"VALUE = 'safe'\n"
+        safe_file = tarfile.TarInfo("asal_m-0.0.0/asal_m/module.py")
+        safe_file.size = len(safe_data)
+        archive.addfile(safe_file, io.BytesIO(safe_data))
+
+        forbidden_name = tarfile.TarInfo("asal_m-0.0.0/.env")
+        forbidden_name.type = tarfile.SYMTYPE
+        forbidden_name.linkname = "safe.txt"
+        archive.addfile(forbidden_name)
+
+        absolute_target = tarfile.TarInfo("asal_m-0.0.0/absolute-link")
+        absolute_target.type = tarfile.SYMTYPE
+        absolute_target.linkname = "/" + "root/person/private.txt"
+        archive.addfile(absolute_target)
+
+        traversal_target = tarfile.TarInfo("asal_m-0.0.0/hard-link")
+        traversal_target.type = tarfile.LNKTYPE
+        traversal_target.linkname = "../private/secret.txt"
+        archive.addfile(traversal_target)
+
+        special = tarfile.TarInfo("asal_m-0.0.0/pipe")
+        special.type = tarfile.FIFOTYPE
+        archive.addfile(special)
+
+        empty_target = tarfile.TarInfo("asal_m-0.0.0/empty-link")
+        empty_target.type = tarfile.SYMTYPE
+        archive.addfile(empty_target)
+
+    errors, text_count = scan_archive(archive_path)
+
+    assert text_count == 1
+    assert any(".env" in error and "forbidden" in error for error in errors)
+    assert any("absolute-link" in error and "absolute" in error for error in errors)
+    assert any("hard-link" in error and "traversal" in error for error in errors)
+    assert any(
+        "pipe" in error and "unsupported tar member type" in error for error in errors
+    )
+    assert any("empty-link" in error and "target is empty" in error for error in errors)
+
+
+def test_archive_scan_accepts_safe_tar_directory_file_and_link(tmp_path: Path) -> None:
+    archive_path = tmp_path / "safe.tar.gz"
+    with tarfile.open(archive_path, "w:gz") as archive:
+        directory = tarfile.TarInfo("asal_m-0.0.0/asal_m")
+        directory.type = tarfile.DIRTYPE
+        archive.addfile(directory)
+
+        data = b"VALUE = 'safe'\n"
+        regular = tarfile.TarInfo("asal_m-0.0.0/asal_m/module.py")
+        regular.size = len(data)
+        archive.addfile(regular, io.BytesIO(data))
+
+        link = tarfile.TarInfo("asal_m-0.0.0/asal_m/module-link.py")
+        link.type = tarfile.SYMTYPE
+        link.linkname = "module.py"
+        archive.addfile(link)
+
+    errors, text_count = scan_archive(archive_path)
+
+    assert errors == []
+    assert text_count == 1
+
+
+def test_single_nul_does_not_hide_secret_like_text(tmp_path: Path) -> None:
+    payload = ("token='" + _secret("N") + "'\0tail\n").encode("utf-8")
+
+    decoded = _decode_text(payload)
+
+    assert _decode_text(b"ok\0") == "ok\0"
+    assert decoded is not None
+    assert any(
+        "secret-like content" in error for error in _scan_text("probe.txt", decoded)
+    )
+
+    archive_path = tmp_path / "nul-secret.whl"
+    with zipfile.ZipFile(archive_path, "w") as archive:
+        archive.writestr("asal_m/probe.txt", payload)
+    errors, text_count = scan_archive(archive_path)
+    assert text_count == 1
+    assert any("secret-like content" in error for error in errors)
 
 
 @pytest.mark.parametrize(

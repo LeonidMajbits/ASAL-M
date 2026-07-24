@@ -44,10 +44,14 @@ EXCLUDED_PREFIXES = (
 
 LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 HEADING_PATTERN = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
+UNC_HOST_PATTERN = r"(?<![\\])\\\\[A-Za-z0-9._-]+[\\/]"
 HOST_PATTERNS = (
     re.compile(r"(?<![A-Za-z])[A-Za-z]:[\\/]"),
-    re.compile(r"\\\\[^\\\s]+[\\/]"),  # public-scan: host-pattern
-    re.compile(r"/(?:Users|home|tmp)/", re.IGNORECASE),
+    re.compile(UNC_HOST_PATTERN),
+    re.compile(
+        r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp|root|workspace|opt)/",
+        re.IGNORECASE,
+    ),
 )
 SECRET_PATTERNS = (
     re.compile(r"-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----"),

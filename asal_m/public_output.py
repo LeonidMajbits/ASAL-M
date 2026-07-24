@@ -14,47 +14,56 @@ from typing import Any
 import numpy as np
 
 _WINDOWS_ABSOLUTE = re.compile(r"^[A-Za-z]:[\\/]")
+_WINDOWS_ABSOLUTE_ROOT = r"(?:[A-Za-z]:[\\/]|" + r"\\\\" + r")"
+_POSIX_HOST_ROOT = r"(?:Users|home|tmp|root|workspace|opt)"
 _QUOTED_ABSOLUTE_PATH = re.compile(
     r"(?P<quote>['\"`])"
-    r"(?P<path>(?:[A-Za-z]:[\\/]|\\\\|/(?:Users|home|tmp)/).*?)"  # public-scan: host-pattern
-    r"(?P=quote)",
+    + r"(?P<path>("
+    + _WINDOWS_ABSOLUTE_ROOT
+    + r"|/"
+    + _POSIX_HOST_ROOT
+    + r"/).*?)"
+    + r"(?P=quote)",
     re.IGNORECASE,
 )
 _EMBEDDED_WINDOWS_FILE_PATH = re.compile(
-    r"(?<![A-Za-z0-9])(?:[A-Za-z]:[\\/]|\\\\)"  # public-scan: host-pattern
-    r"[^'\"`<>|\r\n]*?[\\/][^\\/'\"`<>|\r\n]*?\.[A-Za-z0-9]{1,16}"  # public-scan: host-pattern
-    r"(?=$|[\s,;:)\]}])"
-    # public-scan: host-pattern
+    r"(?<![A-Za-z0-9])"
+    + _WINDOWS_ABSOLUTE_ROOT
+    + r"[^'\"`<>|\r\n]*?[\\/][^\\/'\"`<>|\r\n]*?\.[A-Za-z0-9]{1,16}"
+    + r"(?=$|[\s|,;:)\]}])"
 )
 _EMBEDDED_WINDOWS_SPACED_PATH = re.compile(
-    r"(?<![A-Za-z0-9])(?:[A-Za-z]:[\\/]|\\\\)"  # public-scan: host-pattern
-    r"[^'\"`<>|\r\n,;:)\]}]+?"  # public-scan: host-pattern
-    r"(?="  # public-scan: host-pattern
-    r"$|[,;:)\]}]|"  # public-scan: host-pattern
-    r"\s+(?:and|then|before|after|while)\s+(?=[^\\/'\"`<>|\r\n]*$)"  # public-scan: host-pattern
-    r")",
+    r"(?<![A-Za-z0-9])"
+    + _WINDOWS_ABSOLUTE_ROOT
+    + r"[^'\"`<>|\r\n,;:)\]}]+?"
+    + r"(?="
+    + r"$|[\r\n|,;:)\]}]|"
+    + r"\s+(?:and|then|before|after|while)\s+(?=[^\\/'\"`<>|\r\n]*$)"
+    + r")",
     re.IGNORECASE,
 )
 _EMBEDDED_WINDOWS_COMPACT_PATH = re.compile(
-    r"(?<![A-Za-z0-9])(?:[A-Za-z]:[\\/]|\\\\)[^\s'\"`<>|]+"  # public-scan: host-pattern
+    r"(?<![A-Za-z0-9])" + _WINDOWS_ABSOLUTE_ROOT + r"[^\s'\"`<>|]+"
 )
 _EMBEDDED_POSIX_HOST_FILE_PATH = re.compile(
-    r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp)/"
-    r"[^'\"`<>|\r\n]*?/[^/'\"`<>|\r\n]*?\.[A-Za-z0-9]{1,16}"
-    r"(?=$|[\s,;:)\]}])",  # public-scan: host-pattern
+    r"(?<![A-Za-z0-9:/])/"
+    + _POSIX_HOST_ROOT
+    + r"/[^'\"`<>|\r\n]*?/[^/'\"`<>|\r\n]*?\.[A-Za-z0-9]{1,16}"
+    + r"(?=$|[\s|,;:)\]}])",
     re.IGNORECASE,
 )
 _EMBEDDED_POSIX_HOST_SPACED_PATH = re.compile(
-    r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp)/"  # public-scan: host-pattern
-    r"[^'\"`<>|\r\n,;:)\]}]+?"  # public-scan: host-pattern
-    r"(?="  # public-scan: host-pattern
-    r"$|[,;:)\]}]|"  # public-scan: host-pattern
-    r"\s+(?:and|then|before|after|while)\s+(?=[^/'\"`<>|\r\n]*$)"  # public-scan: host-pattern
-    r")",
+    r"(?<![A-Za-z0-9:/])/"
+    + _POSIX_HOST_ROOT
+    + r"/[^'\"`<>|\r\n,;:)\]}]+?"
+    + r"(?="
+    + r"$|[\r\n|,;:)\]}]|"
+    + r"\s+(?:and|then|before|after|while)\s+(?=[^/'\"`<>|\r\n]*$)"
+    + r")",
     re.IGNORECASE,
 )
 _EMBEDDED_POSIX_HOST_COMPACT_PATH = re.compile(
-    r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp)/[^\s'\"`<>|]+",  # public-scan: host-pattern
+    r"(?<![A-Za-z0-9:/])/" + _POSIX_HOST_ROOT + r"/[^\s'\"`<>|]+",
     re.IGNORECASE,
 )
 
@@ -110,7 +119,7 @@ def sanitize_public_string(value: str, *, base_dir: str | Path | None = None) ->
         value,
     )
     value = _EMBEDDED_WINDOWS_SPACED_PATH.sub(
-        lambda match: _path_leaf(match.group(0).rstrip()),
+        _spaced_path_leaf,
         value,
     )
     value = _EMBEDDED_WINDOWS_COMPACT_PATH.sub(
@@ -122,7 +131,7 @@ def sanitize_public_string(value: str, *, base_dir: str | Path | None = None) ->
         value,
     )
     value = _EMBEDDED_POSIX_HOST_SPACED_PATH.sub(
-        lambda match: _path_leaf(match.group(0).rstrip()),
+        _spaced_path_leaf,
         value,
     )
     return _EMBEDDED_POSIX_HOST_COMPACT_PATH.sub(
@@ -211,3 +220,9 @@ def _public_posix_path(value: str, base: Path) -> str:
 def _path_leaf(value: str) -> str:
     normalized = value.replace("\\", "/").rstrip("/")
     return normalized.rsplit("/", 1)[-1] or "external_path"
+
+
+def _spaced_path_leaf(match: re.Match[str]) -> str:
+    value = match.group(0)
+    stripped = value.rstrip()
+    return _path_leaf(stripped) + value[len(stripped) :]

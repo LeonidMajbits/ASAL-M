@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asal-m"
-version = "0.1.3"
+version = "0.1.4"
 description = "Held-out certification and stress testing for discovered simulation regimes"
 readme = "README.md"
 requires-python = ">=3.10"

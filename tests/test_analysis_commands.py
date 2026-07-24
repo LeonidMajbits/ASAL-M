@@ -63,9 +63,7 @@ def test_flagship_writes_safe_json_markdown_and_yaml(
     spec, _ = _load_spec(None)
     spec["source"] = {
         "source_artifact_dir": str(private_root / "source-candidate"),
-        "summary_path": (
-            r"C:\Users\person\private\experiment_summary.json"  # public-scan: host-pattern
-        ),
+        "summary_path": "C:" + r"\Users\person\private\experiment_summary.json",
     }
     spec_path = private_root / "flagship.yaml"
     spec_path.write_text(yaml.safe_dump(spec, sort_keys=False), encoding="utf-8")
@@ -167,9 +165,7 @@ def test_export_and_summary_commands_handle_winner_and_empty_roles(
                 "counts": {"evaluated": 1},
                 "winners": {
                     "mainline": {
-                        "artifact_dir": (
-                            r"C:\Users\person\private\candidate-a"  # public-scan: host-pattern
-                        ),
+                        "artifact_dir": "C:" + r"\Users\person\private\candidate-a",
                         "total_score": 0.8,
                         "summary_metrics": {
                             "occupancy": 0.7,
@@ -204,6 +200,45 @@ def test_export_and_summary_commands_handle_winner_and_empty_roles(
     assert '"evaluated": 1' in stdout
     assert "mainline: total=0.800" in stdout
     assert "novelty: none" in stdout
+
+
+def test_export_winners_sanitizes_embedded_linux_path_boundaries(
+    tmp_path: Path, monkeypatch
+) -> None:
+    summary_path = tmp_path / "experiment_summary.json"
+    output_path = tmp_path / "winners.json"
+    private_directory = "/" + "workspace/Jane Doe/Private Lab"
+    summary_path.write_text(
+        json.dumps(
+            {
+                "winners": {
+                    "mainline": {
+                        "artifact_note": f"loaded from {private_directory}\nnext",
+                        "table_note": f"| input={private_directory} |",
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "export-winners",
+            str(summary_path),
+            "--output",
+            str(output_path),
+        ],
+    )
+
+    export_winners_main()
+
+    exported = output_path.read_text(encoding="utf-8")
+    assert "Jane Doe" not in exported
+    assert "/" + "workspace/" not in exported
+    assert "loaded from Private Lab\\nnext" in exported
+    assert "| input=Private Lab |" in exported
 
 
 def test_artifact_inspection_command_defaults_to_no_machine_details(

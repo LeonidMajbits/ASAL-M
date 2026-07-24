@@ -2,6 +2,25 @@
 
 All notable public changes are documented here.
 
+## 0.1.4
+
+- Scan UTF-8 text containing isolated NUL bytes instead of treating any NUL as
+  proof that the payload is binary.
+- Inspect every tar member name, symlink target, and hardlink target; reject
+  unsafe link paths and unsupported special-file members instead of silently
+  skipping them.
+- Sanitize embedded Linux paths rooted at `/root`, `/workspace`, and `/opt`,
+  and preserve formatting while redacting paths terminated by newlines or
+  Markdown table boundaries.
+- Remove the line-scoped host-fixture annotation escape. Current fixtures are
+  assembled without literal host paths, while immutable historical fixtures
+  remain acknowledged only by exact blob object ID.
+- Keep the synthetic secret fixture effective at runtime without retaining a
+  credential-shaped literal in the current source tree or source distribution.
+- Correct the immutable v0.1.3 release-note test counts: the final v0.1.3 tree
+  contains 140 collected tests. The published 133/132 figures recorded
+  pre-final local runs and remain unchanged because the Release is immutable.
+
 ## 0.1.3
 
 - Preserve root dotfile names during path normalization so forbidden files such

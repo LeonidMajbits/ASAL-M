@@ -4,7 +4,7 @@ ASAL-M keeps simulation mechanics separate from proposal, scoring, archives,
 and certification. A substrate supplies the simulation; the workbench supplies
 the evaluation workflow.
 
-Version 0.1.3 uses an explicit in-package registry. Adding a substrate requires
+Version 0.1.4 uses an explicit in-package registry. Adding a substrate requires
 a small source module, a default search space, a registry entry, an experiment,
 and tests.
 

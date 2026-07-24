@@ -232,7 +232,7 @@ def test_release_metadata_versions_align() -> None:
 
     assert match is not None
     version = match.group(1)
-    assert version == "0.1.3"
+    assert version == "0.1.4"
     assert citation["version"] == version
     assert f"version `{version}`" in readme
     assert f"## {version}" in changelog

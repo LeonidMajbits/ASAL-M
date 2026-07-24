@@ -23,14 +23,14 @@ def test_public_path_redacts_foreign_absolute_roots(tmp_path: Path) -> None:
 
     assert (
         public_path(
-            r"C:\Users\person\private\result.json",  # public-scan: host-pattern
+            "C:" + r"\Users\person\private\result.json",
             base_dir=base,
         )
         == "result.json"
     )
     assert (
         public_path(
-            r"\\server\secret-share\result.json",  # public-scan: host-pattern
+            "\\" + r"\server\secret-share\result.json",
             base_dir=base,
         )
         == "result.json"
@@ -38,21 +38,21 @@ def test_public_path_redacts_foreign_absolute_roots(tmp_path: Path) -> None:
     assert public_path(r"\Users\person\result.json", base_dir=base) == "result.json"
     assert (
         public_path(
-            "/home/person/private/result.json",  # public-scan: host-pattern
+            "/" + "home/person/private/result.json",
             base_dir=base,
         )
         == "result.json"
     )
     assert (
         public_path(
-            "/Users/person/private/result.json",  # public-scan: host-pattern
+            "/" + "Users/person/private/result.json",
             base_dir=base,
         )
         == "result.json"
     )
     assert (
-        public_path(  # public-scan: host-pattern
-            "/tmp/private/result.json",  # public-scan: host-pattern
+        public_path(
+            "/" + "tmp/private/result.json",
             base_dir=base,
         )
         == "result.json"
@@ -179,9 +179,9 @@ def test_public_data_sanitizes_json_markdown_and_yaml_inputs(
 ) -> None:
     monkeypatch.chdir(tmp_path)
     payload = {
-        "windows": r"C:\Users\person\private\candidate.json",  # public-scan: host-pattern
-        "unc": r"\\server\share\winner.json",  # public-scan: host-pattern
-        "posix": "/home/person/private/spec.yaml",  # public-scan: host-pattern
+        "windows": "C:" + r"\Users\person\private\candidate.json",
+        "unc": "\\" + r"\server\share\winner.json",
+        "posix": "/" + "home/person/private/spec.yaml",
     }
     cleaned = to_public_data(payload)
 
@@ -192,7 +192,7 @@ def test_public_data_sanitizes_json_markdown_and_yaml_inputs(
 
     assert "C:" not in combined
     assert "server" not in combined
-    assert "/home/" not in combined  # public-scan: host-pattern
+    assert "/" + "home/" not in combined
     assert cleaned == {
         "windows": "candidate.json",
         "unc": "winner.json",
@@ -203,20 +203,16 @@ def test_public_data_sanitizes_json_markdown_and_yaml_inputs(
 def test_public_data_redacts_absolute_paths_embedded_in_text() -> None:
     cleaned = to_public_data(
         {
-            "windows": (
-                r"loaded from C:\Users\person\private\candidate.json"  # public-scan: host-pattern
-            ),
-            "posix": (
-                "source=/home/person/private/spec.yaml"  # public-scan: host-pattern
-            ),
-            "url": "https://example.org/tmp/public/result.json",  # public-scan: host-pattern
+            "windows": "loaded from C:" + r"\Users\person\private\candidate.json",
+            "posix": "source=/" + "home/person/private/spec.yaml",
+            "url": "https://example.org/" + "tmp/public/result.json",
         }
     )
 
     assert cleaned == {
         "windows": "loaded from candidate.json",
         "posix": "source=spec.yaml",
-        "url": "https://example.org/tmp/public/result.json",  # public-scan: host-pattern
+        "url": "https://example.org/" + "tmp/public/result.json",
     }
 
 
@@ -260,16 +256,10 @@ def test_public_data_redacts_conjunctions_and_quoted_directories_in_paths() -> N
 
 
 def test_public_data_redacts_unquoted_spaced_and_extensionless_paths() -> None:
-    windows_directory = (
-        "C:" + "\\Users\\Jane Doe\\Private Lab"  # public-scan: host-pattern
-    )
-    windows_extensionless = (
-        windows_directory + "\\candidate"  # public-scan: host-pattern
-    )
-    posix_directory = "/home/Jane Doe/Private Lab"  # public-scan: host-pattern
-    posix_extensionless = (
-        posix_directory + "/candidate"  # public-scan: host-pattern
-    )
+    windows_directory = "C:" + r"\Users\Jane Doe\Private Lab"
+    windows_extensionless = windows_directory + "\\candidate"
+    posix_directory = "/" + "home/Jane Doe/Private Lab"
+    posix_extensionless = posix_directory + "/candidate"
 
     cleaned = to_public_data(
         {
@@ -289,7 +279,43 @@ def test_public_data_redacts_unquoted_spaced_and_extensionless_paths() -> None:
     rendered = json.dumps(cleaned)
     assert "Jane Doe" not in rendered
     assert "Users" not in rendered
-    assert "/home/" not in rendered  # public-scan: host-pattern
+    assert "/" + "home/" not in rendered
+
+
+def test_public_data_redacts_embedded_paths_at_newline_and_table_boundaries() -> None:
+    windows_directory = "C:" + r"\Users\Jane Doe\Private Lab"
+    posix_directories = {
+        "root": "/" + "root/Jane Doe/Private Lab",
+        "workspace": "/" + "workspace/Jane Doe/Private Lab",
+        "opt": "/" + "opt/Jane Doe/Private Lab",
+    }
+
+    cleaned = to_public_data(
+        {
+            "windows_newline": f"loaded from {windows_directory}\nnext",
+            "windows_table": f"| input={windows_directory} |",
+            **{
+                f"{name}_newline": f"loaded from {path}\nnext"
+                for name, path in posix_directories.items()
+            },
+            **{
+                f"{name}_table": f"| input={path} |"
+                for name, path in posix_directories.items()
+            },
+        }
+    )
+
+    assert cleaned["windows_newline"] == "loaded from Private Lab\nnext"
+    assert cleaned["windows_table"] == "| input=Private Lab |"
+    for name in posix_directories:
+        assert cleaned[f"{name}_newline"] == "loaded from Private Lab\nnext"
+        assert cleaned[f"{name}_table"] == "| input=Private Lab |"
+    rendered = json.dumps(cleaned)
+    assert "Jane Doe" not in rendered
+    assert "Users" not in rendered
+    assert "/" + "root/" not in rendered
+    assert "/" + "workspace/" not in rendered
+    assert "/" + "opt/" not in rendered
 
 
 def test_public_data_rejects_mapping_key_collision_after_sanitization() -> None:

@@ -1,6 +1,6 @@
 # Release integrity
 
-ASAL-M v0.1.3 makes the release boundary independently inspectable. This
+ASAL-M v0.1.4 makes the release boundary independently inspectable. This
 document distinguishes repository policy, cryptographic identity, build
 provenance, artifact contents, and GitHub's release controls.
 
@@ -18,8 +18,11 @@ provenance, artifact contents, and GitHub's release controls.
    restricted to the maintainer's GitHub noreply address.
 3. Every annotated-tag message and tagger identity is scanned.
 4. Every text payload and path in the wheel and source distribution is scanned.
+   Tar member names and link targets are checked before member type handling;
+   unsupported special-file members fail closed.
 
-The decoder recognizes UTF-8 with or without a byte-order mark, BOM-marked
+The decoder recognizes UTF-8 with or without a byte-order mark—including
+otherwise textual payloads containing isolated NUL bytes—BOM-marked
 UTF-16/UTF-32, and conservatively identified BOM-less UTF-16/UTF-32 in both
 byte orders. Root dotfiles retain their leading dot during path checks.
 High-confidence provider-token shapes, private-key blocks, assigned secret
@@ -33,12 +36,12 @@ release-asset review remain required.
 ## Historical disclosure boundary
 
 Five exact v0.1.1-era blob IDs contain the three non-sensitive workspace labels
-that the old verifier embedded as fixtures. Fifteen exact historical blobs
+that the old verifier embedded as fixtures. Twenty-three exact historical blobs
 contain only synthetic host-path fixtures or the regular expressions that
 detect them. Rewriting published history to erase those fixtures would
-invalidate existing commit and tag identities, so v0.1.2 removes the labels
-and file-wide fixture exemptions from the current tree and records only those
-object IDs as narrow historical baselines.
+invalidate existing commit and tag identities. v0.1.4 contains no current
+line- or file-scoped scanner escape; only those exact immutable object IDs are
+retained as narrow historical baselines.
 
 The label baseline suppresses only the internal-label finding; the host-fixture
 baseline suppresses only the absolute-host-path finding. The same blobs still
@@ -53,14 +56,18 @@ enabled. They are preserved by maintainer policy and protected tag rules, but
 GitHub cannot retroactively grant them an immutable release attestation.
 
 v0.1.2 is the first ASAL-M Release published after repository-level immutable
-releases were enabled. v0.1.3 follows the same protected publication path.
-Each tag and its assets become locked when the prepared draft is published,
-and GitHub generates a release attestation binding that tag, commit, and
-assets.
+releases were enabled. v0.1.3 and v0.1.4 follow the same protected publication
+path. Each tag and its assets become locked when the prepared draft is
+published, and GitHub generates a release attestation binding that tag,
+commit, and assets.
+
+The immutable v0.1.3 release notes recorded 133 Windows tests and 132 Linux
+tests from pre-final local runs. The final tagged tree contains 140 collected
+tests. The old notes remain unchanged; this correction is additive.
 
 ## Signed identity
 
-The v0.1.3 commit, annotated tag, and `SHA256SUMS` use the dedicated public key
+The v0.1.4 commit, annotated tag, and `SHA256SUMS` use the dedicated public key
 in [`keys/asal-m-release-signing.pub`](keys/asal-m-release-signing.pub). The
 private key is not stored in this repository or in a GitHub Actions secret.
 Its OpenSSH SHA-256 fingerprint is
@@ -70,8 +77,8 @@ Configure Git's allowed signers and verify the commit and tag:
 
 ```sh
 git config gpg.ssh.allowedSignersFile docs/keys/allowed_signers
-git verify-commit v0.1.3^{}
-git verify-tag v0.1.3
+git verify-commit v0.1.4^{}
+git verify-tag v0.1.4
 ```
 
 Verify the detached checksum signature:
@@ -115,15 +122,15 @@ The tag-triggered `release-artifacts` workflow:
 Verify a downloaded artifact's workflow provenance:
 
 ```sh
-gh attestation verify asal_m-0.1.3-py3-none-any.whl \
+gh attestation verify asal_m-0.1.4-py3-none-any.whl \
   --repo LeonidMajbits/ASAL-M
 ```
 
 Verify GitHub's immutable Release and an exact downloaded asset:
 
 ```sh
-gh release verify v0.1.3 --repo LeonidMajbits/ASAL-M
-gh release verify-asset v0.1.3 asal_m-0.1.3-py3-none-any.whl \
+gh release verify v0.1.4 --repo LeonidMajbits/ASAL-M
+gh release verify-asset v0.1.4 asal_m-0.1.4-py3-none-any.whl \
   --repo LeonidMajbits/ASAL-M
 ```
 

@@ -259,7 +259,7 @@ checking rendering and substrate behavior; they do not certify a regime.
 
 ## 9. Reproduce the checked-in evidence
 
-Install the exact direct dependencies used for the v0.1.3 release artifacts:
+Install the exact direct dependencies used for the v0.1.4 release artifacts:
 
 ```sh
 python -m pip install -c requirements-repro.txt -e .

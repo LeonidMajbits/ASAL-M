@@ -31,6 +31,8 @@ release; it does not authorize a commit, push, tag, or package upload.
 - [ ] The exact index, divergent worktree content, reachable history, tags, and
   every built archive pass
   `tools/verify_public_repository.py`.
+- [ ] Tar member names, symlink/hardlink targets, and member types are included
+  in archive review; no unsupported special-file member is silently skipped.
 
 ## Fast verification
 
@@ -86,6 +88,8 @@ Confirm that:
 - the source distribution contains the reproduction constraints, release fonts,
   and DejaVu license;
 - neither archive contains `vendor/`, `runs/`, secrets, or host paths;
+- both an exported tracked tree and the extracted source distribution pass a
+  current-tree Gitleaks scan with no baseline-dependent finding;
 - the wheel imports and `python -m asal_m --help` works from a temporary
   directory outside the checkout;
 - the installed wheel can run the default flagship validator outside the
