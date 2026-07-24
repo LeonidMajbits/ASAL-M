@@ -198,7 +198,9 @@ def test_release_workflow_attests_sbom_and_uses_pinned_actions() -> None:
         "actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6",
         "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
     ]
-    assert job["steps"][-2]["with"]["sbom-path"] == "dist/*.spdx.json"
+    assert job["steps"][-2]["with"]["sbom-path"] == (
+        "${{ steps.release_assets.outputs.sbom_path }}"
+    )
     version_step = next(
         step for step in job["steps"] if step["name"].startswith("Require tag")
     )
@@ -210,6 +212,9 @@ def test_release_workflow_attests_sbom_and_uses_pinned_actions() -> None:
     assert "-c requirements-repro.txt" in sbom_step["run"]
     assert 'RELEASE_VENV="$RUNNER_TEMP/asal-m-release-venv"' in sbom_step["run"]
     assert "python -m venv .release-venv" not in sbom_step["run"]
+    assert sbom_step["id"] == "release_assets"
+    assert "sbom_path=%s" in sbom_step["run"]
+    assert "GITHUB_OUTPUT" in sbom_step["run"]
 
 
 def test_archive_scan_checks_text_and_path_names(tmp_path: Path) -> None:
