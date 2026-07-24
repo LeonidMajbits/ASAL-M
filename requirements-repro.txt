@@ -1,4 +1,4 @@
-# Exact direct dependencies used to certify ASAL-M v0.1.1 public evidence.
+# Exact direct dependencies used to certify ASAL-M v0.1.2 public evidence.
 # Install from the repository root with:
 #   python -m pip install -c requirements-repro.txt -e .
 

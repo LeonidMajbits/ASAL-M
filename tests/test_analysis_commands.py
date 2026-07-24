@@ -63,7 +63,9 @@ def test_flagship_writes_safe_json_markdown_and_yaml(
     spec, _ = _load_spec(None)
     spec["source"] = {
         "source_artifact_dir": str(private_root / "source-candidate"),
-        "summary_path": r"C:\Users\person\private\experiment_summary.json",
+        "summary_path": (
+            r"C:\Users\person\private\experiment_summary.json"  # public-scan: host-pattern
+        ),
     }
     spec_path = private_root / "flagship.yaml"
     spec_path.write_text(yaml.safe_dump(spec, sort_keys=False), encoding="utf-8")
@@ -165,7 +167,9 @@ def test_export_and_summary_commands_handle_winner_and_empty_roles(
                 "counts": {"evaluated": 1},
                 "winners": {
                     "mainline": {
-                        "artifact_dir": r"C:\Users\person\private\candidate-a",
+                        "artifact_dir": (
+                            r"C:\Users\person\private\candidate-a"  # public-scan: host-pattern
+                        ),
                         "total_score": 0.8,
                         "summary_metrics": {
                             "occupancy": 0.7,

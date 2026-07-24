@@ -283,7 +283,7 @@ def verify_paths(
     ]
     forbidden = (
         r"[A-Za-z]:[\\/]",
-        r"\\\\[^\\\s]+[\\/]",
+        r"\\\\[^\\\s]+[\\/]",  # public-scan: host-pattern
         r"/(?:Users|home|tmp)/",
     )
     _require(

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import json
 from pathlib import Path
 
 import yaml
@@ -9,6 +10,7 @@ from tools.build_release_assets import (
     render_checksums,
     verify_checksums,
 )
+from tools.build_sbom import render_spdx, verify_spdx
 from tools.protocol_commitment import (
     SCHEMA,
     create_commitment,
@@ -62,6 +64,74 @@ def test_release_checksum_round_trip_and_tamper_detection(
     assert errors == ["Checksum mismatch: asal_m-0.1.1-py3-none-any.whl"]
 
 
+def test_release_checksums_include_spdx_sbom(tmp_path: Path) -> None:
+    wheel = tmp_path / "asal_m-0.1.2-py3-none-any.whl"
+    source = tmp_path / "asal_m-0.1.2.tar.gz"
+    sbom = tmp_path / "asal_m-0.1.2.spdx.json"
+    public_key = tmp_path / "asal-m-release-signing.pub"
+    allowed_signers = tmp_path / "allowed_signers"
+    wheel.write_bytes(b"wheel")
+    source.write_bytes(b"source")
+    sbom.write_text("{}\n", encoding="utf-8")
+    public_key.write_text("ssh-ed25519 fixture\n", encoding="utf-8")
+    allowed_signers.write_text(
+        "asal-m-release ssh-ed25519 fixture\n",
+        encoding="utf-8",
+    )
+    checksum_path = tmp_path / "SHA256SUMS"
+    checksum_path.write_text(
+        render_checksums([wheel, source, sbom, public_key, allowed_signers]),
+        encoding="utf-8",
+    )
+
+    assert verify_checksums(checksum_path, tmp_path) == []
+
+
+def test_spdx_sbom_is_deterministic_and_binds_wheel(tmp_path: Path) -> None:
+    wheel = tmp_path / "asal_m-0.1.2-py3-none-any.whl"
+    wheel.write_bytes(b"wheel")
+
+    first = render_spdx(
+        package_name="asal-m",
+        package_version="0.1.2",
+        dependency_versions={"PyYAML": "6.0.3", "numpy": "2.4.1"},
+        subject=wheel,
+        source_date_epoch=1_753_300_000,
+    )
+    second = render_spdx(
+        package_name="asal-m",
+        package_version="0.1.2",
+        dependency_versions={"numpy": "2.4.1", "PyYAML": "6.0.3"},
+        subject=wheel,
+        source_date_epoch=1_753_300_000,
+    )
+
+    assert json.dumps(first, sort_keys=True) == json.dumps(second, sort_keys=True)
+    assert verify_spdx(first, wheel) == []
+    assert first["spdxVersion"] == "SPDX-2.3"
+    assert len(first["packages"]) == 3
+
+    wheel.write_bytes(b"tampered")
+    assert verify_spdx(first, wheel) == [
+        "SBOM subject checksum does not match the wheel"
+    ]
+
+
+def test_release_public_key_and_allowed_signers_match() -> None:
+    public_key = Path("docs/keys/asal-m-release-signing.pub").read_text(
+        encoding="utf-8"
+    )
+    allowed = Path("docs/keys/allowed_signers").read_text(encoding="utf-8")
+    key_fields = public_key.split()
+
+    assert key_fields[0] == "ssh-ed25519"
+    assert len(key_fields[1]) >= 60
+    assert "PRIVATE" not in public_key
+    assert allowed.count(f"{key_fields[0]} {key_fields[1]}") == 2
+    assert 'namespaces="git"' in allowed
+    assert 'namespaces="file"' in allowed
+
+
 def test_release_metadata_versions_align() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
     citation = yaml.safe_load(Path("CITATION.cff").read_text(encoding="utf-8"))
@@ -71,7 +141,7 @@ def test_release_metadata_versions_align() -> None:
 
     assert match is not None
     version = match.group(1)
-    assert version == "0.1.1"
+    assert version == "0.1.2"
     assert citation["version"] == version
     assert f"version `{version}`" in readme
     assert f"## {version}" in changelog

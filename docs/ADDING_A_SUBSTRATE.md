@@ -4,7 +4,7 @@ ASAL-M keeps simulation mechanics separate from proposal, scoring, archives,
 and certification. A substrate supplies the simulation; the workbench supplies
 the evaluation workflow.
 
-Version 0.1.1 uses an explicit in-package registry. Adding a substrate requires
+Version 0.1.2 uses an explicit in-package registry. Adding a substrate requires
 a small source module, a default search space, a registry entry, an experiment,
 and tests.
 
@@ -123,7 +123,7 @@ SUBSTRATE_REGISTRY = {
 `factory_name` may name a class or zero-argument factory. `search_space_name`
 must name the default mapping in that module.
 
-Registration is intentionally explicit in version 0.1.1. There is no dynamic
+Registration is intentionally explicit in version 0.1.2. There is no dynamic
 entry-point/plugin discovery layer yet.
 
 ## 5. Define meaningful perturbations

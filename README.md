@@ -245,9 +245,13 @@ Apache-2.0: [LICENSE](LICENSE) · related-work attribution: [NOTICE](NOTICE)
 Contributions: [CONTRIBUTING.md](CONTRIBUTING.md) · security reports:
 [SECURITY.md](SECURITY.md)
 
+Release verification, signatures, SBOMs, attestations, historical scanner
+scope, and immutable-release boundaries:
+[RELEASE_INTEGRITY.md](docs/RELEASE_INTEGRITY.md)
+
 ## Status
 
-Research software, version `0.1.1`. The benchmark is fixed and reproducible
+Research software, version `0.1.2`. The benchmark is fixed and reproducible
 under the documented scientific and release-artifact contracts; additional
 substrates, external proposer adapters, and independently calibrated domain
 policies remain future work.

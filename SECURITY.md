@@ -27,10 +27,16 @@ reproduction steps, impact, and a minimal proof of concept.
 - The optional artifact inventory is read-only and never auto-executes binaries.
 - Shareable reports redact absolute host roots and omit machine/GPU inventory
   by default. Local machine details require explicit opt-in.
-- Repository verification scans the complete prospective tree, commit identity,
-  wheel, and source distribution for common secret, personal-email,
-  internal-name, and host-path leakage. It is not a substitute for reviewing
-  the exact public diff.
+- Repository verification scans exact staged blobs, divergent tracked
+  worktree content, untracked public files, every reachable historical blob
+  and path, commit and annotated-tag messages, noreply identities, the wheel,
+  and source distribution for common secret, personal-email, internal-name,
+  and host-path leakage. It is not a substitute for reviewing the exact public
+  diff or for a dedicated secret-scanning service.
+
+Release signing, SBOM, provenance, historical baseline, and immutable-release
+boundaries are documented in
+[RELEASE_INTEGRITY.md](docs/RELEASE_INTEGRITY.md).
 
 Scientific disagreements, benchmark limitations, and claim-boundary concerns
 are important project issues but are not security vulnerabilities.

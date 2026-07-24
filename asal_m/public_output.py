@@ -14,10 +14,28 @@ from typing import Any
 import numpy as np
 
 _WINDOWS_ABSOLUTE = re.compile(r"^[A-Za-z]:[\\/]")
-_EMBEDDED_WINDOWS_PATH = re.compile(
+_QUOTED_ABSOLUTE_PATH = re.compile(
+    r"(?P<quote>['\"`])"
+    r"(?P<path>(?:[A-Za-z]:[\\/]|\\\\|/(?:Users|home|tmp)/).*?)"  # public-scan: host-pattern
+    r"(?P=quote)",
+    re.IGNORECASE,
+)
+_EMBEDDED_WINDOWS_FILE_PATH = re.compile(
+    r"(?<![A-Za-z0-9])(?:[A-Za-z]:[\\/]|\\\\)"  # public-scan: host-pattern
+    r"[^'\"`<>|\r\n]*?[\\/][^\\/'\"`<>|\r\n]*?\.[A-Za-z0-9]{1,16}"  # public-scan: host-pattern
+    r"(?=$|[\s,;:)\]}])"
+    # public-scan: host-pattern
+)
+_EMBEDDED_WINDOWS_COMPACT_PATH = re.compile(
     r"(?<![A-Za-z0-9])(?:[A-Za-z]:[\\/]|\\\\)[^\s'\"`<>|]+"  # public-scan: host-pattern
 )
-_EMBEDDED_POSIX_HOST_PATH = re.compile(
+_EMBEDDED_POSIX_HOST_FILE_PATH = re.compile(
+    r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp)/"
+    r"[^'\"`<>|\r\n]*?/[^/'\"`<>|\r\n]*?\.[A-Za-z0-9]{1,16}"
+    r"(?=$|[\s,;:)\]}])",  # public-scan: host-pattern
+    re.IGNORECASE,
+)
+_EMBEDDED_POSIX_HOST_COMPACT_PATH = re.compile(
     r"(?<![A-Za-z0-9:/])/(?:Users|home|tmp)/[^\s'\"`<>|]+",  # public-scan: host-pattern
     re.IGNORECASE,
 )
@@ -61,11 +79,27 @@ def sanitize_public_string(value: str, *, base_dir: str | Path | None = None) ->
         return value
     if _is_windows_absolute(value) or value.startswith("/"):
         return public_path(value, base_dir=base_dir)
-    value = _EMBEDDED_WINDOWS_PATH.sub(
+    value = _QUOTED_ABSOLUTE_PATH.sub(
+        lambda match: (
+            f"{match.group('quote')}"
+            f"{_path_leaf(match.group('path'))}"
+            f"{match.group('quote')}"
+        ),
+        value,
+    )
+    value = _EMBEDDED_WINDOWS_FILE_PATH.sub(
         lambda match: _path_leaf(match.group(0)),
         value,
     )
-    return _EMBEDDED_POSIX_HOST_PATH.sub(
+    value = _EMBEDDED_WINDOWS_COMPACT_PATH.sub(
+        lambda match: _path_leaf(match.group(0)),
+        value,
+    )
+    value = _EMBEDDED_POSIX_HOST_FILE_PATH.sub(
+        lambda match: _path_leaf(match.group(0)),
+        value,
+    )
+    return _EMBEDDED_POSIX_HOST_COMPACT_PATH.sub(
         lambda match: _path_leaf(match.group(0)),
         value,
     )
@@ -76,10 +110,15 @@ def to_public_data(payload: Any, *, base_dir: str | Path | None = None) -> Any:
     if isinstance(payload, Path):
         return public_path(payload, base_dir=base_dir)
     if isinstance(payload, dict):
-        return {
-            str(key): to_public_data(value, base_dir=base_dir)
-            for key, value in payload.items()
-        }
+        public: dict[str, Any] = {}
+        for key, value in payload.items():
+            cleaned_key = sanitize_public_string(str(key), base_dir=base_dir)
+            if cleaned_key in public:
+                raise ValueError(
+                    "public key sanitization produced a duplicate mapping key"
+                )
+            public[cleaned_key] = to_public_data(value, base_dir=base_dir)
+        return public
     if isinstance(payload, (list, tuple)):
         return [to_public_data(value, base_dir=base_dir) for value in payload]
     if isinstance(payload, np.ndarray):

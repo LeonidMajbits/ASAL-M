@@ -2,6 +2,29 @@
 
 All notable public changes are documented here.
 
+## 0.1.2
+
+- Read prospective tracked content from exact staged Git blobs and additionally
+  scan divergent tracked worktree content.
+- Scan every reachable historical blob and path, commit message, annotated-tag
+  message, and existing noreply identity.
+- Decode UTF-16/UTF-32 text and detect common GitHub-token and AWS access-key
+  shapes without publishing private workspace labels in scanner source.
+- Remove the old internal-label fixtures from the current tree while narrowly
+  documenting their immutable historical blob IDs.
+- Replace file-wide host-fixture scan exemptions with explicit line-scoped
+  annotations and exact historical-blob baselines.
+- Sanitize mapping keys and quoted or space-containing embedded paths, with
+  collision detection after key redaction.
+- Reject all real-number work limits, including integral floats, rather than
+  truncating them to integers.
+- Add a deterministic SPDX 2.3 SBOM, GitHub/Sigstore artifact provenance and
+  SBOM attestations, a dedicated SSH release-signing key, detached checksum
+  signatures, and exact verification instructions.
+- Reject release tags whose version does not exactly match package metadata.
+- Correct v0.1.0 and v0.1.1 release-boundary wording; protect `main` and version
+  tags; enable private vulnerability reporting and immutable future Releases.
+
 ## 0.1.1
 
 - Centralize safe serialization for shareable JSON, Markdown, and YAML output.

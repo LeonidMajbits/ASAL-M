@@ -23,10 +23,13 @@ release; it does not authorize a commit, push, tag, or package upload.
   material, or private artifacts are present.
 - [ ] All generated evidence intended for publication is small, reviewed, and
   reproducible.
-- [ ] The exact staged file list is reviewed before commit.
+- [ ] The exact staged file list and staged blob bytes are reviewed before
+  commit.
 - [ ] Author and committer metadata use the maintainer's GitHub noreply address.
-- [ ] The candidate history contains only deliberate public commits and refs.
-- [ ] The full prospective tree and every built archive pass
+- [ ] Every reachable historical blob and path, commit message, annotated-tag
+  message, identity, and public ref is deliberate or explicitly baselined.
+- [ ] The exact index, divergent worktree content, reachable history, tags, and
+  every built archive pass
   `tools/verify_public_repository.py`.
 
 ## Fast verification
@@ -68,9 +71,10 @@ python -O tools/verify_public_evidence.py
 
 ```sh
 python -m build
+python tools/build_sbom.py --help
 python tools/build_release_assets.py
 python tools/build_release_assets.py --verify
-python tools/verify_public_repository.py --archives dist
+python tools/verify_public_repository.py --archives dist --release-files dist
 ```
 
 Confirm that:
@@ -85,7 +89,10 @@ Confirm that:
   directory outside the checkout;
 - the installed wheel can run the default flagship validator outside the
   checkout with small positive step overrides;
-- `SHA256SUMS` matches the exact wheel and source distribution.
+- the SPDX 2.3 SBOM binds the exact wheel digest and resolved runtime
+  dependencies;
+- `SHA256SUMS` matches the exact wheel, source distribution, SBOM, public
+  signing key, and allowed-signers policy.
 
 ## Publication
 
@@ -95,14 +102,28 @@ Confirm that:
 - [ ] Review the staged diff and public repository URL.
 - [ ] Inspect author and committer metadata on the exact commit to be pushed.
 - [ ] Require CI on the protected default branch before merge or release.
-- [ ] Push `main`, wait for CI to pass, then create the annotated version tag.
-- [ ] Sign the release commit and tag when maintainer signing is configured;
-  otherwise state clearly that they are unsigned.
-- [ ] Create and inspect the corresponding GitHub Release.
-- [ ] Attach the wheel, source distribution, and `SHA256SUMS` to the Release.
+- [ ] Sign the release commit with the dedicated registered SSH signing key.
+- [ ] Merge only the signed reviewed commit, wait for exact-main CI, then
+  create and verify the signed annotated version tag.
+- [ ] Confirm the version tag exactly matches `pyproject.toml`.
+- [ ] Enable immutable future Releases before creating the release draft.
+- [ ] Push the tag and require the `release-artifacts` workflow to build the
+  wheel, source distribution, SPDX SBOM, checksums, provenance attestation,
+  and SBOM attestation.
+- [ ] Download the exact workflow outputs and verify both GitHub attestations.
+- [ ] Sign `SHA256SUMS` locally with the dedicated release key; verify
+  `SHA256SUMS.sig` against `docs/keys/allowed_signers`.
+- [ ] Create the GitHub Release as a draft, attach the wheel, source
+  distribution, SBOM, public signing key, allowed-signers policy,
+  `SHA256SUMS`, and `SHA256SUMS.sig`, then publish once.
+- [ ] Verify the resulting immutable Release and every asset with
+  `gh release verify` and `gh release verify-asset`.
 - [ ] Enable private vulnerability reporting, secret scanning, push protection,
   Dependabot security updates, read-only workflow tokens, and GitHub-owned
   Actions.
+- [ ] Confirm active branch and tag rulesets block deletion, force pushes,
+  unsigned commits, direct default-branch updates, and version-tag movement.
+- [ ] Delete merged release branches after the final release audit.
 - [ ] Set repository description, homepage, and topics deliberately.
 - [ ] Publish to PyPI only as a separate, explicitly authorized action after
   testing the exact distribution files.

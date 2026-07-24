@@ -259,7 +259,7 @@ checking rendering and substrate behavior; they do not certify a regime.
 
 ## 9. Reproduce the checked-in evidence
 
-Install the exact direct dependencies used for the v0.1.1 release artifacts:
+Install the exact direct dependencies used for the v0.1.2 release artifacts:
 
 ```sh
 python -m pip install -c requirements-repro.txt -e .
@@ -362,7 +362,7 @@ from the current working directory.
 ### `Unknown substrate`
 
 The YAML `substrate` must match an entry in
-`asal_m/substrates/__init__.py`. Registration is explicit in version 0.1.1.
+`asal_m/substrates/__init__.py`. Registration is explicit in version 0.1.2.
 
 ### The evaluated count is below the budget
 

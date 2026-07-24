@@ -143,12 +143,18 @@ def test_artifact_directories_remain_unique_at_the_same_timestamp(
     [
         ("budget", 0),
         ("budget", -1),
+        ("budget", 1.0),
+        ("budget", 1.9),
+        ("budget", "1.0"),
         ("steps", 0),
         ("steps", -1),
+        ("steps", 1.0),
+        ("steps", 1.9),
+        ("steps", "1.0"),
     ],
 )
 def test_search_rejects_non_positive_work_limits(
-    tmp_path: Path, field: str, value: int
+    tmp_path: Path, field: str, value: object
 ) -> None:
     experiment = {
         "name": "invalid_limits",
@@ -176,4 +182,20 @@ def test_runner_rejects_non_positive_steps(tmp_path: Path) -> None:
             create_substrate("alpha_alife"),
             candidate,
             steps=0,
+        )
+
+
+@pytest.mark.parametrize("value", [1.0, 1.9, "1.0"])
+def test_runner_rejects_non_integer_steps(tmp_path: Path, value: object) -> None:
+    runner = SimulationRunner(tmp_path)
+    candidate = CandidateConfig(
+        substrate="alpha_alife",
+        search_mode="frontier",
+        seed=1,
+    )
+    with pytest.raises(ValueError, match="steps must be a positive integer"):
+        runner.run_candidate(
+            create_substrate("alpha_alife"),
+            candidate,
+            steps=value,
         )

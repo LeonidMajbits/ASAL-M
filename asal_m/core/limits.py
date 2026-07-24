@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import re
+from numbers import Integral
 from typing import Any
 
 
@@ -10,10 +12,12 @@ def require_positive_int(value: Any, name: str) -> int:
     """Return ``value`` as an integer or reject non-positive work limits."""
     if isinstance(value, bool):
         raise ValueError(f"{name} must be a positive integer")
-    try:
+    if isinstance(value, Integral):
         parsed = int(value)
-    except (TypeError, ValueError) as exc:
-        raise ValueError(f"{name} must be a positive integer") from exc
+    elif isinstance(value, str) and re.fullmatch(r"[+-]?[0-9]+", value.strip()):
+        parsed = int(value)
+    else:
+        raise ValueError(f"{name} must be a positive integer")
     if parsed <= 0:
         raise ValueError(f"{name} must be a positive integer")
     return parsed

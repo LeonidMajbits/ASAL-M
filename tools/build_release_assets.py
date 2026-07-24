@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create or verify SHA-256 checksums for wheel and source archives."""
+"""Create or verify SHA-256 checksums for public release artifacts."""
 
 from __future__ import annotations
 
@@ -16,13 +16,26 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def release_archives(dist: Path) -> list[Path]:
-    return sorted([*dist.glob("*.whl"), *dist.glob("*.tar.gz")])
+def release_artifacts(dist: Path) -> list[Path]:
+    paths = [
+        *dist.glob("*.whl"),
+        *dist.glob("*.tar.gz"),
+        *dist.glob("*.spdx.json"),
+    ]
+    paths.extend(
+        path
+        for path in (
+            dist / "asal-m-release-signing.pub",
+            dist / "allowed_signers",
+        )
+        if path.is_file()
+    )
+    return sorted(paths)
 
 
 def render_checksums(paths: list[Path]) -> str:
     if not paths:
-        raise FileNotFoundError("No wheel or source archive found")
+        raise FileNotFoundError("No release artifact found")
     return "".join(f"{sha256(path)}  {path.name}\n" for path in paths)
 
 
@@ -34,12 +47,12 @@ def verify_checksums(checksum_path: Path, dist: Path) -> list[str]:
             return [f"Malformed checksum line: {line}"]
         expected[filename] = digest
 
-    archives = release_archives(dist)
-    actual_names = {path.name for path in archives}
+    artifacts = release_artifacts(dist)
+    actual_names = {path.name for path in artifacts}
     errors: list[str] = []
     if set(expected) != actual_names:
-        errors.append("Checksum file names do not match release archives")
-    for path in archives:
+        errors.append("Checksum file names do not match release artifacts")
+    for path in artifacts:
         if expected.get(path.name) != sha256(path):
             errors.append(f"Checksum mismatch: {path.name}")
     return errors
@@ -62,11 +75,13 @@ def main() -> None:
         errors = verify_checksums(checksum_path, args.dist)
         if errors:
             raise SystemExit("\n".join(errors))
-        print(f"release checksums: verified ({len(release_archives(args.dist))} files)")
+        print(
+            f"release checksums: verified ({len(release_artifacts(args.dist))} files)"
+        )
         return
 
     checksum_path.write_text(
-        render_checksums(release_archives(args.dist)),
+        render_checksums(release_artifacts(args.dist)),
         encoding="utf-8",
         newline="\n",
     )

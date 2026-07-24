@@ -9,7 +9,7 @@ include LICENSE
 include NOTICE
 include .markdownlint-cli2.jsonc
 include requirements-repro.txt
-recursive-include docs *.md
+recursive-include docs *.md *.pub allowed_signers
 recursive-include examples *.py *.md *.json *.png *.gif *.ttf *.txt
 recursive-include tools *.py *.ps1
 recursive-include tests *.py

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use ASAL-M, cite this software and the exact version or commit."
 title: "ASAL-M"
 type: software
-version: 0.1.1
+version: 0.1.2
 authors:
   - family-names: "Majbits"
     given-names: "Leonid"

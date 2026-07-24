@@ -46,7 +46,7 @@ LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 HEADING_PATTERN = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
 HOST_PATTERNS = (
     re.compile(r"(?<![A-Za-z])[A-Za-z]:[\\/]"),
-    re.compile(r"\\\\[^\\\s]+[\\/]"),
+    re.compile(r"\\\\[^\\\s]+[\\/]"),  # public-scan: host-pattern
     re.compile(r"/(?:Users|home|tmp)/", re.IGNORECASE),
 )
 SECRET_PATTERNS = (

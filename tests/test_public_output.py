@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import numpy as np
+import pytest
 import yaml
 
 from asal_m.core.artifacts import (
@@ -20,20 +21,42 @@ def test_public_path_redacts_foreign_absolute_roots(tmp_path: Path) -> None:
     base = tmp_path / "checkout"
     base.mkdir()
 
-    assert public_path(r"C:\Users\person\private\result.json", base_dir=base) == (
-        "result.json"
+    assert (
+        public_path(
+            r"C:\Users\person\private\result.json",  # public-scan: host-pattern
+            base_dir=base,
+        )
+        == "result.json"
     )
-    assert public_path(r"\\server\secret-share\result.json", base_dir=base) == (
-        "result.json"
+    assert (
+        public_path(
+            r"\\server\secret-share\result.json",  # public-scan: host-pattern
+            base_dir=base,
+        )
+        == "result.json"
     )
     assert public_path(r"\Users\person\result.json", base_dir=base) == "result.json"
-    assert public_path("/home/person/private/result.json", base_dir=base) == (
-        "result.json"
+    assert (
+        public_path(
+            "/home/person/private/result.json",  # public-scan: host-pattern
+            base_dir=base,
+        )
+        == "result.json"
     )
-    assert public_path("/Users/person/private/result.json", base_dir=base) == (
-        "result.json"
+    assert (
+        public_path(
+            "/Users/person/private/result.json",  # public-scan: host-pattern
+            base_dir=base,
+        )
+        == "result.json"
     )
-    assert public_path("/tmp/private/result.json", base_dir=base) == "result.json"
+    assert (
+        public_path(  # public-scan: host-pattern
+            "/tmp/private/result.json",  # public-scan: host-pattern
+            base_dir=base,
+        )
+        == "result.json"
+    )
 
 
 def test_public_path_does_not_duplicate_a_relative_base_prefix(
@@ -156,9 +179,9 @@ def test_public_data_sanitizes_json_markdown_and_yaml_inputs(
 ) -> None:
     monkeypatch.chdir(tmp_path)
     payload = {
-        "windows": r"C:\Users\person\private\candidate.json",
-        "unc": r"\\server\share\winner.json",
-        "posix": "/home/person/private/spec.yaml",
+        "windows": r"C:\Users\person\private\candidate.json",  # public-scan: host-pattern
+        "unc": r"\\server\share\winner.json",  # public-scan: host-pattern
+        "posix": "/home/person/private/spec.yaml",  # public-scan: host-pattern
     }
     cleaned = to_public_data(payload)
 
@@ -169,7 +192,7 @@ def test_public_data_sanitizes_json_markdown_and_yaml_inputs(
 
     assert "C:" not in combined
     assert "server" not in combined
-    assert "/home/" not in combined
+    assert "/home/" not in combined  # public-scan: host-pattern
     assert cleaned == {
         "windows": "candidate.json",
         "unc": "winner.json",
@@ -180,14 +203,70 @@ def test_public_data_sanitizes_json_markdown_and_yaml_inputs(
 def test_public_data_redacts_absolute_paths_embedded_in_text() -> None:
     cleaned = to_public_data(
         {
-            "windows": r"loaded from C:\Users\person\private\candidate.json",
-            "posix": "source=/home/person/private/spec.yaml",
-            "url": "https://example.org/tmp/public/result.json",
+            "windows": (
+                r"loaded from C:\Users\person\private\candidate.json"  # public-scan: host-pattern
+            ),
+            "posix": (
+                "source=/home/person/private/spec.yaml"  # public-scan: host-pattern
+            ),
+            "url": "https://example.org/tmp/public/result.json",  # public-scan: host-pattern
         }
     )
 
     assert cleaned == {
         "windows": "loaded from candidate.json",
         "posix": "source=spec.yaml",
-        "url": "https://example.org/tmp/public/result.json",
+        "url": "https://example.org/tmp/public/result.json",  # public-scan: host-pattern
     }
+
+
+def test_public_data_redacts_spaced_paths_and_mapping_keys() -> None:
+    private_path = "B:" + "\\Main " + "Workspace\\Private " + "Workspace\\secret.txt"
+    cleaned = to_public_data(
+        {
+            private_path: private_path,
+            "message": f"loaded from {private_path} and continued",
+        }
+    )
+
+    assert cleaned == {
+        "secret.txt": "secret.txt",
+        "message": "loaded from secret.txt and continued",
+    }
+    rendered = json.dumps(cleaned)
+    assert "Main Workspace" not in rendered
+    assert "Private Workspace" not in rendered
+
+
+def test_public_data_redacts_conjunctions_and_quoted_directories_in_paths() -> None:
+    file_path = (
+        "B:" + "\\Research and Development\\Private Workspace\\candidate result.json"
+    )
+    directory_path = "B:" + "\\Research and Development\\Private Workspace"
+
+    cleaned = to_public_data(
+        {
+            "file": f"loaded from {file_path} and continued",
+            "quoted_directory": f"root='{directory_path}'",
+        }
+    )
+
+    assert cleaned == {
+        "file": "loaded from candidate result.json and continued",
+        "quoted_directory": "root='Private Workspace'",
+    }
+    rendered = json.dumps(cleaned)
+    assert "Research and Development" not in rendered
+
+
+def test_public_data_rejects_mapping_key_collision_after_sanitization() -> None:
+    with pytest.raises(
+        ValueError,
+        match="duplicate mapping key",
+    ):
+        to_public_data(
+            {
+                "C:" + r"\private-a\result.json": 1,
+                "D:" + r"\private-b\result.json": 2,
+            }
+        )

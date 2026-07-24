@@ -39,12 +39,13 @@ jobs:
               ["git", "log", "--format=%H%x09%ae%x09%ce"],
               text=True,
           ).splitlines()
+          allowed = "77941374+LeonidMajbits@users.noreply.github.com"
           for row in rows:
               commit, author, committer = row.split("\t")
               for role, email in (("author", author), ("committer", committer)):
-                  if not email.lower().endswith("@users.noreply.github.com"):
+                  if email.casefold() != allowed.casefold():
                       raise SystemExit(
-                          f"{commit}: {role} email is not a GitHub noreply address"
+                          f"{commit}: {role} email is not the maintainer noreply address"
                       )
           PY
       - name: Set up Python
@@ -170,6 +171,9 @@ jobs:
               "docs/REPRODUCIBILITY.md",
               "docs/EXPERIMENTS.md",
               "docs/PROTOCOL_REGISTRATION.md",
+              "docs/RELEASE_INTEGRITY.md",
+              "docs/keys/asal-m-release-signing.pub",
+              "docs/keys/allowed_signers",
               "CONTRIBUTING.md",
               "SECURITY.md",
               "CHANGELOG.md",
@@ -181,6 +185,7 @@ jobs:
               "examples/certification_benchmark/fonts/LICENSE-DEJAVU.txt",
               "tools/verify_public_docs.py",
               "tools/verify_public_repository.py",
+              "tools/build_sbom.py",
               "tools/launch_parallel_campaign.ps1",
           )
           require(
